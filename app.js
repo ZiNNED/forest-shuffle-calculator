@@ -159,9 +159,9 @@ function updateAllScores() {
         const perCard = computeCardPoints(card.id, owned);
         const totalPts = perCard * owned;
 
-        // Update per-card display
+        // Update per-card display — show total for this card type
         const ptsEl = document.getElementById('pts-' + card.id);
-        if (ptsEl) ptsEl.textContent = perCard;
+        if (ptsEl) ptsEl.textContent = totalPts;
 
         // Category-based totals
         if (card.category === 'tree') {
