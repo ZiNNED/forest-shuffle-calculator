@@ -109,7 +109,7 @@ html, body {
 
 .settings-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     margin-bottom: 20px;
     font-size: 1.1rem;
@@ -353,6 +353,8 @@ html, body {
     height: calc(100vh - var(--nav-height) - 120px);
     overflow-y: auto;
     padding-bottom: 16px;
+    max-width: 640px;
+    margin: 0 auto;
 }
 .forest-scroll::-webkit-scrollbar { width: 6px; }
 .forest-scroll::-webkit-scrollbar-track { background: transparent; }
