@@ -99,33 +99,9 @@ let state = {
     game: 'forest',
 };
 
-// Load saved state from localStorage
-function loadState() {
-    try {
-        const saved = localStorage.getItem('forestState');
-        if (saved) {
-            const parsed = JSON.parse(saved);
-            if (parsed && parsed.players && parsed.players.length > 0) {
-                state.players = parsed.players;
-                state.players.forEach(p => { if (!p.attached) p.attached = {}; });
-                state.currentPlayer = parsed.currentPlayer || 0;
-                state.game = parsed.game || 'forest';
-            }
-        }
-    } catch (e) { /* ignore corrupt data */ }
-}
+// Clean up any old persisted state
+try { localStorage.removeItem('forestState'); } catch (e) { /* ignore */ }
 
-function saveState() {
-    try {
-        localStorage.setItem('forestState', JSON.stringify({
-            players: state.players,
-            currentPlayer: state.currentPlayer,
-            game: state.game,
-        }));
-    } catch (e) { /* storage full, ignore */ }
-}
-
-loadState();
 
 // ===== Scoring Engine =====
 // Count unique tree species owned by a player
@@ -395,7 +371,6 @@ function addCard(cardId) {
     p.cards[cardId] = (p.cards[cardId] || 0) + 1;
     updateCount(cardId);
     updateAllScores();
-    saveState();
 }
 
 function removeCard(cardId) {
@@ -404,7 +379,6 @@ function removeCard(cardId) {
         p.cards[cardId]--;
         updateCount(cardId);
         updateAllScores();
-        saveState();
     }
 }
 
@@ -424,7 +398,6 @@ function addAttachedCard(cardId) {
     p.attached[cardId] = (p.attached[cardId] || 0) + 1;
     updateAttachedDisplay(cardId);
     updateAllScores();
-    saveState();
 }
 
 function removeAttachedCard(cardId) {
@@ -434,7 +407,6 @@ function removeAttachedCard(cardId) {
         p.attached[cardId]--;
         updateAttachedDisplay(cardId);
         updateAllScores();
-        saveState();
     }
 }
 
@@ -454,7 +426,6 @@ function addPlayer() {
     rebuildPlayerList();
     switchPlayer(state.players.length - 1);
     updatePlusButton();
-    saveState();
 }
 
 function removePlayer(idx) {
@@ -473,7 +444,6 @@ function removePlayer(idx) {
     rebuildPlayerList();
     switchPlayer(state.currentPlayer);
     updatePlusButton();
-    saveState();
 }
 
 function editPlayerName(idx) {
@@ -509,7 +479,6 @@ function editPlayerName(idx) {
         input.remove();
         nameSpan.style.display = '';
         updateHeaderPlayerName();
-        saveState();
     }
 
     input.onblur = save;
@@ -571,7 +540,6 @@ function switchPlayer(idx) {
     updateHeaderPlayerName();
     CARDS.forEach(c => updateCount(c.id));
     updateAllScores();
-    saveState();
 }
 
 function updateHeaderPlayerName() {
@@ -646,7 +614,6 @@ function newGame() {
         CARDS.forEach(c => updateCount(c.id));
         updateAllScores();
         closeSettings();
-        saveState();
     }
 }
 
