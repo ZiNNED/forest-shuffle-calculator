@@ -2,24 +2,90 @@
 // Forest Calculator - Data-driven scoring app
 // ============================================
 
-// Language for display names
+// ===== Localization (i18n) =====
+// Add a new language by adding a block with ALL keys below.
 let LANG = localStorage.getItem('forestLang') || 'en';
 
-// Translations for static UI elements
-const TRANSLATIONS = {
-  'Menu': { en: 'Menu', nl: 'Menu' },
-  'Game': { en: 'Game', nl: 'Spel' },
-  'Players': { en: 'Players', nl: 'Spelers' },
-  'Add Player': { en: 'Add Player', nl: 'Speler toevoegen' },
-  'New Game': { en: 'New Game', nl: 'Nieuw spel' },
-  'Language': { en: 'Language', nl: 'Taal' },
-  'Soon': { en: 'Soon', nl: 'Binnenkort' },
-  'Tree Points': { en: 'Tree Points', nl: 'Boompunten' },
-  'Top Points': { en: 'Top Points', nl: 'Bovenpunten' },
-  'Bottom Points': { en: 'Bottom Points', nl: 'Onderpunten' },
-  'Side Points': { en: 'Side Points', nl: 'Zijpunten' },
-  'Total': { en: 'Total', nl: 'Totaal' },
+const L10N = {
+    en: {
+        menu: 'Menu',
+        game: 'Game',
+        players: 'Players',
+        addPlayer: 'Add Player',
+        newGame: 'New Game',
+        language: 'Language',
+        soon: 'Soon',
+        treePoints: 'Tree Points',
+        topPoints: 'Top Points',
+        bottomPoints: 'Bottom Points',
+        sidePoints: 'Side Points',
+        total: 'Total',
+        confirmNewGame: 'Start a new game? This will reset all scores.',
+        player: 'Player',
+        categories: {
+            tree: 'TREES',
+            shrub: 'SHRUBS',
+            bird: 'BIRDS',
+            butterfly: 'BUTTERFLIES',
+            pawedAnimal: 'PAWED ANIMALS',
+            plant: 'PLANTS',
+            mushroom: 'MUSHROOMS',
+            insect: 'INSECTS',
+            amphibian: 'AMPHIBIANS',
+            bat: 'BATS',
+            deer: 'DEER & CLOVEN-HOOFED',
+        },
+    },
+    nl: {
+        menu: 'Menu',
+        game: 'Spel',
+        players: 'Spelers',
+        addPlayer: 'Speler toevoegen',
+        newGame: 'Nieuw spel',
+        language: 'Taal',
+        soon: 'Binnenkort',
+        treePoints: 'Boompunten',
+        topPoints: 'Bovenpunten',
+        bottomPoints: 'Onderpunten',
+        sidePoints: 'Zijpunten',
+        total: 'Totaal',
+        confirmNewGame: 'Nieuw spel starten? Dit reset alle scores.',
+        player: 'Speler',
+        categories: {
+            tree: 'BOMEN',
+            shrub: 'STRUIKEN',
+            bird: 'VOGELS',
+            butterfly: 'VLINDERS',
+            pawedAnimal: 'POOTDIEREN',
+            plant: 'PLANTEN',
+            mushroom: 'PADDENSTOELEN',
+            insect: 'INSECTEN',
+            amphibian: 'AMFIBIEËN',
+            bat: 'VLEERMUIZEN',
+            deer: 'HERTEN & KLAUWDragers',
+        },
+    },
 };
+
+function t(key) {
+    const lang = L10N[LANG];
+    if (lang && lang[key] !== undefined) return lang[key];
+    const fallback = L10N['en'];
+    return (fallback && fallback[key] !== undefined) ? fallback[key] : key;
+}
+
+function catLabel(cat) {
+    const lang = L10N[LANG];
+    if (lang && lang.categories && lang.categories[cat] !== undefined) return lang.categories[cat];
+    const fallback = L10N['en'];
+    if (fallback && fallback.categories && fallback.categories[cat] !== undefined) return fallback.categories[cat];
+    return cat.toUpperCase();
+}
+
+// ===== Player name helpers =====
+function defaultPlayerName(idx) {
+    return t('player') + ' ' + (idx + 1);
+}
 
 // Player colors
 const PLAYER_COLORS = ['#274e37', '#547AA5', '#EC9A29', '#A8201A', '#9eb9a6'];
@@ -27,7 +93,7 @@ const PLAYER_COLORS = ['#274e37', '#547AA5', '#EC9A29', '#A8201A', '#9eb9a6'];
 // ===== State =====
 let state = {
     currentPlayer: 0,
-    players: [{ name: 'Player 1', cards: {} }],
+    players: [{ name: defaultPlayerName(0), cards: {} }],
     game: 'forest',
 };
 
@@ -64,23 +130,8 @@ function buildCardSections() {
         groups[card.category].push(card);
     });
 
-    // Define display labels for categories
-    const catLabels = {
-        tree: { en: 'TREES', nl: 'BOMEN' },
-        shrub: { en: 'SHRUBS', nl: 'STRUIKEN' },
-        bird: { en: 'BIRDS', nl: 'VOGELS' },
-        butterfly: { en: 'BUTTERFLIES', nl: 'VLINDERS' },
-        pawedAnimal: { en: 'PAWED ANIMALS', nl: 'POOTDIEREN' },
-        plant: { en: 'PLANTS', nl: 'PLANTEN' },
-        mushroom: { en: 'MUSHROOMS', nl: 'PADDENSTOELEN' },
-        insect: { en: 'INSECTS', nl: 'INSECTEN' },
-        amphibian: { en: 'AMPHIBIANS', nl: 'AMFIBIEËN' },
-        bat: { en: 'BATS', nl: 'VLEERMUIZEN' },
-        deer: { en: 'DEER & CLOVEN-HOOFED', nl: 'HERTEN & KLAUWDragers' },
-    };
-
     Object.entries(groups).forEach(([cat, cards]) => {
-        const label = (catLabels[cat] && catLabels[cat][LANG]) || cat.toUpperCase();
+        const label = catLabel(cat);
 
         // Section header
         const header = document.createElement('div');
@@ -221,8 +272,8 @@ function updateCount(cardId) {
 // ===== Player Management =====
 function addPlayer() {
     if (state.players.length >= 5) return;
-    const idx = state.players.length + 1;
-    state.players.push({ name: 'Player ' + idx, cards: {} });
+    const idx = state.players.length;
+    state.players.push({ name: defaultPlayerName(idx), cards: {} });
     rebuildPlayerList();
     switchPlayer(state.players.length - 1);
     updatePlusButton();
@@ -273,7 +324,7 @@ function editPlayerName(idx) {
     input.select();
 
     function save() {
-        const val = input.value.trim() || 'Player ' + (idx + 1);
+        const val = input.value.trim() || defaultPlayerName(idx);
         nameSpan.textContent = val;
         state.players[idx].name = val;
         input.remove();
@@ -368,19 +419,26 @@ function selectGame(game) {
 function setLanguage(lang) {
     LANG = lang;
     localStorage.setItem('forestLang', lang);
-    // Rebuild card sections with new language
     buildCardSections();
     updateAllScores();
     translateUI();
+    // Update dynamically generated player names if unchanged from default
+    state.players.forEach((p, i) => {
+        const defaultEn = 'Player ' + (i + 1);
+        const defaultNl = 'Speler ' + (i + 1);
+        // Only rename if the current name matches either default
+        if (p.name === defaultEn || p.name === defaultNl) {
+            p.name = defaultPlayerName(i);
+        }
+    });
+    rebuildPlayerList();
     updateLangButtons();
 }
 
 function translateUI() {
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
-        if (TRANSLATIONS[key] && TRANSLATIONS[key][LANG]) {
-            el.textContent = TRANSLATIONS[key][LANG];
-        }
+        el.textContent = t(key);
     });
 }
 
@@ -402,7 +460,7 @@ function closeSettings() {
 }
 
 function newGame() {
-    if (confirm('Start a new game? This will reset all scores.')) {
+    if (confirm(t('confirmNewGame'))) {
         state.players.forEach(p => { p.cards = {}; });
         CARDS.forEach(c => updateCount(c.id));
         updateAllScores();
