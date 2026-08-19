@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Forest Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="top-nav">
+    <div class="nav-left">
+        <button class="nav-btn" onclick="openSettings()">&#9776;</button>
+        <div class="player-selector" id="playerSelector">
+            <button class="player-btn active" data-player="1">
+                <span id="playerName" onclick="editPlayerName()">Player 1</span>
+                <span style="margin-left:4px;font-size:0.7em;opacity:0.5">&#9998;</span>
+            </button>
+            <button class="player-btn plus-btn" onclick="addPlayer()">+</button>
+        </div>
+    </div>
+    <div class="nav-right">
+        <button class="nav-btn" onclick="exportGame()" title="Export">&#8593;</button>
+    </div>
+</nav>
+
+<!-- Settings Panel -->
+<div class="settings-overlay" id="settingsOverlay" onclick="closeSettings()"></div>
+<div class="settings-panel" id="settingsPanel">
+    <div class="settings-header">
+        <span>Settings</span>
+        <button class="settings-close" onclick="closeSettings()">&#215;</button>
+    </div>
+
+    <div class="settings-group">
+        <div class="settings-group-title">Game</div>
+        <div class="settings-row">
+            <span class="settings-label">Forest Shuffle</span>
+            <span class="toggle on" onclick="this.classList.toggle('on')"></span>
+        </div>
+        <div class="settings-row">
+            <span class="settings-label">Dartmoor</span>
+            <span class="toggle" onclick="this.classList.toggle('on')"></span>
+        </div>
+    </div>
+
+    <div class="settings-group">
+        <div class="settings-group-title">Expansions</div>
+        <div class="settings-row">
+            <span class="settings-label">Alpine</span>
+            <span class="toggle" onclick="this.classList.toggle('on')"></span>
+        </div>
+        <div class="settings-row">
+            <span class="settings-label">Woodland Edge</span>
+            <span class="toggle" onclick="this.classList.toggle('on')"></span>
+        </div>
+        <div class="settings-row">
+            <span class="settings-label">Exploration</span>
+            <span class="toggle" onclick="this.classList.toggle('on')"></span>
+        </div>
+    </div>
+
+    <div class="settings-group">
+        <div class="settings-group-title">Promos</div>
+        <div class="settings-row">
+            <span class="settings-label">D&#252;rer</span>
+            <span class="toggle" onclick="this.classList.toggle('on')"></span>
+        </div>
+        <div class="settings-row">
+            <span class="settings-label">Hobby</span>
+            <span class="toggle" onclick="this.classList.toggle('on')"></span>
+        </div>
+        <div class="settings-row">
+            <span class="settings-label">Maretak</span>
+            <span class="toggle" onclick="this.classList.toggle('on')"></span>
+        </div>
+        <div class="settings-row">
+            <span class="settings-label">Spiel24</span>
+            <span class="toggle" onclick="this.classList.toggle('on')"></span>
+        </div>
+        <div class="settings-row">
+            <span class="settings-label">Elk</span>
+            <span class="toggle" onclick="this.classList.toggle('on')"></span>
+        </div>
+    </div>
+
+    <div class="settings-group">
+        <div class="settings-group-title">Scoring</div>
+        <div class="settings-row">
+            <span class="settings-label">Distributed Scoring</span>
+            <span class="toggle" onclick="this.classList.toggle('on')"></span>
+        </div>
+    </div>
+
+    <div class="settings-group" style="margin-top: 24px;">
+        <button class="card-btn" style="background:var(--red);margin:0;border-radius:6px;justify-content:center;" onclick="newGame()">
+            <span class="card-name" style="text-align:center;">New Game</span>
+        </button>
+    </div>
+</div>
+
+<!-- Scrollable content -->
+<div class="forest-scroll" id="forestScroll">
+
+    <!-- === TREES === -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/tree.png" alt="tree">
+        <span>TREES</span>
+    </div>
+    <div id="treeCards"></div>
+
+    <!-- === SHRUBS === -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/shrub.png" alt="shrub">
+        <span>SHRUBS</span>
+    </div>
+    <div id="shrubCards"></div>
+
+    <!-- === TOPS DIVIDER === -->
+    <div class="zone-divider">
+        <div class="zone-icon zi-bird">&#9650;</div>
+        <span>Tops</span>
+    </div>
+
+    <!-- Birds (Top) -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/bird.png" alt="bird">
+        <span>BIRDS</span>
+    </div>
+    <div id="birdTopCards"></div>
+
+    <!-- Butterflies -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/butterfly.png" alt="butterfly">
+        <span>BUTTERFLIES</span>
+    </div>
+    <div id="butterflyCards"></div>
+
+    <!-- Pawed Animals (Top) -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/pawedAnimal.png" alt="paw">
+        <span>PAWED ANIMALS</span>
+    </div>
+    <div id="pawedTopCards"></div>
+
+    <!-- Plants (Top) -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/plant.png" alt="plant">
+        <span>PLANTS</span>
+    </div>
+    <div id="plantTopCards"></div>
+
+    <!-- === BOTTOMS DIVIDER === -->
+    <div class="zone-divider">
+        <div class="zone-icon zi-mushroom">&#9660;</div>
+        <span>Bottoms</span>
+    </div>
+
+    <!-- Plants (Bottom) -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/plant.png" alt="plant">
+        <span>PLANTS</span>
+    </div>
+    <div id="plantBottomCards"></div>
+
+    <!-- Mushrooms -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/mushroom.png" alt="mushroom">
+        <span>MUSHROOMS</span>
+    </div>
+    <div id="mushroomCards"></div>
+
+    <!-- Amphibians -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/amphibian.png" alt="amphibian">
+        <span>AMPHIBIANS</span>
+    </div>
+    <div id="amphibianCards"></div>
+
+    <!-- Insects (Bottom) -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/insect.png" alt="insect">
+        <span>INSECTS</span>
+    </div>
+    <div id="insectBottomCards"></div>
+
+    <!-- Pawed Animals (Bottom) -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/pawedAnimal.png" alt="paw">
+        <span>PAWED ANIMALS</span>
+    </div>
+    <div id="pawedBottomCards"></div>
+
+    <!-- === SIDES DIVIDER === -->
+    <div class="zone-divider">
+        <div class="zone-icon zi-bat">&#9654;&#9664;</div>
+        <span>Sides</span>
+    </div>
+
+    <!-- Birds (Side) -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/bird.png" alt="bird">
+        <span>BIRDS</span>
+    </div>
+    <div id="birdSideCards"></div>
+
+    <!-- Insects (Side) -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/insect.png" alt="insect">
+        <span>INSECTS</span>
+    </div>
+    <div id="insectSideCards"></div>
+
+    <!-- Bats -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/bat.png" alt="bat">
+        <span>BATS</span>
+    </div>
+    <div id="batCards"></div>
+
+    <!-- Pawed Animals (Side) -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/pawedAnimal.png" alt="paw">
+        <span>PAWED ANIMALS</span>
+    </div>
+    <div id="pawedSideCards"></div>
+
+    <!-- Deer & Cloven-Hoofed -->
+    <div class="section-header">
+        <img class="symbol-icon" src="assets/symbols/deer.png" alt="deer">
+        <span>DEER &amp; CLOVEN-HOOFED</span>
+    </div>
+    <div id="deerCards"></div>
+
+    <!-- === CAVE === -->
+    <div class="zone-divider">
+        <div class="zone-icon zi-cave">&#9675;</div>
+        <span>Cave</span>
+    </div>
+
+    <div class="cave-container">
+        <div class="cave-image-col">
+            <img src="assets/icons/cave.png" alt="Cave" class="cave-image" onclick="addCaveCard()">
+        </div>
+        <div class="cave-details">
+            <div class="cave-top-row">
+                <span class="cave-badge" id="caveCount">0&#215;</span>
+                <span class="cave-label">Cave</span>
+                <button class="cave-remove-btn" id="caveRemoveBtn" onclick="removeAllCaveCards()">&#215;</button>
+            </div>
+            <div class="cave-card-list" id="caveCards">
+                <!-- Cave cards rendered by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- === FOREST SUMMARY === -->
+    <div class="forest-summary">
+        <div class="summary-card">
+            <div class="summary-row">
+                <span class="summary-label">Tree Cards</span>
+                <span class="summary-value" id="treeCardCount">0</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Tree Points</span>
+                <span class="summary-value" id="treePoints">0</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Top Points</span>
+                <span class="summary-value" id="topPoints">0</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Bottom Points</span>
+                <span class="summary-value" id="bottomPoints">0</span>
+            </div>
+            <div class="summary-row">
+                <span class="summary-label">Side Points</span>
+                <span class="summary-value" id="sidePoints">0</span>
+            </div>
+            <div class="summary-row total-row">
+                <span class="summary-label">Total</span>
+                <span class="summary-value" id="totalPoints">0</span>
+            </div>
+        </div>
+    </div>
+
+    <div style="height: 40px;"></div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,505 @@
+/* ===== Forest Calculator - Exact original color palette ===== */
+
+:root {
+    --bg-body: #212529;
+    --bg-secondary: #343a40;
+    --bg-tertiary: #2b3035;
+    --text-primary: #dee2e6;
+    --text-secondary: #adb5bd;
+    --text-muted: #6c757d;
+    --border: #495057;
+    --border-light: #565e6a;
+    --green: #274e37;
+    --pink: #CBB3BF;
+    --sage: #9eb9a6;
+    --blue: #547AA5;
+    --amber: #EC9A29;
+    --red: #A8201A;
+    --dark: #04151F;
+    --radius: 8px;
+    --nav-height: 52px;
+    --nav-bg: #343a40;
+    --card-btn-radius: 6px;
+    font-size: 14px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: var(--bg-body);
+    color: var(--text-primary);
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+/* ===== Top Navigation ===== */
+.top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--nav-height);
+    padding: 0 12px;
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.nav-left { display: flex; align-items: center; gap: 8px; flex: 1; }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+
+.nav-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.08); }
+
+.player-selector {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+}
+
+.player-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: inherit;
+    transition: 0.15s;
+}
+.player-btn.active {
+    background: var(--green);
+    color: white;
+    border-color: var(--green);
+}
+.player-btn.plus-btn {
+    width: 32px;
+    padding: 0;
+    font-weight: bold;
+    font-size: 1rem;
+}
+.player-btn.plus-btn:hover {
+    background: rgba(255,255,255,0.08);
+}
+
+/* ===== Main Scroll ===== */
+.forest-scroll {
+    height: calc(100vh - var(--nav-height));
+    overflow-y: auto;
+}
+.forest-scroll::-webkit-scrollbar { width: 6px; }
+.forest-scroll::-webkit-scrollbar-track { background: transparent; }
+.forest-scroll::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ===== Section Headers ===== */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px 4px;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.symbol-icon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+/* ===== Zone Dividers ===== */
+.zone-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 28px 16px 10px;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.zone-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+.zone-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    color: white;
+}
+
+/* ===== Card Row ===== */
+.card-row {
+    display: flex;
+    align-items: center;
+    padding: 3px 16px;
+    gap: 0;
+}
+
+.card-count {
+    width: 28px;
+    text-align: right;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.card-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: var(--card-btn-radius);
+    color: white;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: inherit;
+    min-width: 0;
+    margin: 0 6px;
+    transition: filter 0.15s;
+    background: var(--green);
+}
+.card-btn:hover { filter: brightness(1.15); }
+
+.card-btn .symbol-img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.card-btn .card-name {
+    flex: 1;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-remove {
+    width: 26px;
+    height: 26px;
+    border: none;
+    background: var(--red);
+    color: white;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: opacity 0.15s;
+}
+.card-remove:hover { opacity: 0.85; }
+
+.card-points {
+    width: 28px;
+    text-align: right;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+/* ===== Zone Icon Colors ===== */
+.zi-tree { background: var(--green); }
+.zi-shrub { background: var(--pink); }
+.zi-bird { background: var(--blue); }
+.zi-butterfly { background: var(--amber); }
+.zi-pawed { background: var(--amber); }
+.zi-deer { background: var(--sage); }
+.zi-bat { background: var(--dark); }
+.zi-mushroom { background: var(--sage); }
+.zi-insect { background: var(--sage); }
+.zi-amphibian { background: var(--sage); }
+.zi-plant { background: var(--sage); }
+.zi-cave { background: var(--dark); }
+
+/* ===== Cave Section ===== */
+.cave-container {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    align-items: flex-start;
+}
+
+.cave-image-col {
+    flex-shrink: 0;
+}
+
+.cave-image {
+    width: 80px;
+    height: auto;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+.cave-image:hover { opacity: 0.8; }
+
+.cave-details {
+    flex: 1;
+}
+
+.cave-top-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.cave-badge {
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    width: 28px;
+    text-align: right;
+}
+
+.cave-label {
+    flex: 1;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.cave-remove-btn {
+    width: 26px;
+    height: 26px;
+    border: none;
+    background: var(--red);
+    color: white;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.15s;
+}
+.cave-remove-btn:hover { opacity: 0.85; }
+
+.cave-card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.cave-card-row {
+    display: flex;
+    align-items: center;
+    padding: 2px 0;
+}
+
+.cave-card-count {
+    width: 28px;
+    text-align: right;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.cave-card-name {
+    flex: 1;
+    font-size: 0.85rem;
+    margin: 0 6px;
+}
+
+.cave-card-remove {
+    width: 26px;
+    height: 26px;
+    border: none;
+    background: var(--red);
+    color: white;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.15s;
+}
+.cave-card-remove:hover { opacity: 0.85; }
+
+.cave-card-points {
+    width: 28px;
+    text-align: right;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+/* ===== Forest Summary ===== */
+.forest-summary {
+    padding: 16px;
+    margin-top: 8px;
+}
+
+.summary-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0;
+    font-size: 0.9rem;
+}
+
+.summary-label {
+    color: var(--text-muted);
+}
+
+.summary-value {
+    font-weight: 700;
+}
+
+.total-row {
+    border-top: 1px solid var(--border);
+    margin-top: 6px;
+    padding-top: 10px;
+}
+
+.total-row .summary-label,
+.total-row .summary-value {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+/* ===== Toggle Switch ===== */
+.toggle {
+    width: 36px;
+    height: 20px;
+    background: var(--border);
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: 0.2s;
+    flex-shrink: 0;
+}
+.toggle.on { background: var(--green); }
+.toggle::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: 0.2s;
+}
+.toggle.on::after { left: 18px; }
+
+/* ===== Settings Panel ===== */
+.settings-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+    display: none;
+}
+.settings-overlay.open { display: block; }
+
+.settings-panel {
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    width: 300px;
+    max-width: 85vw;
+    background: var(--bg-body);
+    border-right: 1px solid var(--border);
+    z-index: 101;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+    padding: 20px;
+}
+.settings-panel.open { transform: translateX(0); }
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.settings-close {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.settings-group {
+    margin-bottom: 16px;
+}
+
+.settings-group-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.settings-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+}
+
+.settings-label {
+    font-size: 0.9rem;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 420px) {
+    .player-btn { font-size: 0.75rem; padding: 3px 6px; }
+    .cave-image { width: 64px; }
+}
