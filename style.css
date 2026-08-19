@@ -433,7 +433,8 @@ html, body {
     padding: 6px 10px;
     border: 1px solid #b8bf1e;
     border-radius: var(--card-btn-radius);
-    color: #212529;
+    color: white;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.45);
     font-size: 0.95rem;
     cursor: pointer;
     font-family: inherit;
