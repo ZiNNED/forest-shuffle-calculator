@@ -353,8 +353,6 @@ html, body {
     height: calc(100vh - var(--nav-height) - 120px);
     overflow-y: auto;
     padding-bottom: 16px;
-    max-width: 75vw;
-    margin: 0 auto;
 }
 .forest-scroll::-webkit-scrollbar { width: 6px; }
 .forest-scroll::-webkit-scrollbar-track { background: transparent; }
@@ -591,6 +589,9 @@ html, body {
 .toggle.on::after { left: 18px; }
 
 /* ===== Responsive ===== */
+@media (min-width: 481px) {
+    .forest-scroll { max-width: 75vw; margin: 0 auto; }
+}
 @media (max-width: 480px) {
     .settings-panel { max-width: 90vw; }
     .card-row { padding: 3px 8px; }
