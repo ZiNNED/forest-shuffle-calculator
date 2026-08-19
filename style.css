@@ -175,9 +175,7 @@ html, body {
     color: white;
 }
 .settings-player-row.active .settings-player-name { color: white; }
-.settings-player-row.active .settings-player-edit,
 .settings-player-row.active .settings-player-remove { color: rgba(255,255,255,0.7); }
-.settings-player-row.active .settings-player-edit:hover,
 .settings-player-row.active .settings-player-remove:hover { color: white; }
 
 .settings-player-color {
@@ -193,21 +191,6 @@ html, body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-.settings-player-edit {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 0.7rem;
-    line-height: 1;
-    padding: 4px;
-    border-radius: 4px;
-}
-.settings-player-edit:hover {
-    color: var(--text-primary);
-    background: rgba(0,0,0,0.06);
 }
 
 .settings-player-remove {
@@ -248,7 +231,35 @@ html, body {
 }
 .settings-add-player.disabled {
     opacity: 0.35;
-    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ===== Language Toggle ===== */
+.settings-lang-row {
+    display: flex;
+    gap: 8px;
+    padding: 4px 0;
+}
+.lang-btn {
+    flex: 1;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.15s;
+    text-align: center;
+}
+.lang-btn.active {
+    background: var(--green);
+    color: #fff;
+    border-color: var(--green);
+}
+.lang-btn:hover:not(.active) {
+    background: var(--bg-body);
 }
 .settings-add-player.disabled:hover {
     background: transparent;

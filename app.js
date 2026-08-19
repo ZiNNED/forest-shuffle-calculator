@@ -3,7 +3,23 @@
 // ============================================
 
 // Language for display names
-const LANG = 'en';
+let LANG = localStorage.getItem('forestLang') || 'en';
+
+// Translations for static UI elements
+const TRANSLATIONS = {
+  'Menu': { en: 'Menu', nl: 'Menu' },
+  'Game': { en: 'Game', nl: 'Spel' },
+  'Players': { en: 'Players', nl: 'Spelers' },
+  'Add Player': { en: 'Add Player', nl: 'Speler toevoegen' },
+  'New Game': { en: 'New Game', nl: 'Nieuw spel' },
+  'Language': { en: 'Language', nl: 'Taal' },
+  'Soon': { en: 'Soon', nl: 'Binnenkort' },
+  'Tree Points': { en: 'Tree Points', nl: 'Boompunten' },
+  'Top Points': { en: 'Top Points', nl: 'Bovenpunten' },
+  'Bottom Points': { en: 'Bottom Points', nl: 'Onderpunten' },
+  'Side Points': { en: 'Side Points', nl: 'Zijpunten' },
+  'Total': { en: 'Total', nl: 'Totaal' },
+};
 
 // Player colors
 const PLAYER_COLORS = ['#274e37', '#547AA5', '#EC9A29', '#A8201A', '#9eb9a6'];
@@ -290,16 +306,12 @@ function rebuildPlayerList() {
         const nameSpan = document.createElement('span');
         nameSpan.className = 'settings-player-name';
         nameSpan.textContent = p.name;
-        row.appendChild(nameSpan);
-
-        const editIcon = document.createElement('button');
-        editIcon.className = 'settings-player-edit';
-        editIcon.textContent = '✎';
-        editIcon.onclick = function(e) {
+        nameSpan.onclick = function(e) {
             e.stopPropagation();
             editPlayerName(i);
         };
-        row.appendChild(editIcon);
+        nameSpan.style.cursor = 'text';
+        row.appendChild(nameSpan);
 
         if (i > 0) {
             const removeIcon = document.createElement('button');
@@ -352,6 +364,31 @@ function selectGame(game) {
     if (forestRow) forestRow.querySelector('.radio').classList.add('checked');
 }
 
+// ===== Language Toggle =====
+function setLanguage(lang) {
+    LANG = lang;
+    localStorage.setItem('forestLang', lang);
+    // Rebuild card sections with new language
+    buildCardSections();
+    updateAllScores();
+    translateUI();
+    updateLangButtons();
+}
+
+function translateUI() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (TRANSLATIONS[key] && TRANSLATIONS[key][LANG]) {
+            el.textContent = TRANSLATIONS[key][LANG];
+        }
+    });
+}
+
+function updateLangButtons() {
+    document.getElementById('langEn').classList.toggle('active', LANG === 'en');
+    document.getElementById('langNl').classList.toggle('active', LANG === 'nl');
+}
+
 // ===== Settings =====
 function openSettings() {
     rebuildPlayerList();
@@ -379,4 +416,6 @@ window.addEventListener('DOMContentLoaded', function() {
     updateAllScores();
     rebuildPlayerList();
     updateHeaderPlayerName();
+    translateUI();
+    updateLangButtons();
 });
