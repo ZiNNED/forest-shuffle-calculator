@@ -72,6 +72,13 @@ html, body {
     display: flex;
     gap: 4px;
     flex: 1;
+    align-items: center;
+}
+
+.players {
+    display: flex;
+    align-items: center;
+    gap: 2px;
 }
 
 .player-btn {
@@ -85,6 +92,9 @@ html, body {
     white-space: nowrap;
     font-family: inherit;
     transition: 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 2px;
 }
 .player-btn.active {
     background: var(--green);
@@ -99,6 +109,39 @@ html, body {
 }
 .player-btn.plus-btn:hover {
     background: rgba(255,255,255,0.08);
+}
+
+.player-remove-btn {
+    background: none;
+    border: none;
+    color: var(--border);
+    cursor: pointer;
+    padding: 0 1px;
+    font-size: 0.85rem;
+    line-height: 1;
+    border-radius: 3px;
+    margin-left: 1px;
+}
+
+.player-remove-btn:hover {
+    color: var(--red);
+    background: rgba(168,32,26,0.15);
+}
+
+.player-edit-btn {
+    background: none;
+    border: none;
+    color: var(--border);
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.7rem;
+    line-height: 1;
+    opacity: 0.6;
+}
+
+.player-edit-btn:hover {
+    opacity: 1;
+    color: var(--text-primary);
 }
 
 /* ===== Main Scroll ===== */
@@ -496,6 +539,52 @@ html, body {
 
 .settings-label {
     font-size: 0.9rem;
+}
+
+/* ===== Radio Button ===== */
+.radio {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    transition: 0.2s;
+    flex-shrink: 0;
+}
+.radio.checked {
+    border-color: var(--green);
+}
+.radio.checked::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--green);
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+}
+
+/* ===== Disabled Settings Group ===== */
+.settings-group.disabled .settings-group-title,
+.settings-group.disabled .settings-label {
+    opacity: 0.4;
+}
+.settings-group.disabled .toggle,
+.settings-group.disabled .radio {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+.badge-soon {
+    font-size: 0.65rem;
+    background: var(--border);
+    color: var(--text-muted);
+    padding: 1px 6px;
+    border-radius: 8px;
+    text-transform: none;
+    letter-spacing: normal;
+    margin-left: 4px;
 }
 
 /* ===== Responsive ===== */

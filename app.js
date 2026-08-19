@@ -75,6 +75,7 @@ const CARDS = {
 let state = {
     currentPlayer: 0,
     players: [{ name: 'Player 1', cards: {}, caveCards: [] }],
+    game: 'forest',
 };
 
 // ===== Render a single card row =====
@@ -86,14 +87,12 @@ function renderCardRow(container, cardKey) {
     row.className = 'card-row';
     row.dataset.cardKey = cardKey;
 
-    // Count badge
     const count = document.createElement('span');
     count.className = 'card-count';
     count.textContent = '0×';
     count.id = 'count-' + cardKey;
     row.appendChild(count);
 
-    // Button (add card)
     const btn = document.createElement('button');
     btn.className = 'card-btn';
 
@@ -111,7 +110,6 @@ function renderCardRow(container, cardKey) {
     btn.onclick = function() { addCard(cardKey); };
     row.appendChild(btn);
 
-    // Remove button
     const remove = document.createElement('button');
     remove.className = 'card-remove';
     remove.textContent = '×';
@@ -121,7 +119,6 @@ function renderCardRow(container, cardKey) {
     };
     row.appendChild(remove);
 
-    // Points
     const pts = document.createElement('span');
     pts.className = 'card-points';
     pts.textContent = card.points;
@@ -219,9 +216,37 @@ function rebuildCaveUI() {
     p.caveCards.forEach(k => renderCaveCard(k));
 }
 
-// ===== Player Name Editing =====
-function editPlayerName() {
-    const span = document.getElementById('playerName');
+// ===== Player Management =====
+function addPlayer() {
+    if (state.players.length >= 5) return;
+    const idx = state.players.length + 1;
+    state.players.push({ name: 'Player ' + idx, cards: {}, caveCards: [] });
+    rebuildPlayerSelector();
+    switchPlayer(state.players.length - 1);
+}
+
+function removePlayer(idx) {
+    if (state.players.length <= 1) return;
+    if (idx < 0 || idx >= state.players.length) return;
+
+    state.players.splice(idx, 1);
+
+    if (state.currentPlayer >= state.players.length) {
+        state.currentPlayer = state.players.length - 1;
+    } else if (state.currentPlayer > idx) {
+        state.currentPlayer--;
+    }
+
+    rebuildPlayerSelector();
+    switchPlayer(state.currentPlayer);
+}
+
+function editPlayerName(idx) {
+    const btn = document.querySelectorAll('.player-btn')[idx];
+    if (!btn) return;
+    const span = btn.querySelector('.player-name-span');
+    if (!span) return;
+
     const current = span.textContent;
     const input = document.createElement('input');
     input.type = 'text';
@@ -231,9 +256,9 @@ function editPlayerName() {
     input.style.border = '1px solid #274e37';
     input.style.borderRadius = '4px';
     input.style.padding = '2px 6px';
-    input.style.fontSize = '0.85rem';
+    input.style.fontSize = '0.8rem';
     input.style.fontFamily = 'inherit';
-    input.style.width = '100px';
+    input.style.width = '90px';
     input.style.outline = 'none';
 
     span.style.display = 'none';
@@ -242,9 +267,9 @@ function editPlayerName() {
     input.select();
 
     function save() {
-        const val = input.value.trim() || 'Player 1';
+        const val = input.value.trim() || 'Player ' + (idx + 1);
         span.textContent = val;
-        state.players[state.currentPlayer].name = val;
+        state.players[idx].name = val;
         input.remove();
         span.style.display = '';
     }
@@ -256,40 +281,43 @@ function editPlayerName() {
     };
 }
 
-// ===== Add Player =====
-function addPlayer() {
-    const idx = state.players.length + 1;
-    state.players.push({ name: 'Player ' + idx, cards: {}, caveCards: [] });
-    rebuildPlayerSelector();
-    switchPlayer(state.players.length - 1);
-}
-
 function rebuildPlayerSelector() {
     const sel = document.getElementById('playerSelector');
-    // Remove all player buttons (keep the + button)
-    while (sel.children.length > 1) {
-        sel.removeChild(sel.children[0]);
-    }
-    // Insert player buttons before the + button
+    const list = document.getElementById('playerList');
+    list.innerHTML = '';
+
     state.players.forEach((p, i) => {
         const btn = document.createElement('button');
         btn.className = 'player-btn' + (i === state.currentPlayer ? ' active' : '');
         btn.dataset.player = i + 1;
-        const span = document.createElement('span');
-        if (i === 0) {
-            span.id = 'playerName';
-            span.onclick = function() { editPlayerName(); };
+
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'player-name-span';
+        nameSpan.textContent = p.name;
+        btn.appendChild(nameSpan);
+
+        const editIcon = document.createElement('span');
+        editIcon.className = 'player-edit-btn';
+        editIcon.textContent = '✎';
+        editIcon.onclick = function(e) {
+            e.stopPropagation();
+            editPlayerName(i);
+        };
+        btn.appendChild(editIcon);
+
+        if (state.players.length > 1) {
+            const removeIcon = document.createElement('span');
+            removeIcon.className = 'player-remove-btn';
+            removeIcon.textContent = '×';
+            removeIcon.onclick = function(e) {
+                e.stopPropagation();
+                removePlayer(i);
+            };
+            btn.appendChild(removeIcon);
         }
-        span.textContent = p.name;
-        btn.appendChild(span);
-        if (i === 0) {
-            const editIcon = document.createElement('span');
-            editIcon.style.cssText = 'margin-left:4px;font-size:0.7em;opacity:0.5';
-            editIcon.textContent = '✎';
-            btn.appendChild(editIcon);
-        }
+
         btn.onclick = function() { switchPlayer(i); };
-        sel.insertBefore(btn, sel.lastElementChild);
+        list.appendChild(btn);
     });
 }
 
@@ -297,11 +325,20 @@ function switchPlayer(idx) {
     state.currentPlayer = idx;
     document.querySelectorAll('.player-btn').forEach(b => b.classList.remove('active'));
     document.querySelectorAll('.player-btn')[idx].classList.add('active');
-    // Rebuild cave UI
     rebuildCaveUI();
     updateCaveUI();
-    // Update all card counts
     Object.keys(CARDS).forEach(k => updateCardCount(k));
+}
+
+// ===== Game Selection =====
+function selectGame(game) {
+    state.game = game;
+    document.querySelectorAll('.settings-row .radio').forEach(r => r.classList.remove('checked'));
+    if (game === 'forest') {
+        document.querySelectorAll('.settings-row')[0].querySelector('.radio').classList.add('checked');
+    } else {
+        document.querySelectorAll('.settings-row')[1].querySelector('.radio').classList.add('checked');
+    }
 }
 
 // ===== Settings =====
@@ -317,7 +354,6 @@ function closeSettings() {
 
 // ===== Export / New Game =====
 function exportGame() {
-    // Placeholder
     console.log('Export');
 }
 
