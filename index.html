@@ -107,135 +107,8 @@
 <!-- Scrollable content -->
 <div class="forest-scroll" id="forestScroll">
 
-    <!-- === TREES === -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/tree.png" alt="tree">
-        <span>TREES</span>
-    </div>
-    <div id="treeCards"></div>
-
-    <!-- === SHRUBS === -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/shrub.png" alt="shrub">
-        <span>SHRUBS</span>
-    </div>
-    <div id="shrubCards"></div>
-
-    <!-- === TOPS DIVIDER === -->
-    <div class="zone-divider">
-        <div class="zone-icon zi-bird">&#9650;</div>
-        <span>Tops</span>
-    </div>
-
-    <!-- Birds (Top) -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/bird.png" alt="bird">
-        <span>BIRDS</span>
-    </div>
-    <div id="birdTopCards"></div>
-
-    <!-- Butterflies -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/butterfly.png" alt="butterfly">
-        <span>BUTTERFLIES</span>
-    </div>
-    <div id="butterflyCards"></div>
-
-    <!-- Pawed Animals (Top) -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/pawedAnimal.png" alt="paw">
-        <span>PAWED ANIMALS</span>
-    </div>
-    <div id="pawedTopCards"></div>
-
-    <!-- Plants (Top) -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/plant.png" alt="plant">
-        <span>PLANTS</span>
-    </div>
-    <div id="plantTopCards"></div>
-
-    <!-- === BOTTOMS DIVIDER === -->
-    <div class="zone-divider">
-        <div class="zone-icon zi-mushroom">&#9660;</div>
-        <span>Bottoms</span>
-    </div>
-
-    <!-- Plants (Bottom) -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/plant.png" alt="plant">
-        <span>PLANTS</span>
-    </div>
-    <div id="plantBottomCards"></div>
-
-    <!-- Mushrooms -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/mushroom.png" alt="mushroom">
-        <span>MUSHROOMS</span>
-    </div>
-    <div id="mushroomCards"></div>
-
-    <!-- Amphibians -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/amphibian.png" alt="amphibian">
-        <span>AMPHIBIANS</span>
-    </div>
-    <div id="amphibianCards"></div>
-
-    <!-- Insects (Bottom) -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/insect.png" alt="insect">
-        <span>INSECTS</span>
-    </div>
-    <div id="insectBottomCards"></div>
-
-    <!-- Pawed Animals (Bottom) -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/pawedAnimal.png" alt="paw">
-        <span>PAWED ANIMALS</span>
-    </div>
-    <div id="pawedBottomCards"></div>
-
-    <!-- === SIDES DIVIDER === -->
-    <div class="zone-divider">
-        <div class="zone-icon zi-bat">&#9654;&#9664;</div>
-        <span>Sides</span>
-    </div>
-
-    <!-- Birds (Side) -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/bird.png" alt="bird">
-        <span>BIRDS</span>
-    </div>
-    <div id="birdSideCards"></div>
-
-    <!-- Insects (Side) -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/insect.png" alt="insect">
-        <span>INSECTS</span>
-    </div>
-    <div id="insectSideCards"></div>
-
-    <!-- Bats -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/bat.png" alt="bat">
-        <span>BATS</span>
-    </div>
-    <div id="batCards"></div>
-
-    <!-- Pawed Animals (Side) -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/pawedAnimal.png" alt="paw">
-        <span>PAWED ANIMALS</span>
-    </div>
-    <div id="pawedSideCards"></div>
-
-    <!-- Deer & Cloven-Hoofed -->
-    <div class="section-header">
-        <img class="symbol-icon" src="assets/symbols/deer.png" alt="deer">
-        <span>DEER &amp; CLOVEN-HOOFED</span>
-    </div>
-    <div id="deerCards"></div>
+    <!-- Card sections rendered by JS -->
+    <div id="cardSections"></div>
 
     <!-- === CAVE === -->
     <div class="zone-divider">
@@ -254,7 +127,6 @@
                 <button class="cave-remove-btn" id="caveRemoveBtn" onclick="removeAllCaveCards()">&#215;</button>
             </div>
             <div class="cave-card-list" id="caveCards">
-                <!-- Cave cards rendered by JS -->
             </div>
         </div>
     </div>
@@ -292,6 +164,7 @@
     <div style="height: 40px;"></div>
 </div>
 
+<script src="cards.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

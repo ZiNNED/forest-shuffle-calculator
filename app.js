@@ -1,77 +1,11 @@
 // ============================================
-// Forest Calculator - Exact original replica
+// Forest Calculator - Data-driven scoring app
 // ============================================
 
-const CARDS = {
-    // === TREES ===
-    silverFir:       { name: 'Silver Fir', symbol: 'tree', points: 6 },
-    europeanLarch:   { name: 'European Larch', symbol: 'tree', points: 8 },
-    stonePine:       { name: 'Stone Pine', symbol: 'tree', points: 10 },
-    sessileOak:      { name: 'Sessile Oak', symbol: 'tree', points: 12 },
-    commonBeech:     { name: 'Common Beech', symbol: 'tree', points: 18 },
-    commonLime:      { name: 'Common Lime', symbol: 'tree', points: 20 },
-    silverBirch:     { name: 'Silver Birch', symbol: 'tree', points: 4 },
-    rowan:           { name: 'Rowan', symbol: 'tree', points: 6 },
-    hornbeam:        { name: 'Hornbeam', symbol: 'tree', points: 10 },
+// Language for display names
+const LANG = 'en';
 
-    // === SHRUBS ===
-    blackthorn:      { name: 'Blackthorn', symbol: 'shrub', points: 4 },
-    commonHazel:     { name: 'Common Hazel', symbol: 'shrub', points: 4 },
-    bramble:         { name: 'Bramble', symbol: 'shrub', points: 4 },
-    dogwood:         { name: 'Dogwood', symbol: 'shrub', points: 4 },
-
-    // === BIRDS (Top) ===
-    coalTit:         { name: 'Coal Tit', symbol: 'bird', points: 3 },
-    blueTit:         { name: 'Blue Tit', symbol: 'bird', points: 4 },
-    greatTit:        { name: 'Great Tit', symbol: 'bird', points: 5 },
-    goldcrest:       { name: 'Goldcrest', symbol: 'bird', points: 7 },
-    nuthatch:        { name: 'Nuthatch', symbol: 'bird', points: 8 },
-    shortToedTreecreeper: { name: 'Short-toed Treecreeper', symbol: 'bird', points: 3 },
-
-    // === BUTTERFLIES ===
-    camberwellBeauty:   { name: 'Camberwell Beauty', symbol: 'butterfly', points: 4 },
-    purpleEmperor:      { name: 'Purple Emperor', symbol: 'butterfly', points: 4 },
-    smallTortoiseshell: { name: 'Small Tortoiseshell', symbol: 'butterfly', points: 3 },
-
-    // === PAWED ANIMALS ===
-    redSquirrel:     { name: 'Red Squirrel', symbol: 'pawedAnimal', points: 5 },
-    yellowNeckedMouse: { name: 'Yellow-necked Mouse', symbol: 'pawedAnimal', points: 3 },
-    wildBoar:        { name: 'Wild Boar', symbol: 'pawedAnimal', points: 8 },
-
-    // === PLANTS ===
-    woodSorrel:      { name: 'Wood Sorrel', symbol: 'plant', points: 3 },
-    commonNettle:    { name: 'Common Nettle', symbol: 'plant', points: 5 },
-
-    // === MUSHROOMS ===
-    blackTrumpet:    { name: 'Black Trumpet', symbol: 'mushroom', points: 3 },
-    commonMorel:     { name: 'Common Morel', symbol: 'mushroom', points: 4 },
-    cèpe:            { name: 'Cèpe', symbol: 'mushroom', points: 5 },
-    chanterelle:     { name: 'Chanterelle', symbol: 'mushroom', points: 6 },
-
-    // === AMPHIBIANS ===
-    commonFrog:      { name: 'Common Frog', symbol: 'amphibian', points: 4 },
-    fireSalamander:  { name: 'Fire Salamander', symbol: 'amphibian', points: 5 },
-
-    // === INSECTS ===
-    stagBeetle:      { name: 'Stag Beetle', symbol: 'insect', points: 3 },
-    woodAnt:         { name: 'Wood Ant', symbol: 'insect', points: 5 },
-
-    // === BATS ===
-    commonPipistrelle: { name: 'Common Pipistrelle', symbol: 'bat', points: 4 },
-    brownLongEaredBat: { name: 'Brown Long-eared Bat', symbol: 'bat', points: 5 },
-    barbastelleBat:    { name: 'Barbastelle Bat', symbol: 'bat', points: 6 },
-
-    // === DEER ===
-    redDeer:         { name: 'Red Deer', symbol: 'deer', points: 12 },
-    roeDeer:         { name: 'Roe Deer', symbol: 'deer', points: 8 },
-    chamois:         { name: 'Chamois', symbol: 'deer', points: 10 },
-
-    // === CAVE CARDS ===
-    batCave:         { name: 'Bat Cave', symbol: 'cave', points: 0 },
-    collectorsCave:  { name: "Collector's Cave", symbol: 'cave', points: 0 },
-};
-
-// Player colors (Bootstrap palette)
+// Player colors
 const PLAYER_COLORS = ['#274e37', '#547AA5', '#EC9A29', '#A8201A', '#9eb9a6'];
 
 // ===== State =====
@@ -81,126 +15,212 @@ let state = {
     game: 'forest',
 };
 
-// ===== Render a single card row =====
-function renderCardRow(container, cardKey) {
-    const card = CARDS[cardKey];
-    if (!card) return;
+// ===== Scoring Engine =====
+function computeCardPoints(cardId, ownedCount) {
+    const card = CARDS.find(c => c.id === cardId);
+    if (!card) return 0;
+    let total = 0;
+    for (const rule of card.scoring) {
+        if (rule.type === 'base') {
+            total += rule.points;
+        } else if (rule.type === 'whenMinimumMet') {
+            if (ownedCount >= rule.minimum) {
+                total += rule.points;
+            }
+        }
+    }
+    return total;
+}
 
+function computeCardTotal(cardId, ownedCount) {
+    return computeCardPoints(cardId, ownedCount) * ownedCount;
+}
+
+// ===== Build sections from catalog =====
+function buildCardSections() {
+    const container = document.getElementById('cardSections');
+    container.innerHTML = '';
+
+    // Group cards by category
+    const groups = {};
+    CARDS.forEach(card => {
+        if (!groups[card.category]) groups[card.category] = [];
+        groups[card.category].push(card);
+    });
+
+    // Define display labels for categories
+    const catLabels = {
+        tree: { en: 'TREES', nl: 'BOMEN' },
+        shrub: { en: 'SHRUBS', nl: 'STRUIKEN' },
+        bird: { en: 'BIRDS', nl: 'VOGELS' },
+        butterfly: { en: 'BUTTERFLIES', nl: 'VLINDERS' },
+        pawedAnimal: { en: 'PAWED ANIMALS', nl: 'POOTDIEREN' },
+        plant: { en: 'PLANTS', nl: 'PLANTEN' },
+        mushroom: { en: 'MUSHROOMS', nl: 'PADDENSTOELEN' },
+        insect: { en: 'INSECTS', nl: 'INSECTEN' },
+        amphibian: { en: 'AMPHIBIANS', nl: 'AMFIBIEËN' },
+        bat: { en: 'BATS', nl: 'VLEERMUIZEN' },
+        deer: { en: 'DEER & CLOVEN-HOOFED', nl: 'HERTEN & KLAUWDragers' },
+    };
+
+    Object.entries(groups).forEach(([cat, cards]) => {
+        const label = (catLabels[cat] && catLabels[cat][LANG]) || cat.toUpperCase();
+
+        // Section header
+        const header = document.createElement('div');
+        header.className = 'section-header';
+        const img = document.createElement('img');
+        img.className = 'symbol-icon';
+        img.src = 'assets/symbols/' + cat + '.png';
+        img.alt = cat;
+        header.appendChild(img);
+        const span = document.createElement('span');
+        span.textContent = label;
+        header.appendChild(span);
+        container.appendChild(header);
+
+        // Card container
+        const cardContainer = document.createElement('div');
+        cardContainer.id = cat + 'Cards';
+        cards.forEach(card => renderCardRow(cardContainer, card));
+        container.appendChild(cardContainer);
+    });
+}
+
+// ===== Render a single card row =====
+function renderCardRow(container, card) {
     const row = document.createElement('div');
     row.className = 'card-row';
-    row.dataset.cardKey = cardKey;
+    row.dataset.cardKey = card.id;
 
+    // Count display
     const count = document.createElement('span');
     count.className = 'card-count';
     count.textContent = '0×';
-    count.id = 'count-' + cardKey;
+    count.id = 'count-' + card.id;
     row.appendChild(count);
 
+    // Card button
     const btn = document.createElement('button');
     btn.className = 'card-btn';
 
-    const icon = document.createElement('img');
-    icon.className = 'symbol-img';
-    icon.src = 'assets/symbols/' + card.symbol + '.png';
-    icon.alt = card.symbol;
-    btn.appendChild(icon);
+    // Symbols (each symbol gets an icon)
+    card.symbols.forEach((sym, idx) => {
+        const icon = document.createElement('img');
+        icon.className = 'symbol-img';
+        if (idx > 0) icon.style.marginLeft = '2px';
+        icon.src = 'assets/symbols/' + sym + '.png';
+        icon.alt = sym;
+        icon.onerror = function() { this.style.display = 'none'; };
+        btn.appendChild(icon);
+    });
 
+    // Name
     const name = document.createElement('span');
     name.className = 'card-name';
-    name.textContent = card.name;
+    name.textContent = card.names[LANG] || card.names.en || card.id;
     btn.appendChild(name);
 
-    btn.onclick = function() { addCard(cardKey); };
+    btn.onclick = function() { addCard(card.id); };
     row.appendChild(btn);
 
+    // Remove button
     const remove = document.createElement('button');
     remove.className = 'card-remove';
     remove.textContent = '×';
     remove.onclick = function(e) {
         e.stopPropagation();
-        removeCard(cardKey);
+        removeCard(card.id);
     };
     row.appendChild(remove);
 
+    // Points display
     const pts = document.createElement('span');
     pts.className = 'card-points';
-    pts.textContent = card.points;
+    pts.textContent = '0';
+    pts.id = 'pts-' + card.id;
     row.appendChild(pts);
 
     container.appendChild(row);
 }
 
-// ===== Cave card renderer =====
-function renderCaveCard(cardKey) {
-    const container = document.getElementById('caveCards');
-    const card = CARDS[cardKey] || { name: cardKey, points: 0 };
+// ===== Score update =====
+function updateAllScores() {
+    const p = state.players[state.currentPlayer];
+    let treeCards = 0;
+    let treePoints = 0;
+    let topPoints = 0;
+    let bottomPoints = 0;
+    let sidePoints = 0;
+    let total = 0;
 
-    const row = document.createElement('div');
-    row.className = 'cave-card-row';
+    CARDS.forEach(card => {
+        const owned = p.cards[card.id] || 0;
+        const perCard = computeCardPoints(card.id, owned);
+        const totalPts = perCard * owned;
 
-    const count = document.createElement('span');
-    count.className = 'cave-card-count';
-    count.textContent = '1×';
-    row.appendChild(count);
+        // Update per-card display
+        const ptsEl = document.getElementById('pts-' + card.id);
+        if (ptsEl) ptsEl.textContent = perCard;
 
-    const name = document.createElement('span');
-    name.className = 'cave-card-name';
-    name.textContent = card.name;
-    row.appendChild(name);
+        // Category-based totals
+        if (card.category === 'tree') {
+            treeCards += owned;
+            treePoints += totalPts;
+        }
+        // For now everything is tree; as positions get added, split top/bottom/side
+        topPoints += totalPts;
+        total += totalPts;
+    });
 
-    const remove = document.createElement('button');
-    remove.className = 'cave-card-remove';
-    remove.textContent = '×';
-    remove.onclick = function() { removeCaveCard(cardKey); };
-    row.appendChild(remove);
-
-    const pts = document.createElement('span');
-    pts.className = 'cave-card-points';
-    pts.textContent = card.points;
-    row.appendChild(pts);
-
-    container.appendChild(row);
-    updateCaveUI();
-}
-
-function updateCaveUI() {
-    const count = state.players[state.currentPlayer].caveCards.length;
-    document.getElementById('caveCount').textContent = count + '×';
+    document.getElementById('treeCardCount').textContent = treeCards;
+    document.getElementById('treePoints').textContent = treePoints;
+    document.getElementById('topPoints').textContent = topPoints;
+    document.getElementById('bottomPoints').textContent = bottomPoints;
+    document.getElementById('sidePoints').textContent = sidePoints;
+    document.getElementById('totalPoints').textContent = total;
 }
 
 // ===== Card Actions =====
-function addCard(cardKey) {
+function addCard(cardId) {
     const p = state.players[state.currentPlayer];
-    p.cards[cardKey] = (p.cards[cardKey] || 0) + 1;
-    updateCardCount(cardKey);
+    p.cards[cardId] = (p.cards[cardId] || 0) + 1;
+    updateCount(cardId);
+    updateAllScores();
 }
 
-function removeCard(cardKey) {
+function removeCard(cardId) {
     const p = state.players[state.currentPlayer];
-    if (p.cards[cardKey] > 0) {
-        p.cards[cardKey]--;
-        updateCardCount(cardKey);
+    if (p.cards[cardId] > 0) {
+        p.cards[cardId]--;
+        updateCount(cardId);
+        updateAllScores();
     }
 }
 
-function updateCardCount(cardKey) {
-    const el = document.getElementById('count-' + cardKey);
+function updateCount(cardId) {
+    const el = document.getElementById('count-' + cardId);
     if (!el) return;
-    const count = state.players[state.currentPlayer].cards[cardKey] || 0;
+    const count = state.players[state.currentPlayer].cards[cardId] || 0;
     el.textContent = count + '×';
 }
 
+// ===== Cave =====
+const CAVE_CARDS = [
+    { id: 'batCave', name: { en: 'Bat Cave', nl: 'Vleermuisgrot' }, points: 0 },
+    { id: 'collectorsCave', name: { en: "Collector's Cave", nl: 'Verzamelaarsgrot' }, points: 0 },
+];
+
 function addCaveCard() {
     const p = state.players[state.currentPlayer];
-    const caveKeys = ['batCave', 'collectorsCave'];
-    const nextIdx = p.caveCards.length % caveKeys.length;
-    p.caveCards.push(caveKeys[nextIdx]);
-    renderCaveCard(caveKeys[nextIdx]);
+    const nextIdx = p.caveCards.length % CAVE_CARDS.length;
+    p.caveCards.push(CAVE_CARDS[nextIdx].id);
+    renderCaveCard(CAVE_CARDS[nextIdx].id);
 }
 
-function removeCaveCard(cardKey) {
+function removeCaveCard(cardId) {
     const p = state.players[state.currentPlayer];
-    const idx = p.caveCards.lastIndexOf(cardKey);
+    const idx = p.caveCards.lastIndexOf(cardId);
     if (idx !== -1) p.caveCards.splice(idx, 1);
     rebuildCaveUI();
     updateCaveUI();
@@ -212,6 +232,38 @@ function removeAllCaveCards() {
     updateCaveUI();
 }
 
+function renderCaveCard(cardId) {
+    const container = document.getElementById('caveCards');
+    const card = CAVE_CARDS.find(c => c.id === cardId);
+
+    const row = document.createElement('div');
+    row.className = 'cave-card-row';
+
+    const count = document.createElement('span');
+    count.className = 'cave-card-count';
+    count.textContent = '1×';
+    row.appendChild(count);
+
+    const name = document.createElement('span');
+    name.className = 'cave-card-name';
+    name.textContent = (card && card.name[LANG]) || cardId;
+    row.appendChild(name);
+
+    const remove = document.createElement('button');
+    remove.className = 'cave-card-remove';
+    remove.textContent = '×';
+    remove.onclick = function() { removeCaveCard(cardId); };
+    row.appendChild(remove);
+
+    const pts = document.createElement('span');
+    pts.className = 'cave-card-points';
+    pts.textContent = card ? card.points : 0;
+    row.appendChild(pts);
+
+    container.appendChild(row);
+    updateCaveUI();
+}
+
 function rebuildCaveUI() {
     const container = document.getElementById('caveCards');
     container.innerHTML = '';
@@ -219,7 +271,12 @@ function rebuildCaveUI() {
     p.caveCards.forEach(k => renderCaveCard(k));
 }
 
-// ===== Player Management (in settings panel) =====
+function updateCaveUI() {
+    const count = state.players[state.currentPlayer].caveCards.length;
+    document.getElementById('caveCount').textContent = count + '×';
+}
+
+// ===== Player Management =====
 function addPlayer() {
     if (state.players.length >= 5) return;
     const idx = state.players.length + 1;
@@ -231,7 +288,7 @@ function addPlayer() {
 
 function removePlayer(idx) {
     if (state.players.length <= 1) return;
-    if (idx <= 0) return;  // First player cannot be removed
+    if (idx <= 0) return;
     if (idx >= state.players.length) return;
 
     state.players.splice(idx, 1);
@@ -345,7 +402,8 @@ function switchPlayer(idx) {
     updateHeaderPlayerName();
     rebuildCaveUI();
     updateCaveUI();
-    Object.keys(CARDS).forEach(k => updateCardCount(k));
+    CARDS.forEach(c => updateCount(c.id));
+    updateAllScores();
 }
 
 function updateHeaderPlayerName() {
@@ -358,17 +416,12 @@ function updateHeaderPlayerName() {
 function updatePlusButton() {
     const plus = document.getElementById('settingsAddPlayer');
     if (!plus) return;
-    if (state.players.length >= 5) {
-        plus.classList.add('disabled');
-    } else {
-        plus.classList.remove('disabled');
-    }
+    plus.classList.toggle('disabled', state.players.length >= 5);
 }
 
 // ===== Game Selection =====
 function selectGame(game) {
-    if (game === 'dartmoor') return;  // Disabled until available
-
+    if (game === 'dartmoor') return;
     state.game = game;
     document.querySelectorAll('.settings-row .radio').forEach(r => r.classList.remove('checked'));
     const forestRow = document.getElementById('gameForest');
@@ -397,42 +450,18 @@ function newGame() {
         state.players.forEach(p => { p.cards = {}; p.caveCards = []; });
         rebuildCaveUI();
         updateCaveUI();
-        Object.keys(CARDS).forEach(k => updateCardCount(k));
+        CARDS.forEach(c => updateCount(c.id));
+        updateAllScores();
         closeSettings();
     }
 }
 
-// ===== Populate Cards =====
+// ===== Init =====
 window.addEventListener('DOMContentLoaded', function() {
-    const sections = {
-        treeCards: ['silverFir','europeanLarch','stonePine','sessileOak','commonBeech','commonLime','silverBirch','rowan','hornbeam'],
-        shrubCards: ['blackthorn','commonHazel','bramble','dogwood'],
-        birdTopCards: ['coalTit','blueTit','greatTit','goldcrest','nuthatch','shortToedTreecreeper'],
-        butterflyCards: ['camberwellBeauty','purpleEmperor','smallTortoiseshell'],
-        pawedTopCards: ['redSquirrel'],
-        plantTopCards: ['woodSorrel'],
-        plantBottomCards: ['commonNettle'],
-        mushroomCards: ['blackTrumpet','commonMorel','cèpe','chanterelle'],
-        amphibianCards: ['commonFrog','fireSalamander'],
-        insectBottomCards: ['stagBeetle'],
-        pawedBottomCards: ['wildBoar'],
-        insectSideCards: ['woodAnt'],
-        batCards: ['commonPipistrelle','brownLongEaredBat','barbastelleBat'],
-        deerCards: ['redDeer','roeDeer','chamois'],
-        pawedSideCards: ['yellowNeckedMouse'],
-    };
-
-    Object.entries(sections).forEach(([id, keys]) => {
-        const container = document.getElementById(id);
-        if (container) {
-            keys.forEach(k => renderCardRow(container, k));
-        }
-    });
-
-    // Initialize player list
+    buildCardSections();
+    updateAllScores();
     rebuildPlayerList();
     rebuildCaveUI();
     updateCaveUI();
-    Object.keys(CARDS).forEach(k => updateCardCount(k));
     updateHeaderPlayerName();
 });
