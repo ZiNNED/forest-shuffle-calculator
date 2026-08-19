@@ -71,6 +71,9 @@ const CARDS = {
     collectorsCave:  { name: "Collector's Cave", symbol: 'cave', points: 0 },
 };
 
+// Player colors (Bootstrap palette)
+const PLAYER_COLORS = ['#274e37', '#547AA5', '#EC9A29', '#A8201A', '#9eb9a6'];
+
 // ===== State =====
 let state = {
     currentPlayer: 0,
@@ -216,29 +219,20 @@ function rebuildCaveUI() {
     p.caveCards.forEach(k => renderCaveCard(k));
 }
 
-// ===== Player Management =====
+// ===== Player Management (in settings panel) =====
 function addPlayer() {
     if (state.players.length >= 5) return;
     const idx = state.players.length + 1;
     state.players.push({ name: 'Player ' + idx, cards: {}, caveCards: [] });
-    rebuildPlayerSelector();
+    rebuildPlayerList();
     switchPlayer(state.players.length - 1);
     updatePlusButton();
 }
 
-function updatePlusButton() {
-    const plus = document.querySelector('.plus-btn');
-    if (!plus) return;
-    if (state.players.length >= 5) {
-        plus.classList.add('disabled');
-    } else {
-        plus.classList.remove('disabled');
-    }
-}
-
 function removePlayer(idx) {
     if (state.players.length <= 1) return;
-    if (idx < 0 || idx >= state.players.length) return;
+    if (idx <= 0) return;  // First player cannot be removed
+    if (idx >= state.players.length) return;
 
     state.players.splice(idx, 1);
 
@@ -248,115 +242,142 @@ function removePlayer(idx) {
         state.currentPlayer--;
     }
 
-    rebuildPlayerSelector();
+    rebuildPlayerList();
     switchPlayer(state.currentPlayer);
     updatePlusButton();
 }
 
 function editPlayerName(idx) {
-    const btn = document.querySelectorAll('.player-btn')[idx];
-    if (!btn) return;
-    const span = btn.querySelector('.player-name-span');
-    if (!span) return;
+    const rows = document.querySelectorAll('.settings-player-row');
+    if (idx >= rows.length) return;
+    const row = rows[idx];
+    const nameSpan = row.querySelector('.settings-player-name');
+    if (!nameSpan) return;
 
-    const current = span.textContent;
+    const current = nameSpan.textContent;
     const input = document.createElement('input');
     input.type = 'text';
     input.value = current;
-    input.style.background = '#212529';
-    input.style.color = '#dee2e6';
-    input.style.border = '1px solid #274e37';
+    input.style.width = '100%';
+    input.style.background = 'white';
+    input.style.color = '#212529';
+    input.style.border = '1px solid var(--green)';
     input.style.borderRadius = '4px';
     input.style.padding = '2px 6px';
-    input.style.fontSize = '0.8rem';
+    input.style.fontSize = '0.85rem';
     input.style.fontFamily = 'inherit';
-    input.style.width = '90px';
     input.style.outline = 'none';
 
-    span.style.display = 'none';
-    span.parentNode.insertBefore(input, span.nextSibling);
+    nameSpan.style.display = 'none';
+    nameSpan.parentNode.insertBefore(input, nameSpan.nextSibling);
     input.focus();
     input.select();
 
     function save() {
         const val = input.value.trim() || 'Player ' + (idx + 1);
-        span.textContent = val;
+        nameSpan.textContent = val;
         state.players[idx].name = val;
         input.remove();
-        span.style.display = '';
+        nameSpan.style.display = '';
+        updateHeaderPlayerName();
     }
 
     input.onblur = save;
     input.onkeydown = function(e) {
         if (e.key === 'Enter') { save(); }
-        if (e.key === 'Escape') { span.style.display = ''; input.remove(); }
+        if (e.key === 'Escape') { nameSpan.style.display = ''; input.remove(); }
     };
 }
 
-function rebuildPlayerSelector() {
-    const sel = document.getElementById('playerSelector');
-    const list = document.getElementById('playerList');
+function rebuildPlayerList() {
+    const list = document.getElementById('settingsPlayerList');
+    if (!list) return;
     list.innerHTML = '';
 
     state.players.forEach((p, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'player-btn' + (i === state.currentPlayer ? ' active' : '');
-        btn.dataset.player = i + 1;
+        const row = document.createElement('div');
+        row.className = 'settings-player-row' + (i === state.currentPlayer ? ' active' : '');
+        row.dataset.player = i + 1;
+
+        const color = document.createElement('span');
+        color.className = 'settings-player-color';
+        color.style.background = PLAYER_COLORS[i % PLAYER_COLORS.length];
+        row.appendChild(color);
 
         const nameSpan = document.createElement('span');
-        nameSpan.className = 'player-name-span';
+        nameSpan.className = 'settings-player-name';
         nameSpan.textContent = p.name;
-        btn.appendChild(nameSpan);
+        row.appendChild(nameSpan);
 
-        const editIcon = document.createElement('span');
-        editIcon.className = 'player-edit-btn';
+        const editIcon = document.createElement('button');
+        editIcon.className = 'settings-player-edit';
         editIcon.textContent = '✎';
         editIcon.onclick = function(e) {
             e.stopPropagation();
             editPlayerName(i);
         };
-        btn.appendChild(editIcon);
+        row.appendChild(editIcon);
 
-        if (i > 0 && state.players.length > 1) {
-            const removeIcon = document.createElement('span');
-            removeIcon.className = 'player-remove-btn';
+        if (i > 0) {
+            const removeIcon = document.createElement('button');
+            removeIcon.className = 'settings-player-remove';
             removeIcon.textContent = '×';
             removeIcon.onclick = function(e) {
                 e.stopPropagation();
                 removePlayer(i);
             };
-            btn.appendChild(removeIcon);
+            row.appendChild(removeIcon);
         }
 
-        btn.onclick = function() { switchPlayer(i); };
-        list.appendChild(btn);
+        row.onclick = function() { switchPlayer(i); };
+        list.appendChild(row);
     });
 
     updatePlusButton();
+    updateHeaderPlayerName();
 }
 
 function switchPlayer(idx) {
     state.currentPlayer = idx;
-    document.querySelectorAll('.player-btn').forEach(b => b.classList.remove('active'));
-    document.querySelectorAll('.player-btn')[idx].classList.add('active');
+    document.querySelectorAll('.settings-player-row').forEach(r => r.classList.remove('active'));
+    const rows = document.querySelectorAll('.settings-player-row');
+    if (rows[idx]) rows[idx].classList.add('active');
+    updateHeaderPlayerName();
     rebuildCaveUI();
     updateCaveUI();
     Object.keys(CARDS).forEach(k => updateCardCount(k));
 }
 
+function updateHeaderPlayerName() {
+    const el = document.getElementById('currentPlayerName');
+    if (!el) return;
+    const p = state.players[state.currentPlayer];
+    if (p) el.textContent = p.name;
+}
+
+function updatePlusButton() {
+    const plus = document.getElementById('settingsAddPlayer');
+    if (!plus) return;
+    if (state.players.length >= 5) {
+        plus.classList.add('disabled');
+    } else {
+        plus.classList.remove('disabled');
+    }
+}
+
 // ===== Game Selection =====
 function selectGame(game) {
+    if (game === 'dartmoor') return;  // Disabled until available
+
     state.game = game;
     document.querySelectorAll('.settings-row .radio').forEach(r => r.classList.remove('checked'));
-    if (game === 'forest') {
-        document.querySelectorAll('.settings-row')[0].querySelector('.radio').classList.add('checked');
-    } else {
-        document.querySelectorAll('.settings-row')[1].querySelector('.radio').classList.add('checked');
-    }
+    const forestRow = document.getElementById('gameForest');
+    if (forestRow) forestRow.querySelector('.radio').classList.add('checked');
 }
 
 // ===== Settings =====
 function openSettings() {
+    rebuildPlayerList();
     document.getElementById('settingsOverlay').classList.add('open');
     document.getElementById('settingsPanel').classList.add('open');
 }
@@ -408,9 +429,10 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Initialize player selector
-    rebuildPlayerSelector();
+    // Initialize player list
+    rebuildPlayerList();
     rebuildCaveUI();
     updateCaveUI();
     Object.keys(CARDS).forEach(k => updateCardCount(k));
+    updateHeaderPlayerName();
 });

@@ -12,12 +12,10 @@
 <nav class="top-nav">
     <div class="nav-left">
         <button class="nav-btn" onclick="openSettings()">&#9776;</button>
-        <div class="player-selector" id="playerSelector">
-            <div class="players" id="playerList"></div>
-            <button class="player-btn plus-btn" onclick="addPlayer()">+</button>
-        </div>
+        <span class="nav-title">Forest</span>
     </div>
     <div class="nav-right">
+        <span class="current-player-name" id="currentPlayerName">Player 1</span>
         <button class="nav-btn" onclick="exportGame()" title="Export">&#8593;</button>
     </div>
 </nav>
@@ -26,20 +24,31 @@
 <div class="settings-overlay" id="settingsOverlay" onclick="closeSettings()"></div>
 <div class="settings-panel" id="settingsPanel">
     <div class="settings-header">
-        <span>Settings</span>
+        <span>Menu</span>
         <button class="settings-close" onclick="closeSettings()">&#215;</button>
     </div>
 
     <div class="settings-group">
         <div class="settings-group-title">Game</div>
-        <div class="settings-row" onclick="selectGame('forest')">
+        <div class="settings-row" id="gameForest" onclick="selectGame('forest')">
             <span class="settings-label">Forest Shuffle</span>
             <span class="radio checked"></span>
         </div>
-        <div class="settings-row" onclick="selectGame('dartmoor')">
-            <span class="settings-label">Dartmoor</span>
+        <div class="settings-row disabled" id="gameDartmoor" onclick="selectGame('dartmoor')">
+            <span class="settings-label">Dartmoor <span class="badge-soon">Soon</span></span>
             <span class="radio"></span>
         </div>
+    </div>
+
+    <div class="settings-group">
+        <div class="settings-group-title">Players</div>
+        <div class="settings-players" id="settingsPlayerList">
+            <!-- Rendered by JS -->
+        </div>
+        <button class="settings-add-player" id="settingsAddPlayer" onclick="addPlayer()">
+            <span class="settings-add-plus">+</span>
+            <span>Add Player</span>
+        </button>
     </div>
 
     <div class="settings-group disabled">
@@ -91,9 +100,7 @@
     </div>
 
     <div class="settings-group" style="margin-top: 24px;">
-        <button class="card-btn" style="background:var(--red);margin:0;border-radius:6px;justify-content:center;" onclick="newGame()">
-            <span class="card-name" style="text-align:center;">New Game</span>
-        </button>
+        <button class="settings-new-game" onclick="newGame()">New Game</button>
     </div>
 </div>
 
