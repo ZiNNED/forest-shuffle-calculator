@@ -489,7 +489,7 @@ html, body {
     width: 0;
 }
 .attached-btn {
-    background: var(--sage) !important;
+    background: var(--blue) !important;
 }
 .attached-btn:hover { filter: brightness(1.15); }
 
@@ -590,6 +590,7 @@ html, body {
 @media (max-width: 480px) {
     .settings-panel { max-width: 90vw; }
     .card-row { padding: 3px 8px; }
+    .attached-row { padding-left: 48px; }
     .section-header { padding: 10px 8px 4px; }
     .zone-divider { padding: 22px 8px 8px; }
 }

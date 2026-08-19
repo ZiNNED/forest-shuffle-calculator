@@ -163,6 +163,17 @@ function computeCardTotal(cardId) {
             total += rule.points * owned;
         }
 
+        else if (rule.type === 'base' && score === 'perTree') {
+            // Count all tree cards owned by this player
+            let treeCount = 0;
+            CARDS.forEach(c => {
+                if (c.category === 'tree') {
+                    treeCount += p.cards[c.id] || 0;
+                }
+            });
+            total += rule.points * treeCount;
+        }
+
         else if (rule.type === 'whenMinimumMet' && score === 'per') {
             if (owned >= rule.minimum) {
                 total += rule.points * owned;

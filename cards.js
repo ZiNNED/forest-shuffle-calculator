@@ -2,7 +2,7 @@
 // Cards with names, symbols, categories, and scoring rules
 //
 // Scoring rule types:
-//   base          — fixed points per card (score: "per")
+//   base          — fixed points per card (score: "per") or per tree ("perTree")
 //   whenMinimumMet — points per card when ≥minimum owned (score: "per")
 //   whenDifferentTreeCount — points per card when ≥minimum unique tree species (score: "per")
 //   mostOfType    — bonus points per card when player has the most of this type (score: "per")
@@ -97,6 +97,17 @@ const CARDS = [
     expansion: "base",
     scoring: [
       { type: "conditional", points: 2, score: "perConditionMet", condition: "perAttachedCard" }
+    ]
+  },
+  {
+    id: "sycamore",
+    names: { en: "Sycamore", nl: "Esdoorn" },
+    category: "tree",
+    symbols: ["tree", "sycamore"],
+    positions: [],
+    expansion: "base",
+    scoring: [
+      { type: "base", points: 1, score: "perTree" }
     ]
   }
 ];
