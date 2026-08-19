@@ -23,35 +23,35 @@
 <div class="settings-overlay" id="settingsOverlay" onclick="closeSettings()"></div>
 <div class="settings-panel" id="settingsPanel">
     <div class="settings-header">
-        <span data-i18n="Menu">Menu</span>
+        <span data-i18n="menu">Menu</span>
         <button class="settings-close" onclick="closeSettings()">&#215;</button>
     </div>
 
     <div class="settings-group">
-        <div class="settings-group-title" data-i18n="Game">Game</div>
+        <div class="settings-group-title" data-i18n="game">Game</div>
         <div class="settings-row" id="gameForest" onclick="selectGame('forest')">
             <span class="settings-label">Forest Shuffle</span>
             <span class="radio checked"></span>
         </div>
         <div class="settings-row disabled" id="gameDartmoor" onclick="selectGame('dartmoor')">
-            <span class="settings-label">Dartmoor <span class="badge-soon" data-i18n="Soon">Soon</span></span>
+            <span class="settings-label">Dartmoor <span class="badge-soon" data-i18n="soon">Soon</span></span>
             <span class="radio"></span>
         </div>
     </div>
 
     <div class="settings-group">
-        <div class="settings-group-title" data-i18n="Players">Players</div>
+        <div class="settings-group-title" data-i18n="players">Players</div>
         <div class="settings-players" id="settingsPlayerList">
             <!-- Rendered by JS -->
         </div>
         <button class="settings-add-player" id="settingsAddPlayer" onclick="addPlayer()">
             <span class="settings-add-plus">+</span>
-            <span data-i18n="Add Player">Add Player</span>
+            <span data-i18n="addPlayer">Add Player</span>
         </button>
     </div>
 
     <div class="settings-group">
-        <div class="settings-group-title" data-i18n="Language">Language</div>
+        <div class="settings-group-title" data-i18n="language">Language</div>
         <div class="settings-lang-row">
             <button class="lang-btn" id="langEn" onclick="setLanguage('en')">&#127482;&#127480;</button>
             <button class="lang-btn" id="langNl" onclick="setLanguage('nl')">&#127475;&#127473;</button>
@@ -59,7 +59,7 @@
     </div>
 
     <div class="settings-group disabled">
-        <div class="settings-group-title">Expansions <span class="badge-soon">Soon</span></div>
+        <div class="settings-group-title">Expansions <span class="badge-soon" data-i18n="soon">Soon</span></div>
         <div class="settings-row">
             <span class="settings-label">Alpine</span>
             <span class="toggle"></span>
@@ -75,7 +75,7 @@
     </div>
 
     <div class="settings-group disabled">
-        <div class="settings-group-title">Promos <span class="badge-soon">Soon</span></div>
+        <div class="settings-group-title">Promos <span class="badge-soon" data-i18n="soon">Soon</span></div>
         <div class="settings-row">
             <span class="settings-label">Dürer</span>
             <span class="toggle"></span>
@@ -99,7 +99,7 @@
     </div>
 
     <div class="settings-group" style="margin-top: 24px;">
-        <button class="settings-new-game" onclick="newGame()" data-i18n="New Game">New Game</button>
+        <button class="settings-new-game" onclick="newGame()" data-i18n="newGame">New Game</button>
     </div>
 </div>
 
@@ -113,23 +113,23 @@
     <div class="forest-summary" id="forestSummary">
         <div class="summary-card">
             <div class="summary-row">
-                <span class="summary-label" data-i18n="Tree Points">Tree Points</span>
+                <span class="summary-label" data-i18n="treePoints">Tree Points</span>
                 <span class="summary-value" id="treePoints">0</span>
             </div>
             <div class="summary-row">
-                <span class="summary-label" data-i18n="Top Points">Top Points</span>
+                <span class="summary-label" data-i18n="topPoints">Top Points</span>
                 <span class="summary-value" id="topPoints">0</span>
             </div>
             <div class="summary-row">
-                <span class="summary-label" data-i18n="Bottom Points">Bottom Points</span>
+                <span class="summary-label" data-i18n="bottomPoints">Bottom Points</span>
                 <span class="summary-value" id="bottomPoints">0</span>
             </div>
             <div class="summary-row">
-                <span class="summary-label" data-i18n="Side Points">Side Points</span>
+                <span class="summary-label" data-i18n="sidePoints">Side Points</span>
                 <span class="summary-value" id="sidePoints">0</span>
             </div>
             <div class="summary-row total-row">
-                <span class="summary-label" data-i18n="Total">Total</span>
+                <span class="summary-label" data-i18n="total">Total</span>
                 <span class="summary-value" id="totalPoints">0</span>
             </div>
         </div>

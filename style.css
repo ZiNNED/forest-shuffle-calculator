@@ -19,7 +19,7 @@
     --radius: 8px;
     --nav-height: 52px;
     --card-btn-radius: 6px;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -335,14 +335,15 @@ html, body {
 .settings-row.disabled:hover { background: transparent; }
 
 .badge-soon {
-    font-size: 0.65rem;
-    background: var(--border);
-    color: var(--text-muted);
-    padding: 1px 6px;
-    border-radius: 8px;
+    font-size: 0.75rem;
+    background: var(--amber);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 10px;
     text-transform: none;
     letter-spacing: normal;
-    margin-left: 4px;
+    font-weight: 700;
+    margin-left: 6px;
 }
 
 /* ===== Main Scroll ===== */
@@ -431,7 +432,7 @@ html, body {
     border: none;
     border-radius: var(--card-btn-radius);
     color: white;
-    font-size: 0.85rem;
+    font-size: 0.95rem;
     cursor: pointer;
     font-family: inherit;
     min-width: 0;
@@ -475,9 +476,9 @@ html, body {
 .card-remove:hover { opacity: 0.85; }
 
 .card-points {
-    width: 28px;
+    width: 32px;
     text-align: right;
-    font-size: 0.85rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--text-secondary);
     flex-shrink: 0;

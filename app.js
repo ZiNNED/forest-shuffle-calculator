@@ -97,6 +97,33 @@ let state = {
     game: 'forest',
 };
 
+// Load saved state from localStorage
+function loadState() {
+    try {
+        const saved = localStorage.getItem('forestState');
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            if (parsed && parsed.players && parsed.players.length > 0) {
+                state.players = parsed.players;
+                state.currentPlayer = parsed.currentPlayer || 0;
+                state.game = parsed.game || 'forest';
+            }
+        }
+    } catch (e) { /* ignore corrupt data */ }
+}
+
+function saveState() {
+    try {
+        localStorage.setItem('forestState', JSON.stringify({
+            players: state.players,
+            currentPlayer: state.currentPlayer,
+            game: state.game,
+        }));
+    } catch (e) { /* storage full, ignore */ }
+}
+
+loadState();
+
 // ===== Scoring Engine =====
 function computeCardPoints(cardId, ownedCount) {
     const card = CARDS.find(c => c.id === cardId);
@@ -251,6 +278,7 @@ function addCard(cardId) {
     p.cards[cardId] = (p.cards[cardId] || 0) + 1;
     updateCount(cardId);
     updateAllScores();
+    saveState();
 }
 
 function removeCard(cardId) {
@@ -259,6 +287,7 @@ function removeCard(cardId) {
         p.cards[cardId]--;
         updateCount(cardId);
         updateAllScores();
+        saveState();
     }
 }
 
@@ -277,6 +306,7 @@ function addPlayer() {
     rebuildPlayerList();
     switchPlayer(state.players.length - 1);
     updatePlusButton();
+    saveState();
 }
 
 function removePlayer(idx) {
@@ -295,6 +325,7 @@ function removePlayer(idx) {
     rebuildPlayerList();
     switchPlayer(state.currentPlayer);
     updatePlusButton();
+    saveState();
 }
 
 function editPlayerName(idx) {
@@ -330,6 +361,7 @@ function editPlayerName(idx) {
         input.remove();
         nameSpan.style.display = '';
         updateHeaderPlayerName();
+        saveState();
     }
 
     input.onblur = save;
@@ -391,6 +423,7 @@ function switchPlayer(idx) {
     updateHeaderPlayerName();
     CARDS.forEach(c => updateCount(c.id));
     updateAllScores();
+    saveState();
 }
 
 function updateHeaderPlayerName() {
@@ -465,6 +498,7 @@ function newGame() {
         CARDS.forEach(c => updateCount(c.id));
         updateAllScores();
         closeSettings();
+        saveState();
     }
 }
 
