@@ -23,6 +23,9 @@ const L10N = {
         confirmNewGame: 'Start a new game? This will reset all scores.',
         player: 'Player',
         attachedCards: 'Attached Cards',
+        tops: 'Tops',
+        bottoms: 'Bottoms',
+        sides: 'Sides',
         categories: {
             tree: 'TREES',
             shrub: 'SHRUBS',
@@ -53,6 +56,9 @@ const L10N = {
         confirmNewGame: 'Nieuw spel starten? Dit reset alle scores.',
         player: 'Speler',
         attachedCards: 'Aangelegde kaarten',
+        tops: 'Bovenkanten',
+        bottoms: 'Onderkanten',
+        sides: 'Zijkanten',
         categories: {
             tree: 'BOMEN',
             shrub: 'STRUIKEN',
@@ -102,6 +108,27 @@ let state = {
 // Clean up any old persisted state
 try { localStorage.removeItem('forestState'); } catch (e) { /* ignore */ }
 
+// ===== Zone definitions =====
+const ZONES = [
+    {
+        id: 'top',
+        icon: 'T',
+        color: '#547AA5',
+        categories: ['bird', 'butterfly']
+    },
+    {
+        id: 'bottom',
+        icon: 'B',
+        color: '#A8201A',
+        categories: ['mushroom', 'plant', 'insect', 'amphibian']
+    },
+    {
+        id: 'side',
+        icon: 'S',
+        color: '#EC9A29',
+        categories: ['shrub', 'pawedAnimal', 'bat', 'deer']
+    }
+];
 
 // ===== Scoring Engine =====
 // Count unique tree species owned by a player
@@ -197,16 +224,9 @@ function buildCardSections() {
         groups[card.category].push(card);
     });
 
-    Object.entries(groups).forEach(([cat, cards]) => {
-        // Sort cards alphabetically by name in current language
-        cards.sort((a, b) => {
-            const nameA = (a.names[LANG] || a.names.en || a.id).toLowerCase();
-            const nameB = (b.names[LANG] || b.names.en || b.id).toLowerCase();
-            return nameA.localeCompare(nameB);
-        });
+    // Helper: render a category section header + cards
+    function renderCategory(cat) {
         const label = catLabel(cat);
-
-        // Section header
         const header = document.createElement('div');
         header.className = 'section-header';
         const img = document.createElement('img');
@@ -219,12 +239,37 @@ function buildCardSections() {
         header.appendChild(span);
         container.appendChild(header);
 
-        // Card container
         const cardContainer = document.createElement('div');
         cardContainer.id = cat + 'Cards';
+        const cards = groups[cat] || [];
+        cards.sort((a, b) => {
+            const nameA = (a.names[LANG] || a.names.en || a.id).toLowerCase();
+            const nameB = (b.names[LANG] || b.names.en || b.id).toLowerCase();
+            return nameA.localeCompare(nameB);
+        });
         cards.forEach(card => renderCardRow(cardContainer, card));
         container.appendChild(cardContainer);
-    });
+    }
+
+    // Helper: render a zone divider
+    function renderZone(zone) {
+        const zoneName = t(zone.id);
+        const div = document.createElement('div');
+        div.className = 'zone-divider';
+        div.innerHTML = '<span class="zone-icon" style="background:' + zone.color + ';">' + zone.icon + '</span> <span>' + zoneName + '</span>';
+        container.appendChild(div);
+        zone.categories.forEach(cat => renderCategory(cat));
+    }
+
+    // Render trees first (no zone)
+    const treeCat = 'tree';
+    if (groups[treeCat]) {
+        // Trees has its own section header
+        renderCategory(treeCat);
+    }
+
+    // Render zones in order
+    ZONES.forEach(zone => renderZone(zone));
 }
 
 // ===== Render a single card row =====
@@ -349,12 +394,21 @@ function updateAllScores() {
         // Also update attached count display
         updateAttachedDisplay(card.id);
 
-        // Category-based totals
+        // Route points to correct zone
         if (card.category === 'tree') {
             treePoints += totalPts;
+        } else {
+            let routed = false;
+            ZONES.forEach(zone => {
+                if (zone.categories.includes(card.category)) {
+                    if (zone.id === 'top') topPoints += totalPts;
+                    else if (zone.id === 'bottom') bottomPoints += totalPts;
+                    else if (zone.id === 'side') sidePoints += totalPts;
+                    routed = true;
+                }
+            });
+            if (!routed) topPoints += totalPts; // fallback
         }
-        // For now everything is tree; as positions get added, split top/bottom/side
-        topPoints += totalPts;
         total += totalPts;
     });
 
