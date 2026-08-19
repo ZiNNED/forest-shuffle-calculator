@@ -431,7 +431,7 @@ html, body {
     align-items: center;
     gap: 6px;
     padding: 6px 10px;
-    border: none;
+    border: 1px solid #b8bf1e;
     border-radius: var(--card-btn-radius);
     color: #212529;
     font-size: 0.95rem;
