@@ -22,6 +22,7 @@ const L10N = {
         total: 'Total',
         confirmNewGame: 'Start a new game? This will reset all scores.',
         player: 'Player',
+        attachedCards: 'Attached Cards',
         categories: {
             tree: 'TREES',
             shrub: 'SHRUBS',
@@ -51,6 +52,7 @@ const L10N = {
         total: 'Totaal',
         confirmNewGame: 'Nieuw spel starten? Dit reset alle scores.',
         player: 'Speler',
+        attachedCards: 'Bijgevoegde kaarten',
         categories: {
             tree: 'BOMEN',
             shrub: 'STRUIKEN',
@@ -93,7 +95,7 @@ const PLAYER_COLORS = ['#274e37', '#547AA5', '#EC9A29', '#A8201A', '#9eb9a6'];
 // ===== State =====
 let state = {
     currentPlayer: 0,
-    players: [{ name: defaultPlayerName(0), cards: {} }],
+    players: [{ name: defaultPlayerName(0), cards: {}, attached: {} }],
     game: 'forest',
 };
 
@@ -105,6 +107,7 @@ function loadState() {
             const parsed = JSON.parse(saved);
             if (parsed && parsed.players && parsed.players.length > 0) {
                 state.players = parsed.players;
+                state.players.forEach(p => { if (!p.attached) p.attached = {}; });
                 state.currentPlayer = parsed.currentPlayer || 0;
                 state.game = parsed.game || 'forest';
             }
@@ -125,24 +128,72 @@ function saveState() {
 loadState();
 
 // ===== Scoring Engine =====
-function computeCardPoints(cardId, ownedCount) {
+// Count unique tree species owned by a player
+function countUniqueTreeSpecies(player) {
+    const species = new Set();
+    CARDS.forEach(card => {
+        if (card.category === 'tree' && player.cards[card.id] > 0) {
+            species.add(card.id);
+        }
+    });
+    return species.size;
+}
+
+// Check if player has the most of a given card type (ties are "most")
+function hasMostOfType(cardId, playerIdx) {
+    const myCount = state.players[playerIdx].cards[cardId] || 0;
+    for (let i = 0; i < state.players.length; i++) {
+        if (i === playerIdx) continue;
+        if ((state.players[i].cards[cardId] || 0) > myCount) return false;
+    }
+    return true;
+}
+
+function computeCardTotal(cardId) {
     const card = CARDS.find(c => c.id === cardId);
     if (!card) return 0;
+    const p = state.players[state.currentPlayer];
+    const owned = p.cards[cardId] || 0;
     let total = 0;
+
     for (const rule of card.scoring) {
-        if (rule.type === 'base') {
-            total += rule.points;
-        } else if (rule.type === 'whenMinimumMet') {
-            if (ownedCount >= rule.minimum) {
-                total += rule.points;
+        const score = rule.score || 'per';
+
+        if (rule.type === 'base' && score === 'per') {
+            total += rule.points * owned;
+        }
+
+        else if (rule.type === 'whenMinimumMet' && score === 'per') {
+            if (owned >= rule.minimum) {
+                total += rule.points * owned;
             }
+        }
+
+        else if (rule.type === 'whenDifferentTreeCount' && score === 'per') {
+            if (countUniqueTreeSpecies(p) >= rule.minimum) {
+                total += rule.points * owned;
+            }
+        }
+
+        else if (rule.type === 'mostOfType' && score === 'per') {
+            if (hasMostOfType(cardId, state.currentPlayer)) {
+                total += rule.points * owned;
+            }
+        }
+
+        else if (rule.type === 'range' && score === 'total') {
+            if (owned > 0) {
+                const idx = Math.min(owned - 1, rule.points.length - 1);
+                total += rule.points[idx];
+            }
+        }
+
+        else if (rule.type === 'conditional' && rule.condition === 'perAttachedCard') {
+            const attached = (p.attached && p.attached[cardId]) || 0;
+            total += rule.points * attached;
         }
     }
     return total;
-}
-
-function computeCardTotal(cardId, ownedCount) {
-    return computeCardPoints(cardId, ownedCount) * ownedCount;
 }
 
 // ===== Build sections from catalog =====
@@ -236,6 +287,53 @@ function renderCardRow(container, card) {
     row.appendChild(pts);
 
     container.appendChild(row);
+
+    // === Attached sub-row (for cards with perAttachedCard condition) ===
+    if (card.scoring.some(r => r.condition === 'perAttachedCard')) {
+        const aRow = document.createElement('div');
+        aRow.className = 'card-row attached-row';
+        aRow.dataset.cardKey = card.id + '-attached';
+
+        // Indented spacer
+        const spacer = document.createElement('span');
+        spacer.className = 'attached-spacer';
+        aRow.appendChild(spacer);
+
+        // Attached count
+        const aCount = document.createElement('span');
+        aCount.className = 'card-count';
+        aCount.textContent = '0×';
+        aCount.id = 'attached-count-' + card.id;
+        aRow.appendChild(aCount);
+
+        // Button to add attached
+        const aBtn = document.createElement('button');
+        aBtn.className = 'card-btn attached-btn';
+        const aName = document.createElement('span');
+        aName.className = 'card-name';
+        aName.textContent = t('attachedCards');
+        aBtn.appendChild(aName);
+        aBtn.onclick = function() { addAttachedCard(card.id); };
+        aRow.appendChild(aBtn);
+
+        // Remove button
+        const aRemove = document.createElement('button');
+        aRemove.className = 'card-remove';
+        aRemove.textContent = '×';
+        aRemove.onclick = function(e) {
+            e.stopPropagation();
+            removeAttachedCard(card.id);
+        };
+        aRow.appendChild(aRemove);
+
+        // Empty points slot (not used for attached)
+        const aPts = document.createElement('span');
+        aPts.className = 'card-points';
+        aPts.textContent = '';
+        aRow.appendChild(aPts);
+
+        container.appendChild(aRow);
+    }
 }
 
 // ===== Score update =====
@@ -248,13 +346,13 @@ function updateAllScores() {
     let total = 0;
 
     CARDS.forEach(card => {
-        const owned = p.cards[card.id] || 0;
-        const perCard = computeCardPoints(card.id, owned);
-        const totalPts = perCard * owned;
+        const totalPts = computeCardTotal(card.id);
 
         // Update per-card display — show total for this card type
         const ptsEl = document.getElementById('pts-' + card.id);
         if (ptsEl) ptsEl.textContent = totalPts;
+        // Also update attached count display
+        updateAttachedDisplay(card.id);
 
         // Category-based totals
         if (card.category === 'tree') {
@@ -298,11 +396,40 @@ function updateCount(cardId) {
     el.textContent = count + '×';
 }
 
+// ===== Attached Card Actions =====
+function addAttachedCard(cardId) {
+    const p = state.players[state.currentPlayer];
+    if (!p.attached) p.attached = {};
+    p.attached[cardId] = (p.attached[cardId] || 0) + 1;
+    updateAttachedDisplay(cardId);
+    updateAllScores();
+    saveState();
+}
+
+function removeAttachedCard(cardId) {
+    const p = state.players[state.currentPlayer];
+    if (!p.attached) p.attached = {};
+    if (p.attached[cardId] > 0) {
+        p.attached[cardId]--;
+        updateAttachedDisplay(cardId);
+        updateAllScores();
+        saveState();
+    }
+}
+
+function updateAttachedDisplay(cardId) {
+    const el = document.getElementById('attached-count-' + cardId);
+    if (!el) return;
+    const p = state.players[state.currentPlayer];
+    const count = (p.attached && p.attached[cardId]) || 0;
+    el.textContent = count + '×';
+}
+
 // ===== Player Management =====
 function addPlayer() {
     if (state.players.length >= 5) return;
     const idx = state.players.length;
-    state.players.push({ name: defaultPlayerName(idx), cards: {} });
+    state.players.push({ name: defaultPlayerName(idx), cards: {}, attached: {} });
     rebuildPlayerList();
     switchPlayer(state.players.length - 1);
     updatePlusButton();
@@ -494,7 +621,7 @@ function closeSettings() {
 
 function newGame() {
     if (confirm(t('confirmNewGame'))) {
-        state.players.forEach(p => { p.cards = {}; });
+        state.players.forEach(p => { p.cards = {}; p.attached = {}; });
         CARDS.forEach(c => updateCount(c.id));
         updateAllScores();
         closeSettings();

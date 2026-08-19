@@ -477,6 +477,22 @@ html, body {
 }
 .card-remove:hover { opacity: 0.85; }
 
+/* ===== Attached sub-row (Silver Fir ornaments) ===== */
+.attached-row {
+    padding-left: 36px;
+}
+.attached-row .card-count {
+    min-width: 32px;
+}
+.attached-spacer {
+    display: inline-block;
+    width: 0;
+}
+.attached-btn {
+    background: var(--blue) !important;
+}
+.attached-btn:hover { filter: brightness(1.15); }
+
 .card-points {
     width: 32px;
     text-align: right;
