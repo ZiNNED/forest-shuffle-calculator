@@ -23,12 +23,14 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
+button { touch-action: manipulation; }
 
 html, body {
     height: 100%;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background: var(--bg-body);
     color: var(--text-primary);
+    touch-action: manipulation;
     overflow: hidden;
     -webkit-tap-highlight-color: transparent;
     user-select: none;
