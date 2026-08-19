@@ -350,9 +350,9 @@ html, body {
 
 /* ===== Main Scroll ===== */
 .forest-scroll {
-    height: calc(100vh - var(--nav-height) - 120px);
+    height: calc(100vh - var(--nav-height) - 190px);
     overflow-y: auto;
-    padding-bottom: 16px;
+    padding-bottom: 20px;
 }
 .forest-scroll::-webkit-scrollbar { width: 6px; }
 .forest-scroll::-webkit-scrollbar-track { background: transparent; }
