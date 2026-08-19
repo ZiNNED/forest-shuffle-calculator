@@ -223,6 +223,17 @@ function addPlayer() {
     state.players.push({ name: 'Player ' + idx, cards: {}, caveCards: [] });
     rebuildPlayerSelector();
     switchPlayer(state.players.length - 1);
+    updatePlusButton();
+}
+
+function updatePlusButton() {
+    const plus = document.querySelector('.plus-btn');
+    if (!plus) return;
+    if (state.players.length >= 5) {
+        plus.classList.add('disabled');
+    } else {
+        plus.classList.remove('disabled');
+    }
 }
 
 function removePlayer(idx) {
@@ -239,6 +250,7 @@ function removePlayer(idx) {
 
     rebuildPlayerSelector();
     switchPlayer(state.currentPlayer);
+    updatePlusButton();
 }
 
 function editPlayerName(idx) {
@@ -305,7 +317,7 @@ function rebuildPlayerSelector() {
         };
         btn.appendChild(editIcon);
 
-        if (state.players.length > 1) {
+        if (i > 0 && state.players.length > 1) {
             const removeIcon = document.createElement('span');
             removeIcon.className = 'player-remove-btn';
             removeIcon.textContent = '×';
@@ -319,6 +331,8 @@ function rebuildPlayerSelector() {
         btn.onclick = function() { switchPlayer(i); };
         list.appendChild(btn);
     });
+
+    updatePlusButton();
 }
 
 function switchPlayer(idx) {
@@ -393,4 +407,10 @@ window.addEventListener('DOMContentLoaded', function() {
             keys.forEach(k => renderCardRow(container, k));
         }
     });
+
+    // Initialize player selector
+    rebuildPlayerSelector();
+    rebuildCaveUI();
+    updateCaveUI();
+    Object.keys(CARDS).forEach(k => updateCardCount(k));
 });

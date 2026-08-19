@@ -106,21 +106,34 @@ html, body {
     padding: 0;
     font-weight: bold;
     font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    line-height: 1;
 }
 .player-btn.plus-btn:hover {
     background: rgba(255,255,255,0.08);
+}
+.player-btn.plus-btn.disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+    border-color: var(--border);
+}
+.player-btn.plus-btn.disabled:hover {
+    background: transparent;
 }
 
 .player-remove-btn {
     background: none;
     border: none;
-    color: var(--border);
+    color: var(--text-muted);
     cursor: pointer;
     padding: 0 1px;
     font-size: 0.85rem;
     line-height: 1;
     border-radius: 3px;
-    margin-left: 1px;
+    margin-left: 2px;
 }
 
 .player-remove-btn:hover {
@@ -131,16 +144,15 @@ html, body {
 .player-edit-btn {
     background: none;
     border: none;
-    color: var(--border);
+    color: var(--text-muted);
     cursor: pointer;
     padding: 0;
     font-size: 0.7rem;
     line-height: 1;
-    opacity: 0.6;
+    margin-left: 2px;
 }
 
 .player-edit-btn:hover {
-    opacity: 1;
     color: var(--text-primary);
 }
 
