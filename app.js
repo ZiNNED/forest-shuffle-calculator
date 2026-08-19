@@ -164,14 +164,16 @@ function computeCardTotal(cardId) {
         }
 
         else if (rule.type === 'base' && score === 'perTree') {
-            // Count all tree cards owned by this player
-            let treeCount = 0;
-            CARDS.forEach(c => {
-                if (c.category === 'tree') {
-                    treeCount += p.cards[c.id] || 0;
-                }
-            });
-            total += rule.points * treeCount;
+            // Only scores if you own at least one of this card
+            if (owned > 0) {
+                let treeCount = 0;
+                CARDS.forEach(c => {
+                    if (c.category === 'tree') {
+                        treeCount += p.cards[c.id] || 0;
+                    }
+                });
+                total += rule.points * treeCount * owned;
+            }
         }
 
         else if (rule.type === 'whenMinimumMet' && score === 'per') {
