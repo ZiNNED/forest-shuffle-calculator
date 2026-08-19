@@ -11,7 +11,7 @@ const PLAYER_COLORS = ['#274e37', '#547AA5', '#EC9A29', '#A8201A', '#9eb9a6'];
 // ===== State =====
 let state = {
     currentPlayer: 0,
-    players: [{ name: 'Player 1', cards: {}, caveCards: [] }],
+    players: [{ name: 'Player 1', cards: {} }],
     game: 'forest',
 };
 
@@ -147,7 +147,6 @@ function renderCardRow(container, card) {
 // ===== Score update =====
 function updateAllScores() {
     const p = state.players[state.currentPlayer];
-    let treeCards = 0;
     let treePoints = 0;
     let topPoints = 0;
     let bottomPoints = 0;
@@ -165,7 +164,6 @@ function updateAllScores() {
 
         // Category-based totals
         if (card.category === 'tree') {
-            treeCards += owned;
             treePoints += totalPts;
         }
         // For now everything is tree; as positions get added, split top/bottom/side
@@ -173,7 +171,6 @@ function updateAllScores() {
         total += totalPts;
     });
 
-    document.getElementById('treeCardCount').textContent = treeCards;
     document.getElementById('treePoints').textContent = treePoints;
     document.getElementById('topPoints').textContent = topPoints;
     document.getElementById('bottomPoints').textContent = bottomPoints;
@@ -205,82 +202,11 @@ function updateCount(cardId) {
     el.textContent = count + '×';
 }
 
-// ===== Cave =====
-const CAVE_CARDS = [
-    { id: 'batCave', name: { en: 'Bat Cave', nl: 'Vleermuisgrot' }, points: 0 },
-    { id: 'collectorsCave', name: { en: "Collector's Cave", nl: 'Verzamelaarsgrot' }, points: 0 },
-];
-
-function addCaveCard() {
-    const p = state.players[state.currentPlayer];
-    const nextIdx = p.caveCards.length % CAVE_CARDS.length;
-    p.caveCards.push(CAVE_CARDS[nextIdx].id);
-    renderCaveCard(CAVE_CARDS[nextIdx].id);
-}
-
-function removeCaveCard(cardId) {
-    const p = state.players[state.currentPlayer];
-    const idx = p.caveCards.lastIndexOf(cardId);
-    if (idx !== -1) p.caveCards.splice(idx, 1);
-    rebuildCaveUI();
-    updateCaveUI();
-}
-
-function removeAllCaveCards() {
-    state.players[state.currentPlayer].caveCards = [];
-    rebuildCaveUI();
-    updateCaveUI();
-}
-
-function renderCaveCard(cardId) {
-    const container = document.getElementById('caveCards');
-    const card = CAVE_CARDS.find(c => c.id === cardId);
-
-    const row = document.createElement('div');
-    row.className = 'cave-card-row';
-
-    const count = document.createElement('span');
-    count.className = 'cave-card-count';
-    count.textContent = '1×';
-    row.appendChild(count);
-
-    const name = document.createElement('span');
-    name.className = 'cave-card-name';
-    name.textContent = (card && card.name[LANG]) || cardId;
-    row.appendChild(name);
-
-    const remove = document.createElement('button');
-    remove.className = 'cave-card-remove';
-    remove.textContent = '×';
-    remove.onclick = function() { removeCaveCard(cardId); };
-    row.appendChild(remove);
-
-    const pts = document.createElement('span');
-    pts.className = 'cave-card-points';
-    pts.textContent = card ? card.points : 0;
-    row.appendChild(pts);
-
-    container.appendChild(row);
-    updateCaveUI();
-}
-
-function rebuildCaveUI() {
-    const container = document.getElementById('caveCards');
-    container.innerHTML = '';
-    const p = state.players[state.currentPlayer];
-    p.caveCards.forEach(k => renderCaveCard(k));
-}
-
-function updateCaveUI() {
-    const count = state.players[state.currentPlayer].caveCards.length;
-    document.getElementById('caveCount').textContent = count + '×';
-}
-
 // ===== Player Management =====
 function addPlayer() {
     if (state.players.length >= 5) return;
     const idx = state.players.length + 1;
-    state.players.push({ name: 'Player ' + idx, cards: {}, caveCards: [] });
+    state.players.push({ name: 'Player ' + idx, cards: {} });
     rebuildPlayerList();
     switchPlayer(state.players.length - 1);
     updatePlusButton();
@@ -400,8 +326,6 @@ function switchPlayer(idx) {
     const rows = document.querySelectorAll('.settings-player-row');
     if (rows[idx]) rows[idx].classList.add('active');
     updateHeaderPlayerName();
-    rebuildCaveUI();
-    updateCaveUI();
     CARDS.forEach(c => updateCount(c.id));
     updateAllScores();
 }
@@ -440,16 +364,9 @@ function closeSettings() {
     document.getElementById('settingsPanel').classList.remove('open');
 }
 
-// ===== Export / New Game =====
-function exportGame() {
-    console.log('Export');
-}
-
 function newGame() {
     if (confirm('Start a new game? This will reset all scores.')) {
-        state.players.forEach(p => { p.cards = {}; p.caveCards = []; });
-        rebuildCaveUI();
-        updateCaveUI();
+        state.players.forEach(p => { p.cards = {}; });
         CARDS.forEach(c => updateCount(c.id));
         updateAllScores();
         closeSettings();
@@ -461,7 +378,5 @@ window.addEventListener('DOMContentLoaded', function() {
     buildCardSections();
     updateAllScores();
     rebuildPlayerList();
-    rebuildCaveUI();
-    updateCaveUI();
     updateHeaderPlayerName();
 });

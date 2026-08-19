@@ -336,8 +336,9 @@ html, body {
 
 /* ===== Main Scroll ===== */
 .forest-scroll {
-    height: calc(100vh - var(--nav-height));
+    height: calc(100vh - var(--nav-height) - 120px);
     overflow-y: auto;
+    padding-bottom: 16px;
 }
 .forest-scroll::-webkit-scrollbar { width: 6px; }
 .forest-scroll::-webkit-scrollbar-track { background: transparent; }
@@ -483,124 +484,16 @@ html, body {
 .zi-insect { background: var(--sage); }
 .zi-amphibian { background: var(--sage); }
 .zi-plant { background: var(--sage); }
-.zi-cave { background: var(--dark); }
-
-/* ===== Cave Section ===== */
-.cave-container {
-    display: flex;
-    gap: 16px;
-    padding: 16px;
-    align-items: flex-start;
-}
-
-.cave-image-col {
-    flex-shrink: 0;
-}
-
-.cave-image {
-    width: 80px;
-    height: auto;
-    cursor: pointer;
-    transition: opacity 0.2s;
-}
-.cave-image:hover { opacity: 0.8; }
-
-.cave-details {
-    flex: 1;
-}
-
-.cave-top-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 6px;
-}
-
-.cave-badge {
-    font-weight: 700;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    width: 28px;
-    text-align: right;
-}
-
-.cave-label {
-    flex: 1;
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-.cave-remove-btn {
-    width: 26px;
-    height: 26px;
-    border: none;
-    background: var(--red);
-    color: white;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.15s;
-}
-.cave-remove-btn:hover { opacity: 0.85; }
-
-.cave-card-list {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-top: 4px;
-}
-
-.cave-card-row {
-    display: flex;
-    align-items: center;
-    padding: 2px 0;
-}
-
-.cave-card-count {
-    width: 28px;
-    text-align: right;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-muted);
-}
-
-.cave-card-name {
-    flex: 1;
-    font-size: 0.85rem;
-    margin: 0 6px;
-}
-
-.cave-card-remove {
-    width: 26px;
-    height: 26px;
-    border: none;
-    background: var(--red);
-    color: white;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.15s;
-}
-.cave-card-remove:hover { opacity: 0.85; }
-
-.cave-card-points {
-    width: 28px;
-    text-align: right;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-muted);
-}
-
 /* ===== Forest Summary ===== */
 .forest-summary {
-    padding: 16px;
-    margin-top: 8px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--bg-body);
+    padding: 8px 16px 12px;
+    border-top: 1px solid var(--border);
 }
 
 .summary-card {
@@ -669,6 +562,4 @@ html, body {
     .card-row { padding: 3px 8px; }
     .section-header { padding: 10px 8px 4px; }
     .zone-divider { padding: 22px 8px 8px; }
-    .cave-container { padding: 12px 8px; }
-    .forest-summary { padding: 12px 8px; }
 }

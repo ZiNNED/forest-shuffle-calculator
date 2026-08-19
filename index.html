@@ -16,7 +16,6 @@
     </div>
     <div class="nav-right">
         <span class="current-player-name" id="currentPlayerName">Player 1</span>
-        <button class="nav-btn" onclick="exportGame()" title="Export">&#8593;</button>
     </div>
 </nav>
 
@@ -110,34 +109,9 @@
     <!-- Card sections rendered by JS -->
     <div id="cardSections"></div>
 
-    <!-- === CAVE === -->
-    <div class="zone-divider">
-        <div class="zone-icon zi-cave">&#9675;</div>
-        <span>Cave</span>
-    </div>
-
-    <div class="cave-container">
-        <div class="cave-image-col">
-            <img src="assets/icons/cave.png" alt="Cave" class="cave-image" onclick="addCaveCard()">
-        </div>
-        <div class="cave-details">
-            <div class="cave-top-row">
-                <span class="cave-badge" id="caveCount">0&#215;</span>
-                <span class="cave-label">Cave</span>
-                <button class="cave-remove-btn" id="caveRemoveBtn" onclick="removeAllCaveCards()">&#215;</button>
-            </div>
-            <div class="cave-card-list" id="caveCards">
-            </div>
-        </div>
-    </div>
-
     <!-- === FOREST SUMMARY === -->
-    <div class="forest-summary">
+    <div class="forest-summary" id="forestSummary">
         <div class="summary-card">
-            <div class="summary-row">
-                <span class="summary-label">Tree Cards</span>
-                <span class="summary-value" id="treeCardCount">0</span>
-            </div>
             <div class="summary-row">
                 <span class="summary-label">Tree Points</span>
                 <span class="summary-value" id="treePoints">0</span>
