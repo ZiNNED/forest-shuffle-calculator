@@ -52,7 +52,7 @@ const L10N = {
         total: 'Totaal',
         confirmNewGame: 'Nieuw spel starten? Dit reset alle scores.',
         player: 'Speler',
-        attachedCards: 'Bijgevoegde kaarten',
+        attachedCards: 'Aangelegde kaarten',
         categories: {
             tree: 'BOMEN',
             shrub: 'STRUIKEN',
@@ -209,6 +209,12 @@ function buildCardSections() {
     });
 
     Object.entries(groups).forEach(([cat, cards]) => {
+        // Sort cards alphabetically by name in current language
+        cards.sort((a, b) => {
+            const nameA = (a.names[LANG] || a.names.en || a.id).toLowerCase();
+            const nameB = (b.names[LANG] || b.names.en || b.id).toLowerCase();
+            return nameA.localeCompare(nameB);
+        });
         const label = catLabel(cat);
 
         // Section header
@@ -399,6 +405,8 @@ function updateCount(cardId) {
 // ===== Attached Card Actions =====
 function addAttachedCard(cardId) {
     const p = state.players[state.currentPlayer];
+    // Require at least one of the parent card to attach to
+    if (!p.cards[cardId] || p.cards[cardId] < 1) return;
     if (!p.attached) p.attached = {};
     p.attached[cardId] = (p.attached[cardId] || 0) + 1;
     updateAttachedDisplay(cardId);

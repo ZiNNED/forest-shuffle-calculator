@@ -479,7 +479,7 @@ html, body {
 
 /* ===== Attached sub-row (Silver Fir ornaments) ===== */
 .attached-row {
-    padding-left: 36px;
+    padding-left: 48px;
 }
 .attached-row .card-count {
     min-width: 32px;
@@ -489,7 +489,7 @@ html, body {
     width: 0;
 }
 .attached-btn {
-    background: var(--blue) !important;
+    background: var(--sage) !important;
 }
 .attached-btn:hover { filter: brightness(1.15); }
 
