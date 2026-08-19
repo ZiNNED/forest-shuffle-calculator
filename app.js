@@ -34,9 +34,9 @@ const CARDS = {
     smallTortoiseshell: { name: 'Small Tortoiseshell', symbol: 'butterfly', points: 3 },
 
     // === PAWED ANIMALS ===
-    redSquirrel:     { name: 'Red Squirrel', symbol: 'pawed', points: 5 },
-    yellowNeckedMouse: { name: 'Yellow-necked Mouse', symbol: 'pawed', points: 3 },
-    wildBoar:        { name: 'Wild Boar', symbol: 'pawed', points: 8 },
+    redSquirrel:     { name: 'Red Squirrel', symbol: 'pawedAnimal', points: 5 },
+    yellowNeckedMouse: { name: 'Yellow-necked Mouse', symbol: 'pawedAnimal', points: 3 },
+    wildBoar:        { name: 'Wild Boar', symbol: 'pawedAnimal', points: 8 },
 
     // === PLANTS ===
     woodSorrel:      { name: 'Wood Sorrel', symbol: 'plant', points: 3 },
