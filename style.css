@@ -431,7 +431,7 @@ html, body {
     align-items: center;
     gap: 6px;
     padding: 6px 10px;
-    border: 1px solid #b8bf1e;
+    border: 1px solid #a8ae1e;
     border-radius: var(--card-btn-radius);
     color: white;
     text-shadow: 0 1px 3px rgba(0,0,0,0.45);
@@ -441,7 +441,8 @@ html, body {
     min-width: 0;
     margin: 0 6px;
     transition: filter 0.15s;
-    background: #d5dc2a;
+    background: #c2c82a;
+    border: 1px solid #a8ae1e;
 }
 .card-btn:hover { filter: brightness(1.15); }
 
