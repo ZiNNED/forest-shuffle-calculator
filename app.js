@@ -15,17 +15,17 @@ const L10N = {
         newGame: 'New Game',
         language: 'Language',
         soon: 'Soon',
-        treePoints: 'Tree Points',
+        treePoints: 'General Points',
         topPoints: 'Top Points',
         bottomPoints: 'Bottom Points',
         sidePoints: 'Side Points',
         total: 'Total',
         confirmNewGame: 'Start a new game? This will reset all scores.',
         player: 'Player',
-        attachedCards: 'Attached Cards',
+        attachedCards: 'attached cards',
         tops: 'Tops',
-        bottoms: 'Bottoms',
         sides: 'Sides',
+        general: 'General',
         categories: {
             tree: 'TREES',
             shrub: 'SHRUBS',
@@ -48,17 +48,18 @@ const L10N = {
         newGame: 'Nieuw spel',
         language: 'Taal',
         soon: 'Binnenkort',
-        treePoints: 'Boompunten',
+        treePoints: 'Generieke punten',
         topPoints: 'Bovenpunten',
         bottomPoints: 'Onderpunten',
         sidePoints: 'Zijpunten',
         total: 'Totaal',
         confirmNewGame: 'Nieuw spel starten? Dit reset alle scores.',
         player: 'Speler',
-        attachedCards: 'Aangelegde kaarten',
+        attachedCards: 'aangelegde kaarten',
         tops: 'Bovenkanten',
         bottoms: 'Onderkanten',
         sides: 'Zijkanten',
+        general: 'Generiek',
         categories: {
             tree: 'BOMEN',
             shrub: 'STRUIKEN',
@@ -70,7 +71,7 @@ const L10N = {
             insect: 'INSECTEN',
             amphibian: 'AMFIBIEËN',
             bat: 'VLEERMUIZEN',
-            deer: 'HERTEN & KLAUWDragers',
+            deer: 'HERTEN & EENHOEVIGE DIEREN',
         },
     },
 };
@@ -110,32 +111,32 @@ try { localStorage.removeItem('forestState'); } catch (e) { /* ignore */ }
 
 // ===== Zone definitions =====
 const ZONES = [
-    {
-        id: 'top',
-        icon: 'T',
-        color: '#547AA5',
-        categories: ['bird', 'butterfly']
-    },
-    {
-        id: 'bottom',
-        icon: 'B',
-        color: '#A8201A',
-        categories: ['mushroom', 'plant', 'insect', 'amphibian']
-    },
-    {
-        id: 'side',
-        icon: 'S',
-        color: '#EC9A29',
-        categories: ['shrub', 'pawedAnimal', 'bat', 'deer']
-    }
+    { id: 'general', color: 'var(--green)', categories: ['tree'] },
+    { id: 'tops', color: '#547AA5', categories: ['bird', 'butterfly', 'pawedAnimal'] },
+    { id: 'bottoms', color: '#A8201A', categories: ['plant', 'mushroom', 'amphibian', 'insect', 'pawedAnimal'] },
+    { id: 'sides', color: '#EC9A29', categories: ['insect', 'bat', 'pawedAnimal', 'deer'] }
 ];
+
+// ===== Category Colors =====
+const CATEGORY_COLORS = {
+    tree: { bg: '#c2c82a', border: '#a8ae1e' },
+    bird: { bg: '#639ac3', border: '#4d7da0' },
+    butterfly: { bg: '#7f2a87', border: '#65206b' },
+    pawedAnimal: { bg: '#82412f', border: '#683425' },
+    plant: { bg: '#758e4d', border: '#5d723e' },
+    mushroom: { bg: '#783e32', border: '#5f3127' },
+    amphibian: { bg: '#ad9895', border: '#8b7a78' },
+    insect: { bg: '#608780', border: '#4d6c66' },
+    bat: { bg: '#1f1b18', border: '#151210' },
+    deer: { bg: '#cbac40', border: '#a38c33' }
+};
 
 // ===== Scoring Engine =====
 // Count unique tree species owned by a player
 function countUniqueTreeSpecies(player) {
     const species = new Set();
     CARDS.forEach(card => {
-        if (card.category === 'tree' && player.cards[card.id] > 0) {
+        if (card.zone === 'general' && player.cards[card.id] > 0) {
             species.add(card.id);
         }
     });
@@ -171,7 +172,7 @@ function computeCardTotal(cardId) {
             if (owned > 0) {
                 let treeCount = 0;
                 CARDS.forEach(c => {
-                    if (c.category === 'tree') {
+                    if (c.zone === 'general') {
                         treeCount += p.cards[c.id] || 0;
                     }
                 });
@@ -188,6 +189,25 @@ function computeCardTotal(cardId) {
         else if (rule.type === 'whenDifferentTreeCount' && score === 'per') {
             if (countUniqueTreeSpecies(p) >= rule.minimum) {
                 total += rule.points * owned;
+            }
+        }
+
+        else if (rule.type === 'whenDifferentTreeCount' && score === 'total') {
+            if (owned > 0 && countUniqueTreeSpecies(p) >= rule.minimum) {
+                total += rule.points;
+            }
+        }
+
+        // whenCountMet: points if total cards owned matching rule.category symbol >= minimum
+        else if (rule.type === 'whenCountMet' && owned > 0) {
+            let catCount = 0;
+            CARDS.forEach(c => {
+                if (c.symbols.includes(rule.category)) {
+                    catCount += p.cards[c.id] || 0;
+                }
+            });
+            if (catCount >= rule.minimum) {
+                total += rule.points * (score === 'total' ? 1 : owned);
             }
         }
 
@@ -208,6 +228,53 @@ function computeCardTotal(cardId) {
             const attached = (p.attached && p.attached[cardId]) || 0;
             total += rule.points * attached;
         }
+
+        // perCategory: points × (total cards owned that have the given symbol)
+        else if (rule.type === 'perCategory' && owned > 0) {
+            let catCount = 0;
+            CARDS.forEach(c => {
+                if (c.symbols.includes(rule.category)) {
+                    catCount += p.cards[c.id] || 0;
+                }
+            });
+            total += rule.points * catCount * owned;
+        }
+
+        // conditional: mostTreesNoTies — must have strictly more trees than anyone else
+        else if (rule.type === 'conditional' && rule.condition === 'mostTreesNoTies' && owned > 0) {
+            let myTrees = 0;
+            CARDS.forEach(c => {
+                if (c.zone === 'general') myTrees += p.cards[c.id] || 0;
+            });
+            let isMost = true;
+            for (let i = 0; i < state.players.length; i++) {
+                if (i === state.currentPlayer) continue;
+                let theirTrees = 0;
+                CARDS.forEach(c => {
+                    if (c.zone === 'general') theirTrees += state.players[i].cards[c.id] || 0;
+                });
+                if (theirTrees >= myTrees) { isMost = false; break; }
+            }
+            if (isMost) total += rule.points * owned;
+        }
+
+        // conditional: atSpecificCard — points if player owns ≥1 of the named card
+        else if (rule.type === 'conditional' && rule.condition === 'atSpecificCard' && owned > 0) {
+            if ((p.cards[rule.card] || 0) > 0) {
+                total += rule.points * owned;
+            }
+        }
+
+        // rangedCondition: differentTypes — total lookup by unique species by symbol
+        else if (rule.type === 'rangedCondition' && rule.condition === 'differentTypes' && owned > 0) {
+            const key = card.symbols[0];
+            const catTotal = categoryTotals[key];
+            if (catTotal !== undefined) {
+                // DifferentTypes is a total per category, not per card.
+                // Only count it once per card (each card shows the same total).
+                total = catTotal;
+            }
+        }
     }
     return total;
 }
@@ -217,59 +284,110 @@ function buildCardSections() {
     const container = document.getElementById('cardSections');
     container.innerHTML = '';
 
-    // Group cards by category
-    const groups = {};
+    // Group cards by zone
+    const byZone = {};
     CARDS.forEach(card => {
-        if (!groups[card.category]) groups[card.category] = [];
-        groups[card.category].push(card);
+        if (!byZone[card.zone]) byZone[card.zone] = [];
+        byZone[card.zone].push(card);
     });
 
-    // Helper: render a category section header + cards
-    function renderCategory(cat) {
-        const label = catLabel(cat);
-        const header = document.createElement('div');
-        header.className = 'section-header';
+    // Group cards by category for sorting
+    function byCategory(cards) {
+        const groups = {};
+        cards.forEach(c => {
+            if (!groups[c.category]) groups[c.category] = [];
+            groups[c.category].push(c);
+        });
+        return groups;
+    }
+
+    // Sort cards by current language name
+    function sortCards(cards) {
+        return cards.slice().sort((a, b) => {
+            const nA = (a.names[LANG] || a.names.en || a.id).toLowerCase();
+            const nB = (b.names[LANG] || b.names.en || b.id).toLowerCase();
+            return nA.localeCompare(nB);
+        });
+    }
+
+    // Render a category <details> with cards inside
+    function buildCategoryDetails(cat, cards) {
+        const details = document.createElement('details');
+        details.className = 'cat-details';
+
+        const summary = document.createElement('summary');
+        summary.className = 'cat-summary';
+
         const img = document.createElement('img');
         img.className = 'symbol-icon';
         img.src = 'assets/symbols/' + cat + '.png';
         img.alt = cat;
-        header.appendChild(img);
+        summary.appendChild(img);
+        if (cat === 'deer') {
+            const img2 = document.createElement('img');
+            img2.className = 'symbol-icon';
+            img2.src = 'assets/symbols/clovenHoofedAnimal.png';
+            img2.alt = 'clovenHoofedAnimal';
+            summary.appendChild(img2);
+        }
+
         const span = document.createElement('span');
-        span.textContent = label;
-        header.appendChild(span);
-        container.appendChild(header);
+        span.textContent = catLabel(cat);
+        summary.appendChild(span);
+
+        // Category-level score display
+        const catScore = document.createElement('span');
+        catScore.className = 'cat-score';
+        catScore.id = 'catScore-' + cat;
+        catScore.textContent = '0';
+        summary.appendChild(catScore);
+
+        details.appendChild(summary);
 
         const cardContainer = document.createElement('div');
         cardContainer.id = cat + 'Cards';
-        const cards = groups[cat] || [];
-        cards.sort((a, b) => {
-            const nameA = (a.names[LANG] || a.names.en || a.id).toLowerCase();
-            const nameB = (b.names[LANG] || b.names.en || b.id).toLowerCase();
-            return nameA.localeCompare(nameB);
+        sortCards(cards).forEach(crd => renderCardRow(cardContainer, crd));
+        details.appendChild(cardContainer);
+
+        details.setAttribute('open', '');
+        return details;
+    }
+
+    // Render a zone <details>
+    function buildZone(zone, cards) {
+        const details = document.createElement('details');
+        details.className = 'zone-details';
+
+        const summary = document.createElement('summary');
+        summary.className = 'zone-summary';
+
+        // Zone icon: empty colored square
+        const icon = document.createElement('span');
+        icon.className = 'zone-icon';
+        icon.style.background = zone.color;
+        summary.appendChild(icon);
+
+        const label = document.createElement('span');
+        label.textContent = t(zone.id);
+        summary.appendChild(label);
+        details.appendChild(summary);
+
+        // All zones use category details nesting
+        const catGroups = byCategory(cards);
+        (zone.categories || []).forEach(cat => {
+            const catCards = catGroups[cat] || [];
+            details.appendChild(buildCategoryDetails(cat, catCards));
         });
-        cards.forEach(card => renderCardRow(cardContainer, card));
-        container.appendChild(cardContainer);
+
+        details.setAttribute('open', '');
+        return details;
     }
 
-    // Helper: render a zone divider
-    function renderZone(zone) {
-        const zoneName = t(zone.id);
-        const div = document.createElement('div');
-        div.className = 'zone-divider';
-        div.innerHTML = '<span class="zone-icon" style="background:' + zone.color + ';">' + zone.icon + '</span> <span>' + zoneName + '</span>';
-        container.appendChild(div);
-        zone.categories.forEach(cat => renderCategory(cat));
-    }
-
-    // Render trees first (no zone)
-    const treeCat = 'tree';
-    if (groups[treeCat]) {
-        // Trees has its own section header
-        renderCategory(treeCat);
-    }
-
-    // Render zones in order
-    ZONES.forEach(zone => renderZone(zone));
+    // Build all zones in ZONES order
+    ZONES.forEach(zone => {
+        const cards = byZone[zone.id] || [];
+        container.appendChild(buildZone(zone, cards));
+    });
 }
 
 // ===== Render a single card row =====
@@ -277,6 +395,12 @@ function renderCardRow(container, card) {
     const row = document.createElement('div');
     row.className = 'card-row';
     row.dataset.cardKey = card.id;
+    // Set category colors as CSS vars
+    const cc = CATEGORY_COLORS[card.category];
+    if (cc) {
+        row.style.setProperty('--cat-bg', cc.bg);
+        row.style.setProperty('--cat-border', cc.border);
+    }
 
     // Count display
     const count = document.createElement('span');
@@ -331,7 +455,7 @@ function renderCardRow(container, card) {
     // === Attached sub-row (for cards with perAttachedCard condition) ===
     if (card.scoring.some(r => r.condition === 'perAttachedCard')) {
         const aRow = document.createElement('div');
-        aRow.className = 'card-row attached-row';
+        aRow.className = 'attached-row';
         aRow.dataset.cardKey = card.id + '-attached';
 
         // Indented spacer
@@ -351,7 +475,12 @@ function renderCardRow(container, card) {
         aBtn.className = 'card-btn attached-btn';
         const aName = document.createElement('span');
         aName.className = 'card-name';
-        aName.textContent = t('attachedCards');
+        // Custom label if defined, else generic "Attached cards"
+        if (card.attachedLabel) {
+            aName.textContent = card.attachedLabel[LANG] || card.attachedLabel.en || t('attachedCards');
+        } else {
+            aName.textContent = t('attachedCards');
+        }
         aBtn.appendChild(aName);
         aBtn.onclick = function() { addAttachedCard(card.id); };
         aRow.appendChild(aBtn);
@@ -378,6 +507,9 @@ function renderCardRow(container, card) {
 
 // ===== Score update =====
 function updateAllScores() {
+    // Precompute category-scoped totals (butterfly differentTypes, etc.)
+    computeCategoryTotals();
+
     const p = state.players[state.currentPlayer];
     let treePoints = 0;
     let topPoints = 0;
@@ -385,32 +517,62 @@ function updateAllScores() {
     let sidePoints = 0;
     let total = 0;
 
+    // Track per-card and per-category scores
+    let catScores = {};
+
     CARDS.forEach(card => {
         const totalPts = computeCardTotal(card.id);
 
-        // Update per-card display — show total for this card type
+        // Update per-card display
         const ptsEl = document.getElementById('pts-' + card.id);
-        if (ptsEl) ptsEl.textContent = totalPts;
+        if (ptsEl) {
+            // For differentTypes cards, hide individual score (shown at category level)
+            const isDiffType = card.scoring.some(r => r.type === 'rangedCondition' && r.condition === 'differentTypes');
+            if (isDiffType) {
+                ptsEl.textContent = '';
+            } else {
+                ptsEl.textContent = totalPts;
+            }
+        }
         // Also update attached count display
         updateAttachedDisplay(card.id);
 
-        // Route points to correct zone
-        if (card.category === 'tree') {
-            treePoints += totalPts;
-        } else {
-            let routed = false;
-            ZONES.forEach(zone => {
-                if (zone.categories.includes(card.category)) {
-                    if (zone.id === 'top') topPoints += totalPts;
-                    else if (zone.id === 'bottom') bottomPoints += totalPts;
-                    else if (zone.id === 'side') sidePoints += totalPts;
-                    routed = true;
-                }
-            });
-            if (!routed) topPoints += totalPts; // fallback
-        }
+        // Accumulate category totals
+        const cat = card.category;
+        if (!catScores[cat]) catScores[cat] = 0;
+        catScores[cat] += totalPts;
+
+        // Route points to correct zone — skip differentTypes categories
+        // (added separately below)
+        if (categoryTotals[cat] !== undefined) return;
+
+        if (card.zone === 'general') treePoints += totalPts;
+        else if (card.zone === 'tops') topPoints += totalPts;
+        else if (card.zone === 'bottoms') bottomPoints += totalPts;
+        else if (card.zone === 'sides') sidePoints += totalPts;
         total += totalPts;
     });
+
+    // Add differentTypes category totals to zones once
+    for (let cat in categoryTotals) {
+        const val = categoryTotals[cat];
+        const sampleCard = CARDS.find(c => c.category === cat);
+        if (sampleCard) {
+            // Use the category total as the catScore for this category
+            catScores[cat] = val;
+            if (sampleCard.zone === 'general') treePoints += val;
+            else if (sampleCard.zone === 'tops') topPoints += val;
+            else if (sampleCard.zone === 'bottoms') bottomPoints += val;
+            else if (sampleCard.zone === 'sides') sidePoints += val;
+            total += val;
+        }
+    }
+
+    // Update category-level score displays
+    for (let cat in catScores) {
+        const el = document.getElementById('catScore-' + cat);
+        if (el) el.textContent = catScores[cat];
+    }
 
     document.getElementById('treePoints').textContent = treePoints;
     document.getElementById('topPoints').textContent = topPoints;
@@ -449,6 +611,9 @@ function addAttachedCard(cardId) {
     // Require at least one of the parent card to attach to
     if (!p.cards[cardId] || p.cards[cardId] < 1) return;
     if (!p.attached) p.attached = {};
+    const card = CARDS.find(c => c.id === cardId);
+    const maxAttached = card && card.attachedMax === 'cardCount' ? (p.cards[cardId] || 0) : Infinity;
+    if (maxAttached !== Infinity && (p.attached[cardId] || 0) >= maxAttached) return;
     p.attached[cardId] = (p.attached[cardId] || 0) + 1;
     updateAttachedDisplay(cardId);
     updateAllScores();
@@ -498,6 +663,46 @@ function removePlayer(idx) {
     rebuildPlayerList();
     switchPlayer(state.currentPlayer);
     updatePlusButton();
+}
+
+// ===== Category total cache (for total-scoring rules like differentTypes) =====
+let categoryTotals = {};
+
+// Compute category-scoped total scores (called once per updateAllScores)
+function computeCategoryTotals() {
+    categoryTotals = {};
+    const p = state.players[state.currentPlayer];
+    CARDS.forEach(card => {
+        card.scoring.forEach(rule => {
+            if (rule.type === 'rangedCondition' && rule.condition === 'differentTypes') {
+                // Use the card's primary symbol as the grouping key
+                const sym = card.symbols[0];
+                if (categoryTotals[sym] === undefined) {
+                    // Collect counts per species
+                    const counts = {};
+                    CARDS.forEach(c => {
+                        if (c.symbols.includes(sym) && (p.cards[c.id] || 0) > 0) {
+                            counts[c.id] = p.cards[c.id] || 0;
+                        }
+                    });
+                    // Multi-set scoring: repeatedly take one card from each available species
+                    let total = 0;
+                    const ids = Object.keys(counts);
+                    while (ids.length > 0) {
+                        const k = ids.length;
+                        const idx = Math.min(k - 1, rule.points.length - 1);
+                        total += rule.points[idx];
+                        // Decrement each species by 1, remove any that hit 0
+                        for (let i = ids.length - 1; i >= 0; i--) {
+                            counts[ids[i]]--;
+                            if (counts[ids[i]] <= 0) ids.splice(i, 1);
+                        }
+                    }
+                    categoryTotals[sym] = total;
+                }
+            }
+        });
+    });
 }
 
 function editPlayerName(idx) {
@@ -671,6 +876,8 @@ function newGame() {
     }
 }
 
+// ===== Summary Toggle (native <details>, click-outside to close) =====
+
 // ===== Init =====
 window.addEventListener('DOMContentLoaded', function() {
     buildCardSections();
@@ -679,4 +886,17 @@ window.addEventListener('DOMContentLoaded', function() {
     updateHeaderPlayerName();
     translateUI();
     updateLangButtons();
+
+    // Click outside the summary closes the details
+    document.addEventListener('click', function(e) {
+        const summary = document.getElementById('forestSummary');
+        if (!summary.contains(e.target)) {
+            document.getElementById('summaryDetails').removeAttribute('open');
+        }
+    });
+
+    // Dynamic scroll height when details open/close
+    document.getElementById('summaryDetails').addEventListener('toggle', function() {
+        document.getElementById('forestScroll').classList.toggle('summary-open', this.open);
+    });
 });

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff">
+  <!-- Leaf silhouette for Side -->
+  <path d="M12 22 C4 16 6 6 12 2 C18 6 20 16 12 22 Z"/>
+  <path d="M12 2 L12 14" stroke="#EC9A29" stroke-width="1.5" fill="none"/>
+</svg>
