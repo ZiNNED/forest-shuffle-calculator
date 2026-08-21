@@ -240,6 +240,14 @@ function computeCardTotal(cardId) {
                     // Multi-set repeated — read from precomputed categoryTotals
                     const ts = categoryTotals && categoryTotals[countValue];
                     if (ts !== undefined) points = ts;
+                } else if (r.repeated && countOf === 'self') {
+                    // Repeated set: cycle through table — each card scores
+                    // table[pos % len], accumulating all N cards
+                    let setTotal = 0;
+                    for (let i = 0; i < count; i++) {
+                        setTotal += r.table[i % r.table.length];
+                    }
+                    points = setTotal;
                 } else {
                     const idx = Math.min(count - 1, r.table.length - 1);
                     points = r.table[idx];
@@ -519,9 +527,9 @@ function updateAllScores() {
         // Update per-card display
         const ptsEl = document.getElementById('pts-' + card.id);
         if (ptsEl) {
-            // For multi-set repeated lookup cards, hide individual score (shown at category level)
-            const isRepeated = card.scoring.some(r => r.reward && r.reward.mode === 'lookup' && r.reward.repeated === true);
-            if (isRepeated) {
+            // For multi-set butterfly lookup (distinct + repeated), hide individual score
+            const isMultiSet = card.scoring.some(r => r.reward && r.reward.mode === 'lookup' && r.reward.repeated === true && r.count && r.count.of === 'distinct');
+            if (isMultiSet) {
                 ptsEl.textContent = '';
             } else {
                 ptsEl.textContent = totalPts;
