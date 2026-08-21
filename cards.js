@@ -1285,9 +1285,9 @@ const CARDS = [
       },
       "reward": {
         "mode": "perUnit",
-        "points": 5
-      },
-      "multiply": "self"
+        "points": 5,
+        "multiply": "self"
+      }
     }
   ],
   "tags": [],
