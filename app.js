@@ -173,6 +173,7 @@ function computeCardTotal(cardId) {
     if (!card) return 0;
     const p = state.players[state.currentPlayer];
     const selfCount = p.cards[cardId] || 0;
+    if (selfCount === 0) return 0;
     let total = 0;
 
     for (const rule of card.scoring) {
@@ -479,10 +480,20 @@ function renderCardRow(container, card) {
 
 // ===== Score update =====
 function updateAllScores() {
-    // Precompute category-scoped totals (butterfly differentTypes, etc.)
+    // Clamp attached counts: can never exceed the parent card count
+    const p = state.players[state.currentPlayer];
+    if (p.attached) {
+        Object.keys(p.attached).forEach(cardId => {
+            const max = p.cards[cardId] || 0;
+            if (p.attached[cardId] > max) {
+                p.attached[cardId] = max;
+            }
+        });
+    }
+
+    // Precompute category-scoped totals (butterfly multi-set, etc.)
     computeCategoryTotals();
 
-    const p = state.players[state.currentPlayer];
     let treePoints = 0;
     let topPoints = 0;
     let bottomPoints = 0;
