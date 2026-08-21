@@ -241,11 +241,13 @@ function computeCardTotal(cardId) {
                     const ts = categoryTotals && categoryTotals[countValue];
                     if (ts !== undefined) points = ts;
                 } else if (r.repeated && countOf === 'self') {
-                    // Repeated set: cycle through table — each card scores
-                    // table[pos % len], accumulating all N cards
+                    // Repeated set: group into sets of table.length, score each set by its size
+                    let remaining = count;
                     let setTotal = 0;
-                    for (let i = 0; i < count; i++) {
-                        setTotal += r.table[i % r.table.length];
+                    while (remaining > 0) {
+                        const setSize = Math.min(r.table.length, remaining);
+                        setTotal += r.table[setSize - 1];
+                        remaining -= setSize;
                     }
                     points = setTotal;
                 } else {
