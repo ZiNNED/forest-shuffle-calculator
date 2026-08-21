@@ -207,6 +207,13 @@ function computeCardTotal(cardId) {
             if (countValue === 'mostTreesNoTies') {
                 count = hasMostTreesNoTies(state.currentPlayer) ? 1 : 0;
             }
+        } else if (countOf === 'tag') {
+            // Count cards owned that have the specified tag in tags[]
+            CARDS.forEach(c => {
+                if (c.tags && c.tags.includes(countValue)) {
+                    count += p.cards[c.id] || 0;
+                }
+            });
         }
 
         // ---- Step 2: Apply 'when' modifier ----
@@ -229,7 +236,7 @@ function computeCardTotal(cardId) {
             }
         } else if (r.mode === 'lookup') {
             if (count > 0) {
-                if (r.repeated) {
+                if (r.repeated && countOf === 'distinct') {
                     // Multi-set repeated — read from precomputed categoryTotals
                     const ts = categoryTotals && categoryTotals[countValue];
                     if (ts !== undefined) points = ts;

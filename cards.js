@@ -386,5 +386,73 @@ const CARDS = [
     scoring: [],
     tags: [],
     attachedCards: {}
+  },
+  {
+    id: "treeFrog",
+    names: { en: "Tree Frog", nl: "Boomkikker" },
+    category: "amphibian",
+    zone: "bottoms",
+    symbols: ["amphibian"],
+    positions: [],
+    expansion: "base",
+    scoring: [
+      {
+        count: { of: "tag", value: "mosquito" },
+        reward: { mode: "perUnit", points: 5, multiply: "self" }
+      }
+    ],
+    tags: [],
+    attachedCards: {}
+  },
+  {
+    id: "commonToad",
+    names: { en: "Common Toad", nl: "Gewone pad" },
+    category: "amphibian",
+    zone: "bottoms",
+    symbols: ["amphibian"],
+    positions: [],
+    expansion: "base",
+    scoring: [
+      {
+        count: { of: "attachedCards" },
+        reward: { mode: "perUnit", points: 5 }
+      }
+    ],
+    tags: [],
+    attachedCards: { en: "shares position", nl: "deelt positie" }
+  },
+  {
+    id: "pondTurtle",
+    names: { en: "Pond Turtle", nl: "Moerasschildpad" },
+    category: "amphibian",
+    zone: "bottoms",
+    symbols: ["amphibian"],
+    positions: [],
+    expansion: "base",
+    scoring: [
+      {
+        count: { of: "self" },
+        reward: { mode: "perUnit", points: 5 }
+      }
+    ],
+    tags: [],
+    attachedCards: {}
+  },
+  {
+    id: "fireSalamander",
+    names: { en: "Fire Salamander", nl: "Vuursalamander" },
+    category: "amphibian",
+    zone: "bottoms",
+    symbols: ["amphibian"],
+    positions: [],
+    expansion: "base",
+    scoring: [
+      {
+        count: { of: "self" },
+        reward: { mode: "lookup", table: [5, 15, 25], repeated: true }
+      }
+    ],
+    tags: [],
+    attachedCards: {}
   }
 ];
