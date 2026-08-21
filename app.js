@@ -214,6 +214,13 @@ function computeCardTotal(cardId) {
                     count += p.cards[c.id] || 0;
                 }
             });
+        } else if (countOf === 'zone') {
+            // Count all cards owned in the specified zone
+            CARDS.forEach(c => {
+                if (c.zone === countValue) {
+                    count += p.cards[c.id] || 0;
+                }
+            });
         }
 
         // ---- Step 2: Apply 'when' modifier ----

@@ -454,5 +454,56 @@ const CARDS = [
     ],
     tags: [],
     attachedCards: {}
+  },
+  {
+    id: "woodAnt",
+    names: { en: "Wood Ant", nl: "Bosmier" },
+    category: "insect",
+    zone: "bottoms",
+    symbols: ["insect"],
+    positions: [],
+    expansion: "base",
+    scoring: [
+      {
+        count: { of: "zone", value: "bottoms" },
+        reward: { mode: "perUnit", points: 2, multiply: "self" }
+      }
+    ],
+    tags: [],
+    attachedCards: {}
+  },
+  {
+    id: "stagBeetle",
+    names: { en: "Stag Beetle", nl: "Vliegend hert" },
+    category: "insect",
+    zone: "bottoms",
+    symbols: ["insect"],
+    positions: [],
+    expansion: "base",
+    scoring: [
+      {
+        count: { of: "symbol", value: "pawedAnimal" },
+        reward: { mode: "perUnit", points: 1, multiply: "self" }
+      }
+    ],
+    tags: [],
+    attachedCards: {}
+  },
+  {
+    id: "fireFlies",
+    names: { en: "Fire Flies", nl: "Vuurvliegjes" },
+    category: "insect",
+    zone: "bottoms",
+    symbols: ["insect"],
+    positions: [],
+    expansion: "base",
+    scoring: [
+      {
+        count: { of: "self" },
+        reward: { mode: "lookup", table: [0, 10, 15, 20], repeated: true }
+      }
+    ],
+    tags: [],
+    attachedCards: {}
   }
 ];
