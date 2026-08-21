@@ -119,7 +119,7 @@ const CARDS = [
       { count: { of: "attachedCards" }, reward: { mode: "perUnit", points: 2 } }
     ],
     tags: [],
-    attachedCards: { en: "attached cards", nl: "aangelegde kaarten" }
+    attachedCards: { en: "attached cards", nl: "aangelegde kaarten", relation: "oneToMany" }
   },
   {
     id: "sycamore",

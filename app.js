@@ -484,6 +484,9 @@ function updateAllScores() {
     const p = state.players[state.currentPlayer];
     if (p.attached) {
         Object.keys(p.attached).forEach(cardId => {
+            const card = CARDS.find(c => c.id === cardId);
+            // oneToMany cards (Silver Fir) have no cap
+            if (card && card.attachedCards && card.attachedCards.relation === 'oneToMany') return;
             const max = p.cards[cardId] || 0;
             if (p.attached[cardId] > max) {
                 p.attached[cardId] = max;
@@ -594,8 +597,13 @@ function addAttachedCard(cardId) {
     // Require at least one of the parent card to attach to
     if (!p.cards[cardId] || p.cards[cardId] < 1) return;
     if (!p.attached) p.attached = {};
-    const maxAttached = (p.cards[cardId] || 0); // Max = self count
-    if ((p.attached && p.attached[cardId] || 0) >= maxAttached) return;
+    const card = CARDS.find(c => c.id === cardId);
+    const isOneToMany = card && card.attachedCards && card.attachedCards.relation === 'oneToMany';
+    // oneToMany: no cap. oneToOne: max = self count
+    if (!isOneToMany) {
+        const maxAttached = (p.cards[cardId] || 0);
+        if ((p.attached[cardId] || 0) >= maxAttached) return;
+    }
     p.attached[cardId] = (p.attached[cardId] || 0) + 1;
     updateAttachedDisplay(cardId);
     updateAllScores();
