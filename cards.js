@@ -534,5 +534,28 @@ const CARDS = [
     scoring: [],
     tags: [],
     attachedCards: {}
+  },
+  {
+    id: "violetCarpenterBee",
+    names: { en: "Violet Carpenter Bee", nl: "Houtbij" },
+    category: "insect",
+    zone: "sides",
+    symbols: ["insect"],
+    positions: [],
+    expansion: "base",
+    scoring: [],
+    effect: { type: "boostTree" },
+    tags: [],
+    attachedCards: [
+      { en: "at a Birch", nl: "aan een berk", target: "birch" },
+      { en: "at a Beech", nl: "aan een beuk", target: "beech" },
+      { en: "at a Douglas Fir", nl: "aan een douglasspar", target: "douglasFir" },
+      { en: "at an Oak", nl: "aan een eik", target: "oak" },
+      { en: "at a Linden", nl: "aan een linde", target: "linden" },
+      { en: "at a Horse Chestnut", nl: "aan een paardenkastanje", target: "horseChestnut" },
+      { en: "at a Silver Fir", nl: "aan een zilverspar", target: "silverFir" },
+      { en: "at a Sycamore", nl: "aan een esdoorn", target: "sycamore" },
+      { en: "at a Tree Sapling", nl: "aan een jong boompje", target: "sapling" }
+    ]
   }
 ];

@@ -143,12 +143,28 @@ function countUniqueTreeSpecies(player) {
     return species.size;
 }
 
+// Get effective count for a card (cards owned + boosts from boostTree effects)
+function getEffectiveCount(cardId, playerIdx) {
+    const p = state.players[playerIdx];
+    const base = p.cards[cardId] || 0;
+    let boost = 0;
+    CARDS.forEach(card => {
+        if (card.effect && card.effect.type === 'boostTree') {
+            const att = p.attached && p.attached[card.id];
+            if (att && typeof att === 'object') {
+                boost += att[cardId] || 0;
+            }
+        }
+    });
+    return base + boost;
+}
+
 // Check if player has the most of a given card type (ties are "most")
 function hasMostOfType(cardId, playerIdx) {
-    const myCount = state.players[playerIdx].cards[cardId] || 0;
+    const myCount = getEffectiveCount(cardId, playerIdx);
     for (let i = 0; i < state.players.length; i++) {
         if (i === playerIdx) continue;
-        if ((state.players[i].cards[cardId] || 0) > myCount) return false;
+        if (getEffectiveCount(cardId, i) > myCount) return false;
     }
     return true;
 }
@@ -156,14 +172,46 @@ function hasMostOfType(cardId, playerIdx) {
 // Check if player has strictly the most trees (no ties allowed)
 function hasMostTreesNoTies(playerIdx) {
     let myTrees = 0;
-    CARDS.forEach(c => { if (c.zone === 'general') myTrees += state.players[playerIdx].cards[c.id] || 0; });
+    CARDS.forEach(c => {
+        if (c.zone === 'general') {
+            myTrees += getEffectiveCount(c.id, playerIdx);
+        }
+    });
     for (let i = 0; i < state.players.length; i++) {
         if (i === playerIdx) continue;
         let theirTrees = 0;
-        CARDS.forEach(c => { if (c.zone === 'general') theirTrees += state.players[i].cards[c.id] || 0; });
+        CARDS.forEach(c => {
+            if (c.zone === 'general') {
+                theirTrees += getEffectiveCount(c.id, i);
+            }
+        });
         if (theirTrees >= myTrees) return false;
     }
     return true;
+}
+
+// Get boost count for a tree card from all boostTree effect cards
+function getBoostForTree(treeId) {
+    const p = state.players[state.currentPlayer];
+    let boost = 0;
+    CARDS.forEach(card => {
+        if (card.effect && card.effect.type === 'boostTree') {
+            const att = p.attached && p.attached[card.id];
+            if (att && typeof att === 'object') {
+                boost += att[treeId] || 0;
+            }
+        }
+    });
+    return boost;
+}
+
+// Get total attached count across all targets for an array-based attachedCards card
+function getTotalAttachedCount(cardId) {
+    const p = state.players[state.currentPlayer];
+    if (!p.attached || !p.attached[cardId]) return 0;
+    const att = p.attached[cardId];
+    if (typeof att === 'number') return att;
+    return Object.values(att).reduce((sum, v) => sum + v, 0);
 }
 
 // ===== Scoring Engine =====
@@ -174,6 +222,9 @@ function computeCardTotal(cardId) {
     const p = state.players[state.currentPlayer];
     const selfCount = p.cards[cardId] || 0;
     if (selfCount === 0) return 0;
+    // Boost from boostTree effect cards (e.g. Violet Carpenter Bee)
+    const boost = getBoostForTree(cardId);
+    const effectiveSelf = selfCount + boost;
     let total = 0;
 
     for (const rule of card.scoring) {
@@ -186,7 +237,7 @@ function computeCardTotal(cardId) {
         const countValue = c && c.value;
 
         if (countOf === 'self') {
-            count = selfCount;
+            count = effectiveSelf;
         } else if (countOf === 'symbol') {
             CARDS.forEach(card => {
                 if (card.symbols.includes(countValue)) {
@@ -236,7 +287,9 @@ function computeCardTotal(cardId) {
         if (r.mode === 'flat') {
             if (count > 0) points = r.points * selfCount;
         } else if (r.mode === 'perUnit') {
-            points = r.points * count;
+            // For self-count rules, use actual selfCount (exclude boost)
+            const ptsCount = (countOf === 'self') ? selfCount : count;
+            points = r.points * ptsCount;
         } else if (r.mode === 'threshold') {
             if (count >= r.minimum) {
                 points = r.points * selfCount;
@@ -447,58 +500,98 @@ function renderCardRow(container, card) {
 
     container.appendChild(row);
 
-    // === Attached sub-row (for cards with perAttachedCard condition) ===
+    // === Attached sub-rows ===
     if (card.attachedCards && Object.keys(card.attachedCards).length > 0) {
-        const aRow = document.createElement('div');
-        aRow.className = 'attached-row';
-        aRow.dataset.cardKey = card.id + '-attached';
+        if (Array.isArray(card.attachedCards)) {
+            // Array-based: one button per target (e.g. Violet Carpenter Bee)
+            card.attachedCards.forEach(entry => {
+                const aRow = document.createElement('div');
+                aRow.className = 'attached-row';
+                aRow.dataset.cardKey = card.id + '-attached-' + entry.target;
 
-        // Indented spacer
-        const spacer = document.createElement('span');
-        spacer.className = 'attached-spacer';
-        aRow.appendChild(spacer);
+                const spacer = document.createElement('span');
+                spacer.className = 'attached-spacer';
+                aRow.appendChild(spacer);
 
-        // Attached count
-        const aCount = document.createElement('span');
-        aCount.className = 'card-count';
-        aCount.textContent = '0×';
-        aCount.id = 'attached-count-' + card.id;
-        aRow.appendChild(aCount);
+                const aCount = document.createElement('span');
+                aCount.className = 'card-count';
+                aCount.textContent = '0×';
+                aCount.id = 'attached-count-' + card.id + '-' + entry.target;
+                aRow.appendChild(aCount);
 
-        // Button to add attached
-        const aBtn = document.createElement('button');
-        aBtn.className = 'card-btn attached-btn';
-        const aName = document.createElement('span');
-        aName.className = 'card-name';
-        // Custom label from attachedCards, else generic
-        if (card.attachedCards[LANG]) {
-            aName.textContent = card.attachedCards[LANG];
-        } else if (card.attachedCards.en) {
-            aName.textContent = card.attachedCards.en;
+                const aBtn = document.createElement('button');
+                aBtn.className = 'card-btn attached-btn';
+                const aName = document.createElement('span');
+                aName.className = 'card-name';
+                aName.textContent = entry[LANG] || entry.en || entry.target;
+                aBtn.appendChild(aName);
+                const target = entry.target;
+                aBtn.onclick = function() { addAttachedCard(card.id, target); };
+                aRow.appendChild(aBtn);
+
+                const aRemove = document.createElement('button');
+                aRemove.className = 'card-remove';
+                aRemove.textContent = '×';
+                aRemove.onclick = function(e) {
+                    e.stopPropagation();
+                    removeAttachedCard(card.id, target);
+                };
+                aRow.appendChild(aRemove);
+
+                const aPts = document.createElement('span');
+                aPts.className = 'card-points';
+                aPts.textContent = '';
+                aRow.appendChild(aPts);
+
+                container.appendChild(aRow);
+            });
         } else {
-            aName.textContent = t('attachedCards');
+            // Simple (object-form) attachedCards: single button
+            const aRow = document.createElement('div');
+            aRow.className = 'attached-row';
+            aRow.dataset.cardKey = card.id + '-attached';
+
+            const spacer = document.createElement('span');
+            spacer.className = 'attached-spacer';
+            aRow.appendChild(spacer);
+
+            const aCount = document.createElement('span');
+            aCount.className = 'card-count';
+            aCount.textContent = '0×';
+            aCount.id = 'attached-count-' + card.id;
+            aRow.appendChild(aCount);
+
+            const aBtn = document.createElement('button');
+            aBtn.className = 'card-btn attached-btn';
+            const aName = document.createElement('span');
+            aName.className = 'card-name';
+            if (card.attachedCards[LANG]) {
+                aName.textContent = card.attachedCards[LANG];
+            } else if (card.attachedCards.en) {
+                aName.textContent = card.attachedCards.en;
+            } else {
+                aName.textContent = t('attachedCards');
+            }
+            aBtn.appendChild(aName);
+            aBtn.onclick = function() { addAttachedCard(card.id); };
+            aRow.appendChild(aBtn);
+
+            const aRemove = document.createElement('button');
+            aRemove.className = 'card-remove';
+            aRemove.textContent = '×';
+            aRemove.onclick = function(e) {
+                e.stopPropagation();
+                removeAttachedCard(card.id);
+            };
+            aRow.appendChild(aRemove);
+
+            const aPts = document.createElement('span');
+            aPts.className = 'card-points';
+            aPts.textContent = '';
+            aRow.appendChild(aPts);
+
+            container.appendChild(aRow);
         }
-        aBtn.appendChild(aName);
-        aBtn.onclick = function() { addAttachedCard(card.id); };
-        aRow.appendChild(aBtn);
-
-        // Remove button
-        const aRemove = document.createElement('button');
-        aRemove.className = 'card-remove';
-        aRemove.textContent = '×';
-        aRemove.onclick = function(e) {
-            e.stopPropagation();
-            removeAttachedCard(card.id);
-        };
-        aRow.appendChild(aRemove);
-
-        // Empty points slot (not used for attached)
-        const aPts = document.createElement('span');
-        aPts.className = 'card-points';
-        aPts.textContent = '';
-        aRow.appendChild(aPts);
-
-        container.appendChild(aRow);
     }
 }
 
@@ -512,8 +605,27 @@ function updateAllScores() {
             // oneToMany cards (Silver Fir) have no cap
             if (card && card.attachedCards && card.attachedCards.relation === 'oneToMany') return;
             const max = p.cards[cardId] || 0;
-            if (p.attached[cardId] > max) {
-                p.attached[cardId] = max;
+            const att = p.attached[cardId];
+            if (typeof att === 'number') {
+                // Simple (object-form) attachedCards
+                if (att > max) p.attached[cardId] = max;
+            } else if (typeof att === 'object') {
+                // Array-based attachedCards: clamp per-target and total
+                let total = 0;
+                Object.keys(att).forEach(targetId => {
+                    if (att[targetId] < 0) att[targetId] = 0;
+                    total += att[targetId];
+                });
+                // If total exceeds max, reduce in some order (last key first for fairness)
+                if (total > max) {
+                    const keys = Object.keys(att);
+                    let excess = total - max;
+                    for (let i = keys.length - 1; i >= 0 && excess > 0; i--) {
+                        const reduce = Math.min(att[keys[i]], excess);
+                        att[keys[i]] -= reduce;
+                        excess -= reduce;
+                    }
+                }
             }
         });
     }
@@ -616,14 +728,31 @@ function updateCount(cardId) {
 }
 
 // ===== Attached Card Actions =====
-function addAttachedCard(cardId) {
+function addAttachedCard(cardId, targetId) {
     const p = state.players[state.currentPlayer];
-    // Require at least one of the parent card to attach to
+    const card = CARDS.find(c => c.id === cardId);
     if (!p.cards[cardId] || p.cards[cardId] < 1) return;
     if (!p.attached) p.attached = {};
-    const card = CARDS.find(c => c.id === cardId);
+
+    if (targetId && card && Array.isArray(card.attachedCards)) {
+        // Array-based attachedCards: store per-target
+        if (!p.attached[cardId] || typeof p.attached[cardId] !== 'object') {
+            p.attached[cardId] = {};
+        }
+        const oneToMany = card.attachedCards.some(a => a.relation === 'oneToMany');
+        if (!oneToMany) {
+            const total = getTotalAttachedCount(cardId);
+            const max = p.cards[cardId] || 0;
+            if (total >= max) return;
+        }
+        p.attached[cardId][targetId] = (p.attached[cardId][targetId] || 0) + 1;
+        updateAttachedDisplay(cardId, targetId);
+        updateAllScores();
+        return;
+    }
+
+    // Simple (object-form) attachedCards
     const isOneToMany = card && card.attachedCards && card.attachedCards.relation === 'oneToMany';
-    // oneToMany: no cap. oneToOne: max = self count
     if (!isOneToMany) {
         const maxAttached = (p.cards[cardId] || 0);
         if ((p.attached[cardId] || 0) >= maxAttached) return;
@@ -633,9 +762,22 @@ function addAttachedCard(cardId) {
     updateAllScores();
 }
 
-function removeAttachedCard(cardId) {
+function removeAttachedCard(cardId, targetId) {
     const p = state.players[state.currentPlayer];
     if (!p.attached) p.attached = {};
+    const card = CARDS.find(c => c.id === cardId);
+
+    if (targetId && card && Array.isArray(card.attachedCards)) {
+        // Array-based: remove from specific target
+        if (p.attached[cardId] && p.attached[cardId][targetId] > 0) {
+            p.attached[cardId][targetId]--;
+            updateAttachedDisplay(cardId, targetId);
+            updateAllScores();
+        }
+        return;
+    }
+
+    // Simple (object-form)
     if (p.attached[cardId] > 0) {
         p.attached[cardId]--;
         updateAttachedDisplay(cardId);
@@ -643,10 +785,27 @@ function removeAttachedCard(cardId) {
     }
 }
 
-function updateAttachedDisplay(cardId) {
+function updateAttachedDisplay(cardId, targetId) {
+    const p = state.players[state.currentPlayer];
+    const card = CARDS.find(c => c.id === cardId);
+    if (targetId) {
+        // Per-target display
+        const el = document.getElementById('attached-count-' + cardId + '-' + targetId);
+        if (!el) return;
+        const count = (p.attached && p.attached[cardId] && p.attached[cardId][targetId]) || 0;
+        el.textContent = count + '×';
+        return;
+    }
+    // If card has array-based attachedCards, update all targets
+    if (card && Array.isArray(card.attachedCards)) {
+        card.attachedCards.forEach(entry => {
+            updateAttachedDisplay(cardId, entry.target);
+        });
+        return;
+    }
+    // Simple display (single button)
     const el = document.getElementById('attached-count-' + cardId);
     if (!el) return;
-    const p = state.players[state.currentPlayer];
     const count = (p.attached && p.attached[cardId]) || 0;
     el.textContent = count + '×';
 }
