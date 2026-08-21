@@ -19,7 +19,7 @@ const CARDS = [
     positions: [],
     expansion: "base",
     scoring: [
-      { count: { of: "self" }, reward: { mode: "flat", points: 1 } }
+      { count: { of: "self" }, reward: { mode: "perUnit", points: 1 } }
     ],
     tags: [],
     attachedCards: {}
@@ -143,7 +143,7 @@ const CARDS = [
     symbols: ["bird"],
     expansion: "base",
     scoring: [
-      { count: { of: "self" }, reward: { mode: "flat", points: 5 } }
+      { count: { of: "self" }, reward: { mode: "perUnit", points: 5 } }
     ],
     tags: [],
     attachedCards: {}
@@ -208,7 +208,7 @@ const CARDS = [
     symbols: ["bird"],
     expansion: "base",
     scoring: [
-      { count: { of: "self" }, reward: { mode: "flat", points: 3 } }
+      { count: { of: "self" }, reward: { mode: "perUnit", points: 3 } }
     ],
     tags: [],
     attachedCards: {}
