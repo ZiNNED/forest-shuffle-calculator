@@ -153,128 +153,98 @@ function hasMostOfType(cardId, playerIdx) {
     return true;
 }
 
+// Check if player has strictly the most trees (no ties allowed)
+function hasMostTreesNoTies(playerIdx) {
+    let myTrees = 0;
+    CARDS.forEach(c => { if (c.zone === 'general') myTrees += state.players[playerIdx].cards[c.id] || 0; });
+    for (let i = 0; i < state.players.length; i++) {
+        if (i === playerIdx) continue;
+        let theirTrees = 0;
+        CARDS.forEach(c => { if (c.zone === 'general') theirTrees += state.players[i].cards[c.id] || 0; });
+        if (theirTrees >= myTrees) return false;
+    }
+    return true;
+}
+
+// ===== Scoring Engine =====
+
 function computeCardTotal(cardId) {
     const card = CARDS.find(c => c.id === cardId);
     if (!card) return 0;
     const p = state.players[state.currentPlayer];
-    const owned = p.cards[cardId] || 0;
+    const selfCount = p.cards[cardId] || 0;
     let total = 0;
 
     for (const rule of card.scoring) {
-        const score = rule.score || 'per';
+        const c = rule.count;
+        const r = rule.reward;
 
-        if (rule.type === 'base' && score === 'per') {
-            total += rule.points * owned;
-        }
+        // ---- Step 1: Compute the count ----
+        let count = 0;
+        const countOf = c && c.of;
+        const countValue = c && c.value;
 
-        else if (rule.type === 'base' && score === 'perTree') {
-            // Only scores if you own at least one of this card
-            if (owned > 0) {
-                let treeCount = 0;
-                CARDS.forEach(c => {
-                    if (c.zone === 'general') {
-                        treeCount += p.cards[c.id] || 0;
-                    }
-                });
-                total += rule.points * treeCount * owned;
-            }
-        }
-
-        else if (rule.type === 'whenMinimumMet' && score === 'per') {
-            if (owned >= rule.minimum) {
-                total += rule.points * owned;
-            }
-        }
-
-        else if (rule.type === 'whenDifferentTreeCount' && score === 'per') {
-            if (countUniqueTreeSpecies(p) >= rule.minimum) {
-                total += rule.points * owned;
-            }
-        }
-
-        else if (rule.type === 'whenDifferentTreeCount' && score === 'total') {
-            if (owned > 0 && countUniqueTreeSpecies(p) >= rule.minimum) {
-                total += rule.points;
-            }
-        }
-
-        // whenCountMet: points if total cards owned matching rule.category symbol >= minimum
-        else if (rule.type === 'whenCountMet' && owned > 0) {
-            let catCount = 0;
-            CARDS.forEach(c => {
-                if (c.symbols.includes(rule.category)) {
-                    catCount += p.cards[c.id] || 0;
+        if (countOf === 'self') {
+            count = selfCount;
+        } else if (countOf === 'symbol') {
+            CARDS.forEach(card => {
+                if (card.symbols.includes(countValue)) {
+                    count += p.cards[card.id] || 0;
                 }
             });
-            if (catCount >= rule.minimum) {
-                total += rule.points * (score === 'total' ? 1 : owned);
-            }
-        }
-
-        else if (rule.type === 'mostOfType' && score === 'per') {
-            if (hasMostOfType(cardId, state.currentPlayer)) {
-                total += rule.points * owned;
-            }
-        }
-
-        else if (rule.type === 'range' && score === 'total') {
-            if (owned > 0) {
-                const idx = Math.min(owned - 1, rule.points.length - 1);
-                total += rule.points[idx];
-            }
-        }
-
-        else if (rule.type === 'conditional' && rule.condition === 'perAttachedCard') {
-            const attached = (p.attached && p.attached[cardId]) || 0;
-            total += rule.points * attached;
-        }
-
-        // perCategory: points × (total cards owned that have the given symbol)
-        else if (rule.type === 'perCategory' && owned > 0) {
-            let catCount = 0;
-            CARDS.forEach(c => {
-                if (c.symbols.includes(rule.category)) {
-                    catCount += p.cards[c.id] || 0;
+        } else if (countOf === 'distinct') {
+            const species = new Set();
+            CARDS.forEach(card => {
+                if (card.symbols.includes(countValue) && (p.cards[card.id] || 0) > 0) {
+                    species.add(card.id);
                 }
             });
-            total += rule.points * catCount * owned;
-        }
-
-        // conditional: mostTreesNoTies — must have strictly more trees than anyone else
-        else if (rule.type === 'conditional' && rule.condition === 'mostTreesNoTies' && owned > 0) {
-            let myTrees = 0;
-            CARDS.forEach(c => {
-                if (c.zone === 'general') myTrees += p.cards[c.id] || 0;
-            });
-            let isMost = true;
-            for (let i = 0; i < state.players.length; i++) {
-                if (i === state.currentPlayer) continue;
-                let theirTrees = 0;
-                CARDS.forEach(c => {
-                    if (c.zone === 'general') theirTrees += state.players[i].cards[c.id] || 0;
-                });
-                if (theirTrees >= myTrees) { isMost = false; break; }
-            }
-            if (isMost) total += rule.points * owned;
-        }
-
-        // conditional: atSpecificCard — points if player owns ≥1 of the named card
-        else if (rule.type === 'conditional' && rule.condition === 'atSpecificCard' && owned > 0) {
-            if ((p.cards[rule.card] || 0) > 0) {
-                total += rule.points * owned;
+            count = species.size;
+        } else if (countOf === 'attachedCards') {
+            count = (p.attached && p.attached[cardId]) || 0;
+        } else if (countOf === 'condition') {
+            if (countValue === 'mostTreesNoTies') {
+                count = hasMostTreesNoTies(state.currentPlayer) ? 1 : 0;
             }
         }
 
-        // rangedCondition: differentTypes — total lookup by unique species by symbol
-        else if (rule.type === 'rangedCondition' && rule.condition === 'differentTypes' && owned > 0) {
-            const key = card.symbols[0];
-            const catTotal = categoryTotals[key];
-            if (catTotal !== undefined) {
-                // DifferentTypes is a total per category, not per card.
-                // Only count it once per card (each card shows the same total).
-                total = catTotal;
+        // ---- Step 2: Apply 'when' modifier ----
+        if (c && c.when === 'mostOfType') {
+            if (!hasMostOfType(cardId, state.currentPlayer)) {
+                count = 0;
             }
         }
+
+        // ---- Step 3: Compute points from count ----
+        let points = 0;
+
+        if (r.mode === 'flat') {
+            if (count > 0) points = r.points;
+        } else if (r.mode === 'perUnit') {
+            points = r.points * count;
+        } else if (r.mode === 'threshold') {
+            if (count >= r.minimum) {
+                points = r.points * selfCount;
+            }
+        } else if (r.mode === 'lookup') {
+            if (count > 0) {
+                if (r.repeated) {
+                    // Multi-set repeated — read from precomputed categoryTotals
+                    const ts = categoryTotals && categoryTotals[countValue];
+                    if (ts !== undefined) points = ts;
+                } else {
+                    const idx = Math.min(count - 1, r.table.length - 1);
+                    points = r.table[idx];
+                }
+            }
+        }
+
+        // ---- Step 4: Apply self multiplier ----
+        if (r.multiply === 'self') {
+            points *= selfCount;
+        }
+
+        total += points;
     }
     return total;
 }
@@ -453,7 +423,7 @@ function renderCardRow(container, card) {
     container.appendChild(row);
 
     // === Attached sub-row (for cards with perAttachedCard condition) ===
-    if (card.scoring.some(r => r.condition === 'perAttachedCard')) {
+    if (card.attachedCards && Object.keys(card.attachedCards).length > 0) {
         const aRow = document.createElement('div');
         aRow.className = 'attached-row';
         aRow.dataset.cardKey = card.id + '-attached';
@@ -475,9 +445,11 @@ function renderCardRow(container, card) {
         aBtn.className = 'card-btn attached-btn';
         const aName = document.createElement('span');
         aName.className = 'card-name';
-        // Custom label if defined, else generic "Attached cards"
-        if (card.attachedLabel) {
-            aName.textContent = card.attachedLabel[LANG] || card.attachedLabel.en || t('attachedCards');
+        // Custom label from attachedCards, else generic
+        if (card.attachedCards[LANG]) {
+            aName.textContent = card.attachedCards[LANG];
+        } else if (card.attachedCards.en) {
+            aName.textContent = card.attachedCards.en;
         } else {
             aName.textContent = t('attachedCards');
         }
@@ -526,9 +498,9 @@ function updateAllScores() {
         // Update per-card display
         const ptsEl = document.getElementById('pts-' + card.id);
         if (ptsEl) {
-            // For differentTypes cards, hide individual score (shown at category level)
-            const isDiffType = card.scoring.some(r => r.type === 'rangedCondition' && r.condition === 'differentTypes');
-            if (isDiffType) {
+            // For multi-set repeated lookup cards, hide individual score (shown at category level)
+            const isRepeated = card.scoring.some(r => r.reward && r.reward.mode === 'lookup' && r.reward.repeated === true);
+            if (isRepeated) {
                 ptsEl.textContent = '';
             } else {
                 ptsEl.textContent = totalPts;
@@ -553,7 +525,7 @@ function updateAllScores() {
         total += totalPts;
     });
 
-    // Add differentTypes category totals to zones once
+    // Add repeated-lookup category totals to zones once
     for (let cat in categoryTotals) {
         const val = categoryTotals[cat];
         const sampleCard = CARDS.find(c => c.category === cat);
@@ -611,9 +583,8 @@ function addAttachedCard(cardId) {
     // Require at least one of the parent card to attach to
     if (!p.cards[cardId] || p.cards[cardId] < 1) return;
     if (!p.attached) p.attached = {};
-    const card = CARDS.find(c => c.id === cardId);
-    const maxAttached = card && card.attachedMax === 'cardCount' ? (p.cards[cardId] || 0) : Infinity;
-    if (maxAttached !== Infinity && (p.attached[cardId] || 0) >= maxAttached) return;
+    const maxAttached = (p.cards[cardId] || 0); // Max = self count
+    if ((p.attached && p.attached[cardId] || 0) >= maxAttached) return;
     p.attached[cardId] = (p.attached[cardId] || 0) + 1;
     updateAttachedDisplay(cardId);
     updateAllScores();
@@ -665,18 +636,19 @@ function removePlayer(idx) {
     updatePlusButton();
 }
 
-// ===== Category total cache (for total-scoring rules like differentTypes) =====
+// ===== Category total cache (for multi-set repeated lookup rules) =====
 let categoryTotals = {};
 
 // Compute category-scoped total scores (called once per updateAllScores)
+// Handles 'repeated: true' lookup rules like butterfly differentTypes
 function computeCategoryTotals() {
     categoryTotals = {};
     const p = state.players[state.currentPlayer];
     CARDS.forEach(card => {
         card.scoring.forEach(rule => {
-            if (rule.type === 'rangedCondition' && rule.condition === 'differentTypes') {
-                // Use the card's primary symbol as the grouping key
-                const sym = card.symbols[0];
+            const r = rule.reward;
+            if (r && r.mode === 'lookup' && r.repeated === true) {
+                const sym = rule.count.value;
                 if (categoryTotals[sym] === undefined) {
                     // Collect counts per species
                     const counts = {};
@@ -690,9 +662,8 @@ function computeCategoryTotals() {
                     const ids = Object.keys(counts);
                     while (ids.length > 0) {
                         const k = ids.length;
-                        const idx = Math.min(k - 1, rule.points.length - 1);
-                        total += rule.points[idx];
-                        // Decrement each species by 1, remove any that hit 0
+                        const idx = Math.min(k - 1, r.table.length - 1);
+                        total += r.table[idx];
                         for (let i = ids.length - 1; i >= 0; i--) {
                             counts[ids[i]]--;
                             if (counts[ids[i]] <= 0) ids.splice(i, 1);

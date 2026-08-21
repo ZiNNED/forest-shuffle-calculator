@@ -1,18 +1,13 @@
 // Forest Shuffle Card Catalog
 // Cards with names, symbols, categories, zones, and scoring rules
 //
-// zone: 'general' | 'tops' | 'bottoms' | 'sides'
-//   Determines which zone section the card appears in.
+// Scoring rule format:
+//   count: { of: "self" | "symbol", value: X | "attachedCards" | "distinct", value: X | "condition", value: X }
+//   reward: { mode: "flat" | "perUnit" | "threshold", minimum: N | "lookup", table: [N] }
 //
-// Scoring rule types:
-//   base          — fixed points per card (score: "per") or per tree ("perTree")
-//   whenMinimumMet — points per card when ≥minimum owned (score: "per")
-//   whenDifferentTreeCount — points per card when ≥minimum unique tree species (score: "per")
-//   mostOfType    — bonus points per card when player has the most of this type (score: "per")
-//   range         — total points looked up from array by count (score: "total")
-//   conditional   — points × condition count (score: "perConditionMet")
-//
-// Default score type when omitted: "per"
+// Special flags on reward:
+//   repeat: true  — multi-set repeated extraction (butterfly differentTypes)
+//   multiply: "self" — multiply result by selfCount (sycamore perTree)
 
 const CARDS = [
   {
@@ -24,8 +19,10 @@ const CARDS = [
     positions: [],
     expansion: "base",
     scoring: [
-      { type: "base", points: 1 }
-    ]
+      { count: { of: "self" }, reward: { mode: "flat", points: 1 } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "beech",
@@ -36,8 +33,10 @@ const CARDS = [
     positions: [],
     expansion: "base",
     scoring: [
-      { type: "whenMinimumMet", minimum: 4, points: 5 }
-    ]
+      { count: { of: "self" }, reward: { mode: "threshold", minimum: 4, points: 5 } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "douglasFir",
@@ -48,8 +47,10 @@ const CARDS = [
     positions: [],
     expansion: "base",
     scoring: [
-      { type: "base", points: 5, score: "per" }
-    ]
+      { count: { of: "self" }, reward: { mode: "perUnit", points: 5 } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "oak",
@@ -60,8 +61,10 @@ const CARDS = [
     positions: [],
     expansion: "base",
     scoring: [
-      { type: "whenDifferentTreeCount", minimum: 8, points: 10, score: "per" }
-    ]
+      { count: { of: "distinct", value: "tree" }, reward: { mode: "threshold", minimum: 8, points: 10 } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "sapling",
@@ -71,7 +74,9 @@ const CARDS = [
     symbols: ["tree"],
     positions: [],
     expansion: "base",
-    scoring: []
+    scoring: [],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "linden",
@@ -82,9 +87,11 @@ const CARDS = [
     positions: [],
     expansion: "base",
     scoring: [
-      { type: "base", points: 1, score: "per" },
-      { type: "mostOfType", points: 2, score: "per" }
-    ]
+      { count: { of: "self" }, reward: { mode: "perUnit", points: 1 } },
+      { count: { of: "self", when: "mostOfType" }, reward: { mode: "perUnit", points: 2 } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "horseChestnut",
@@ -95,8 +102,10 @@ const CARDS = [
     positions: [],
     expansion: "base",
     scoring: [
-      { type: "range", points: [1, 4, 9, 16, 25, 36, 49], score: "total" }
-    ]
+      { count: { of: "self" }, reward: { mode: "lookup", table: [1, 4, 9, 16, 25, 36, 49] } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "silverFir",
@@ -107,8 +116,10 @@ const CARDS = [
     positions: [],
     expansion: "base",
     scoring: [
-      { type: "conditional", points: 2, score: "perConditionMet", condition: "perAttachedCard" }
-    ]
+      { count: { of: "attachedCards" }, reward: { mode: "perUnit", points: 2 } }
+    ],
+    tags: [],
+    attachedCards: { en: "attached cards", nl: "aangelegde kaarten" }
   },
   {
     id: "sycamore",
@@ -119,8 +130,10 @@ const CARDS = [
     positions: [],
     expansion: "base",
     scoring: [
-      { type: "base", points: 1, score: "perTree" }
-    ]
+      { count: { of: "symbol", value: "tree" }, reward: { mode: "perUnit", points: 1, multiply: "self" } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "tawnyOwl",
@@ -130,8 +143,10 @@ const CARDS = [
     symbols: ["bird"],
     expansion: "base",
     scoring: [
-      { type: "base", points: 5 }
-    ]
+      { count: { of: "self" }, reward: { mode: "flat", points: 5 } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "bullfinch",
@@ -141,8 +156,10 @@ const CARDS = [
     symbols: ["bird"],
     expansion: "base",
     scoring: [
-      { type: "perCategory", category: "insect", points: 2 }
-    ]
+      { count: { of: "symbol", value: "insect" }, reward: { mode: "perUnit", points: 2 } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "greatSpottedWoodpecker",
@@ -152,8 +169,10 @@ const CARDS = [
     symbols: ["bird"],
     expansion: "base",
     scoring: [
-      { type: "conditional", condition: "mostTreesNoTies", points: 10 }
-    ]
+      { count: { of: "condition", value: "mostTreesNoTies" }, reward: { mode: "flat", points: 10 } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "goshawk",
@@ -163,8 +182,10 @@ const CARDS = [
     symbols: ["bird"],
     expansion: "base",
     scoring: [
-      { type: "perCategory", category: "bird", points: 3 }
-    ]
+      { count: { of: "symbol", value: "bird" }, reward: { mode: "perUnit", points: 3 } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "chaffinch",
@@ -174,10 +195,10 @@ const CARDS = [
     symbols: ["bird"],
     expansion: "base",
     scoring: [
-      { type: "conditional", condition: "perAttachedCard", points: 5 }
+      { count: { of: "attachedCards" }, reward: { mode: "perUnit", points: 5 } }
     ],
-    attachedMax: "cardCount",
-    attachedLabel: { en: "atop a beech", nl: "bovenop een beuk" }
+    tags: [],
+    attachedCards: { en: "atop a beech", nl: "bovenop een beuk" }
   },
   {
     id: "eurasianJay",
@@ -187,10 +208,11 @@ const CARDS = [
     symbols: ["bird"],
     expansion: "base",
     scoring: [
-      { type: "base", points: 3 }
-    ]
+      { count: { of: "self" }, reward: { mode: "flat", points: 3 } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
-  // ===== Butterflies =====
   {
     id: "peacockButterfly",
     names: { en: "Peacock Butterfly", nl: "Dagpauwoog" },
@@ -199,8 +221,10 @@ const CARDS = [
     symbols: ["butterfly", "insect"],
     expansion: "base",
     scoring: [
-      { type: "rangedCondition", condition: "differentTypes", points: [0, 3, 6, 12, 20, 35, 55] }
-    ]
+      { count: { of: "distinct", value: "butterfly" }, reward: { mode: "lookup", table: [0, 3, 6, 12, 20, 35, 55], repeated: true } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "purpleEmperor",
@@ -210,8 +234,10 @@ const CARDS = [
     symbols: ["butterfly", "insect"],
     expansion: "base",
     scoring: [
-      { type: "rangedCondition", condition: "differentTypes", points: [0, 3, 6, 12, 20, 35, 55] }
-    ]
+      { count: { of: "distinct", value: "butterfly" }, reward: { mode: "lookup", table: [0, 3, 6, 12, 20, 35, 55], repeated: true } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "largeTortoiseshell",
@@ -221,8 +247,10 @@ const CARDS = [
     symbols: ["butterfly", "insect"],
     expansion: "base",
     scoring: [
-      { type: "rangedCondition", condition: "differentTypes", points: [0, 3, 6, 12, 20, 35, 55] }
-    ]
+      { count: { of: "distinct", value: "butterfly" }, reward: { mode: "lookup", table: [0, 3, 6, 12, 20, 35, 55], repeated: true } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "camberwellBeauty",
@@ -232,8 +260,10 @@ const CARDS = [
     symbols: ["butterfly", "insect"],
     expansion: "base",
     scoring: [
-      { type: "rangedCondition", condition: "differentTypes", points: [0, 3, 6, 12, 20, 35, 55] }
-    ]
+      { count: { of: "distinct", value: "butterfly" }, reward: { mode: "lookup", table: [0, 3, 6, 12, 20, 35, 55], repeated: true } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "silverWashedFritillary",
@@ -243,8 +273,10 @@ const CARDS = [
     symbols: ["butterfly", "insect"],
     expansion: "base",
     scoring: [
-      { type: "rangedCondition", condition: "differentTypes", points: [0, 3, 6, 12, 20, 35, 55] }
-    ]
+      { count: { of: "distinct", value: "butterfly" }, reward: { mode: "lookup", table: [0, 3, 6, 12, 20, 35, 55], repeated: true } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "redSquirrel",
@@ -253,13 +285,12 @@ const CARDS = [
     category: "pawedAnimal",
     symbols: ["pawedAnimal"],
     expansion: "base",
-    attachedLabel: { en: "atop an oak", nl: "bovenop een eik" },
-    attachedMax: "cardCount",
     scoring: [
-      { type: "conditional", condition: "perAttachedCard", points: 5 }
-    ]
+      { count: { of: "attachedCards" }, reward: { mode: "perUnit", points: 5 } }
+    ],
+    tags: [],
+    attachedCards: { en: "atop an oak", nl: "bovenop een eik" }
   },
-  // ===== Plants =====
   {
     id: "treeFerns",
     names: { en: "Tree Ferns", nl: "Boomvarens" },
@@ -268,8 +299,10 @@ const CARDS = [
     symbols: ["plant"],
     expansion: "base",
     scoring: [
-      { type: "perCategory", category: "amphibian", points: 6 }
-    ]
+      { count: { of: "symbol", value: "amphibian" }, reward: { mode: "perUnit", points: 6 } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "blackberries",
@@ -279,8 +312,10 @@ const CARDS = [
     symbols: ["plant"],
     expansion: "base",
     scoring: [
-      { type: "perCategory", category: "plant", points: 2 }
-    ]
+      { count: { of: "symbol", value: "plant" }, reward: { mode: "perUnit", points: 2 } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "moss",
@@ -290,8 +325,10 @@ const CARDS = [
     symbols: ["plant"],
     expansion: "base",
     scoring: [
-      { type: "whenCountMet", category: "tree", minimum: 10, points: 10 }
-    ]
+      { count: { of: "symbol", value: "tree" }, reward: { mode: "threshold", minimum: 10, points: 10 } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "wildStrawberries",
@@ -301,10 +338,11 @@ const CARDS = [
     symbols: ["plant"],
     expansion: "base",
     scoring: [
-      { type: "whenDifferentTreeCount", minimum: 8, points: 10 }
-    ]
+      { count: { of: "distinct", value: "tree" }, reward: { mode: "threshold", minimum: 8, points: 10 } }
+    ],
+    tags: [],
+    attachedCards: {}
   },
-  // ===== Mushrooms =====
   {
     id: "chanterelle",
     names: { en: "Chanterelle", nl: "Chantarel" },
@@ -312,7 +350,9 @@ const CARDS = [
     category: "mushroom",
     symbols: ["mushroom"],
     expansion: "base",
-    scoring: []
+    scoring: [],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "flyAgaric",
@@ -321,7 +361,9 @@ const CARDS = [
     category: "mushroom",
     symbols: ["mushroom"],
     expansion: "base",
-    scoring: []
+    scoring: [],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "parasolMushroom",
@@ -330,7 +372,9 @@ const CARDS = [
     category: "mushroom",
     symbols: ["mushroom"],
     expansion: "base",
-    scoring: []
+    scoring: [],
+    tags: [],
+    attachedCards: {}
   },
   {
     id: "pennyBun",
@@ -339,6 +383,8 @@ const CARDS = [
     category: "mushroom",
     symbols: ["mushroom"],
     expansion: "base",
-    scoring: []
+    scoring: [],
+    tags: [],
+    attachedCards: {}
   }
 ];
