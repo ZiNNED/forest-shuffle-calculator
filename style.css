@@ -291,6 +291,14 @@ html, body {
 }
 .settings-new-game:hover { opacity: 0.9; }
 
+.settings-version {
+    text-align: center;
+    padding: 16px 0 8px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
 /* ===== Radio Button ===== */
 .radio {
     width: 20px;

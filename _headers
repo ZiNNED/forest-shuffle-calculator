@@ -1,4 +1,4 @@
-# Cache busting: always revalidate with the server
+# Cache busting
 /*
-  Cache-Control: no-cache
+  Cache-Control: no-store, must-revalidate
   X-Content-Type-Options: nosniff

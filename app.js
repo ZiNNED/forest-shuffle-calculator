@@ -281,6 +281,9 @@ function computeCardTotal(cardId) {
             }
         }
 
+        // If a when-condition nullified the count, skip this rule entirely
+        if (count === 0) continue;
+
         // ---- Step 3: Compute points from count ----
         let points = 0;
 
@@ -504,7 +507,13 @@ function renderCardRow(container, card) {
     if (card.attachedCards && Object.keys(card.attachedCards).length > 0) {
         if (Array.isArray(card.attachedCards)) {
             // Array-based: one button per target (e.g. Violet Carpenter Bee)
-            card.attachedCards.forEach(entry => {
+            // Sort by the current language's display name
+            const sorted = [...card.attachedCards].sort((a, b) => {
+                const nameA = a[LANG] || a.en || a.target;
+                const nameB = b[LANG] || b.en || b.target;
+                return nameA.localeCompare(nameB, LANG);
+            });
+            sorted.forEach(entry => {
                 const aRow = document.createElement('div');
                 aRow.className = 'attached-row';
                 aRow.dataset.cardKey = card.id + '-attached-' + entry.target;

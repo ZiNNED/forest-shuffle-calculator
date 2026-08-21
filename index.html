@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Forest Calculator</title>
-    <link rel="stylesheet" href="style.css?v=70">
+    <link rel="stylesheet" href="style.css?v=80">
 </head>
 <body>
 
@@ -100,6 +100,8 @@
     <div class="settings-group" style="margin-top: 24px;">
         <button class="settings-new-game" onclick="newGame()" data-i18n="newGame">New Game</button>
     </div>
+
+    <div class="settings-version" id="settingsVersion"></div>
 </div>
 
 <!-- Scrollable content -->
@@ -139,7 +141,20 @@
     <div style="height: 40px;"></div>
 </div>
 
-<script src="cards.js?v=70"></script>
-<script src="app.js?v=70"></script>
+<script src="cards.js?v=81"></script>
+<script src="app.js?v=80"></script>
+<script>
+    // Set version from cache-busting parameter
+    (function() {
+        const scripts = document.getElementsByTagName('script');
+        for (const s of scripts) {
+            const m = s.src && s.src.match(/app\.js\?v=(\d+)/);
+            if (m) {
+                document.getElementById('settingsVersion').textContent = 'v0.' + m[1];
+                break;
+            }
+        }
+    })();
+</script>
 </body>
 </html>
