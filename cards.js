@@ -1367,5 +1367,80 @@ const CARDS = [
     "en": "opposite bat",
     "nl": "tegenover vleermuis"
   }
+},
+{
+  "id": "europeanHare",
+  "names": { "en": "European Hare", "nl": "Europese haas" },
+  "category": "pawedAnimal",
+  "zone": "sides",
+  "symbols": ["pawedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    }
+  ],
+  "tags": ["hare"],
+  "attachedCards": {}
+},
+{
+  "id": "lynx",
+  "names": { "en": "Lynx", "nl": "Lynx" },
+  "category": "pawedAnimal",
+  "zone": "sides",
+  "symbols": ["pawedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "tag", "value": "roe" },
+      "reward": { "mode": "flat", "points": 10 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "raccoon",
+  "names": { "en": "Raccoon", "nl": "Wasbeer" },
+  "category": "pawedAnimal",
+  "zone": "sides",
+  "symbols": ["pawedAnimal"],
+  "expansion": "base",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "redFox",
+  "names": { "en": "Red Fox", "nl": "Rode vos" },
+  "category": "pawedAnimal",
+  "zone": "sides",
+  "symbols": ["pawedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "tag", "value": "hare" },
+      "reward": { "mode": "perUnit", "points": 2, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "wolf",
+  "names": { "en": "Wolf", "nl": "Wolf" },
+  "category": "pawedAnimal",
+  "zone": "sides",
+  "symbols": ["pawedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "tag", "value": "deer" },
+      "reward": { "mode": "perUnit", "points": 5, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
 }
 ];
