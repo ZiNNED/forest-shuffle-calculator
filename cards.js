@@ -505,5 +505,34 @@ const CARDS = [
     ],
     tags: [],
     attachedCards: {}
+  },
+  {
+    id: "hedgehog",
+    names: { en: "Hedgehog", nl: "Egel" },
+    category: "pawedAnimal",
+    zone: "bottoms",
+    symbols: ["pawedAnimal"],
+    positions: [],
+    expansion: "base",
+    scoring: [
+      {
+        count: { of: "symbol", value: "butterfly" },
+        reward: { mode: "perUnit", points: 2, multiply: "self" }
+      }
+    ],
+    tags: [],
+    attachedCards: {}
+  },
+  {
+    id: "mole",
+    names: { en: "Mole", nl: "Mol" },
+    category: "pawedAnimal",
+    zone: "bottoms",
+    symbols: ["pawedAnimal"],
+    positions: [],
+    expansion: "base",
+    scoring: [],
+    tags: [],
+    attachedCards: {}
   }
 ];
