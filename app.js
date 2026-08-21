@@ -219,7 +219,7 @@ function computeCardTotal(cardId) {
         let points = 0;
 
         if (r.mode === 'flat') {
-            if (count > 0) points = r.points;
+            if (count > 0) points = r.points * selfCount;
         } else if (r.mode === 'perUnit') {
             points = r.points * count;
         } else if (r.mode === 'threshold') {
