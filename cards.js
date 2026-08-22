@@ -1406,7 +1406,7 @@ const CARDS = [
 {
   "id": "fallowDeer",
   "names": { "en": "Fallow Deer", "nl": "Damhert" },
-  "category": "deer",
+  "category": "clovenHoofedAnimal",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofedAnimal"],
   "expansion": "base",
@@ -1422,7 +1422,7 @@ const CARDS = [
 {
   "id": "redDeer",
   "names": { "en": "Red Deer", "nl": "Edelhert" },
-  "category": "deer",
+  "category": "clovenHoofedAnimal",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofedAnimal"],
   "expansion": "base",
@@ -1442,7 +1442,7 @@ const CARDS = [
 {
   "id": "roeDeerBeech",
   "names": { "en": "Roe Deer", "nl": "Ree" },
-  "category": "deer",
+  "category": "clovenHoofedAnimal",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofedAnimal", "beech"],
   "expansion": "base",
@@ -1458,7 +1458,7 @@ const CARDS = [
 {
   "id": "roeDeerLinden",
   "names": { "en": "Roe Deer", "nl": "Ree" },
-  "category": "deer",
+  "category": "clovenHoofedAnimal",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofedAnimal", "linden"],
   "expansion": "base",
@@ -1474,7 +1474,7 @@ const CARDS = [
 {
   "id": "roeDeerSilverFir",
   "names": { "en": "Roe Deer", "nl": "Ree" },
-  "category": "deer",
+  "category": "clovenHoofedAnimal",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofedAnimal", "silverFir"],
   "expansion": "base",
@@ -1490,7 +1490,7 @@ const CARDS = [
 {
   "id": "roeDeerHorseChestnut",
   "names": { "en": "Roe Deer", "nl": "Ree" },
-  "category": "deer",
+  "category": "clovenHoofedAnimal",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofedAnimal", "horseChestnut"],
   "expansion": "base",
@@ -1506,7 +1506,7 @@ const CARDS = [
 {
   "id": "roeDeerBirch",
   "names": { "en": "Roe Deer", "nl": "Ree" },
-  "category": "deer",
+  "category": "clovenHoofedAnimal",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofedAnimal", "birch"],
   "expansion": "base",
@@ -1522,7 +1522,7 @@ const CARDS = [
 {
   "id": "squeeker",
   "names": { "en": "Squeeker", "nl": "Zwijnenbig" },
-  "category": "deer",
+  "category": "clovenHoofedAnimal",
   "zone": "sides",
   "symbols": ["clovenHoofedAnimal"],
   "expansion": "base",
@@ -1538,7 +1538,7 @@ const CARDS = [
 {
   "id": "wildBoar",
   "names": { "en": "Wild Boar", "nl": "Wild Zwijn" },
-  "category": "deer",
+  "category": "clovenHoofedAnimal",
   "zone": "sides",
   "symbols": ["clovenHoofedAnimal"],
   "expansion": "base",

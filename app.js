@@ -38,6 +38,7 @@ const L10N = {
             amphibian: 'AMPHIBIANS',
             bat: 'BATS',
             deer: 'DEER & CLOVEN-HOOFED',
+            clovenHoofedAnimal: 'CLOVEN-HOOFED',
         },
     },
     nl: {
@@ -72,6 +73,7 @@ const L10N = {
             amphibian: 'AMFIBIEËN',
             bat: 'VLEERMUIZEN',
             deer: 'HERTEN & EENHOEVIGE DIEREN',
+            clovenHoofedAnimal: 'EENHOEVIGE DIEREN',
         },
     },
 };
@@ -114,7 +116,7 @@ const ZONES = [
     { id: 'general', color: 'var(--green)', categories: ['tree'] },
     { id: 'tops', color: '#547AA5', categories: ['bird', 'butterfly', 'pawedAnimal'] },
     { id: 'bottoms', color: '#A8201A', categories: ['plant', 'mushroom', 'amphibian', 'insect', 'pawedAnimal'] },
-    { id: 'sides', color: '#EC9A29', categories: ['insect', 'bat', 'pawedAnimal', 'deer'] }
+    { id: 'sides', color: '#EC9A29', categories: ['insect', 'bat', 'pawedAnimal', 'deer', 'clovenHoofedAnimal'] }
 ];
 
 // ===== Category Colors =====
@@ -128,7 +130,8 @@ const CATEGORY_COLORS = {
     amphibian: { bg: '#ad9895', border: '#8b7a78' },
     insect: { bg: '#608780', border: '#4d6c66' },
     bat: { bg: '#1f1b18', border: '#151210' },
-    deer: { bg: '#cbac40', border: '#a38c33' }
+    deer: { bg: '#cbac40', border: '#a38c33' },
+    clovenHoofedAnimal: { bg: '#7e5541', border: '#654435' }
 };
 
 // ===== Scoring Engine =====
