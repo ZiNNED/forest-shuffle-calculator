@@ -1446,7 +1446,7 @@ const CARDS = [
 {
   "id": "fallowDeer",
   "names": { "en": "Fallow Deer", "nl": "Damhert" },
-  "category": "ungulates",
+  "category": "deer",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofed"],
   "expansion": "base",
@@ -1462,7 +1462,7 @@ const CARDS = [
 {
   "id": "redDeer",
   "names": { "en": "Red Deer", "nl": "Edelhert" },
-  "category": "ungulates",
+  "category": "deer",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofed"],
   "expansion": "base",
@@ -1482,7 +1482,7 @@ const CARDS = [
 {
   "id": "roeDeerBeech",
   "names": { "en": "Roe Deer", "nl": "Ree" },
-  "category": "ungulates",
+  "category": "deer",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofed", "beech"],
   "expansion": "base",
@@ -1498,7 +1498,7 @@ const CARDS = [
 {
   "id": "roeDeerLinden",
   "names": { "en": "Roe Deer", "nl": "Ree" },
-  "category": "ungulates",
+  "category": "deer",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofed", "linden"],
   "expansion": "base",
@@ -1514,7 +1514,7 @@ const CARDS = [
 {
   "id": "roeDeerSilverFir",
   "names": { "en": "Roe Deer", "nl": "Ree" },
-  "category": "ungulates",
+  "category": "deer",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofed", "silverFir"],
   "expansion": "base",
@@ -1530,7 +1530,7 @@ const CARDS = [
 {
   "id": "roeDeerHorseChestnut",
   "names": { "en": "Roe Deer", "nl": "Ree" },
-  "category": "ungulates",
+  "category": "deer",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofed", "horseChestnut"],
   "expansion": "base",
@@ -1546,7 +1546,7 @@ const CARDS = [
 {
   "id": "roeDeerBirch",
   "names": { "en": "Roe Deer", "nl": "Ree" },
-  "category": "ungulates",
+  "category": "deer",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofed", "birch"],
   "expansion": "base",
