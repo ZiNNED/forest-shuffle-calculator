@@ -530,6 +530,18 @@ function renderCardRow(container, card) {
 
                 const aBtn = document.createElement('button');
                 aBtn.className = 'card-btn attached-btn';
+                // Symbols from entry
+                if (entry.symbols && entry.symbols.length) {
+                    entry.symbols.forEach((sym, idx) => {
+                        const icon = document.createElement('img');
+                        icon.className = 'symbol-img';
+                        if (idx > 0) icon.style.marginLeft = '2px';
+                        icon.src = 'assets/symbols/' + sym + '.png';
+                        icon.alt = sym;
+                        icon.onerror = function() { this.style.display = 'none'; };
+                        aBtn.appendChild(icon);
+                    });
+                }
                 const aName = document.createElement('span');
                 aName.className = 'card-name';
                 aName.textContent = entry[LANG] || entry.en || entry.target;
@@ -572,6 +584,18 @@ function renderCardRow(container, card) {
 
             const aBtn = document.createElement('button');
             aBtn.className = 'card-btn attached-btn';
+            // Symbols from attachedCards
+            if (card.attachedCards.symbols && card.attachedCards.symbols.length) {
+                card.attachedCards.symbols.forEach((sym, idx) => {
+                    const icon = document.createElement('img');
+                    icon.className = 'symbol-img';
+                    if (idx > 0) icon.style.marginLeft = '2px';
+                    icon.src = 'assets/symbols/' + sym + '.png';
+                    icon.alt = sym;
+                    icon.onerror = function() { this.style.display = 'none'; };
+                    aBtn.appendChild(icon);
+                });
+            }
             const aName = document.createElement('span');
             aName.className = 'card-name';
             if (card.attachedCards[LANG]) {
