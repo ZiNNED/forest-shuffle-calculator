@@ -1436,11 +1436,127 @@ const CARDS = [
   "expansion": "base",
   "scoring": [
     {
-      "count": { "of": "tag", "value": "deer" },
+      "count": { "of": "symbol", "value": "deer" },
       "reward": { "mode": "perUnit", "points": 5, "multiply": "self" }
     }
   ],
   "tags": [],
   "attachedCards": {}
+},
+{
+  "id": "fallowDeer",
+  "names": { "en": "Fallow Deer", "nl": "Damhert" },
+  "category": "ungulates",
+  "zone": "sides",
+  "symbols": ["deer", "clovenHoofed"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "clovenHoofed" },
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" }
+    }
+  ],
+  "tags": ["deer"],
+  "attachedCards": {}
+},
+{
+  "id": "redDeer",
+  "names": { "en": "Red Deer", "nl": "Edelhert" },
+  "category": "ungulates",
+  "zone": "sides",
+  "symbols": ["deer", "clovenHoofed"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "tree" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    },
+    {
+      "count": { "of": "symbol", "value": "plant" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    }
+  ],
+  "tags": ["deer"],
+  "attachedCards": {}
+},
+{
+  "id": "roeDeerBeech",
+  "names": { "en": "Roe Deer", "nl": "Ree" },
+  "category": "ungulates",
+  "zone": "sides",
+  "symbols": ["deer", "clovenHoofed", "beech"],
+  "expansion": "base",
+  "scoring": [
+    { 
+      "count": { "of": "attachedCards" }, 
+      "reward": { "mode": "perUnit", "points": 3 } 
+    }
+  ],
+  "tags": ["roe"],
+  "attachedCards": { "en": "Beech symbols", "nl": "Beuksymbolen", "symbols": ["beech"] }
+},
+{
+  "id": "roeDeerLinden",
+  "names": { "en": "Roe Deer", "nl": "Ree" },
+  "category": "ungulates",
+  "zone": "sides",
+  "symbols": ["deer", "clovenHoofed", "linden"],
+  "expansion": "base",
+  "scoring": [
+    { 
+      "count": { "of": "attachedCards" }, 
+      "reward": { "mode": "perUnit", "points": 3 } 
+    }
+  ],
+  "tags": ["roe"],
+  "attachedCards": { "en": "Linden symbols", "nl": "Lindesymbolen", "symbols": ["linden"] }
+},
+{
+  "id": "roeDeerSilverFir",
+  "names": { "en": "Roe Deer", "nl": "Ree" },
+  "category": "ungulates",
+  "zone": "sides",
+  "symbols": ["deer", "clovenHoofed", "silverFir"],
+  "expansion": "base",
+  "scoring": [
+    { 
+      "count": { "of": "attachedCards" }, 
+      "reward": { "mode": "perUnit", "points": 3 } 
+    }
+  ],
+  "tags": ["roe"],
+  "attachedCards": { "en": "Silver Fir symbols", "nl": "Zilversparsymbolen", "symbols": ["silverFir"] }
+},
+{
+  "id": "roeDeerHorseChestnut",
+  "names": { "en": "Roe Deer", "nl": "Ree" },
+  "category": "ungulates",
+  "zone": "sides",
+  "symbols": ["deer", "clovenHoofed", "horseChestnut"],
+  "expansion": "base",
+  "scoring": [
+    { 
+      "count": { "of": "attachedCards" }, 
+      "reward": { "mode": "perUnit", "points": 3 } 
+    }
+  ],
+  "tags": ["roe"],
+  "attachedCards": { "en": "Horse Chestnut symbols", "nl": "Paardenkastanjesymbolen", "symbols": ["horseChestnut"] }
+},
+{
+  "id": "roeDeerBirch",
+  "names": { "en": "Roe Deer", "nl": "Ree" },
+  "category": "ungulates",
+  "zone": "sides",
+  "symbols": ["deer", "clovenHoofed", "birch"],
+  "expansion": "base",
+  "scoring": [
+    { 
+      "count": { "of": "attachedCards" }, 
+      "reward": { "mode": "perUnit", "points": 3 } 
+    }
+  ],
+  "tags": ["roe"],
+  "attachedCards": { "en": "Birch symbols", "nl": "Beuksymbolen", "symbols": ["birch"] }
 }
 ];
