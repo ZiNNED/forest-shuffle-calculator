@@ -1408,11 +1408,11 @@ const CARDS = [
   "names": { "en": "Fallow Deer", "nl": "Damhert" },
   "category": "deer",
   "zone": "sides",
-  "symbols": ["deer", "clovenHoofed"],
+  "symbols": ["deer", "clovenHoofedAnimal"],
   "expansion": "base",
   "scoring": [
     {
-      "count": { "of": "symbol", "value": "clovenHoofed" },
+      "count": { "of": "symbol", "value": "clovenHoofedAnimal" },
       "reward": { "mode": "perUnit", "points": 3, "multiply": "self" }
     }
   ],
@@ -1424,7 +1424,7 @@ const CARDS = [
   "names": { "en": "Red Deer", "nl": "Edelhert" },
   "category": "deer",
   "zone": "sides",
-  "symbols": ["deer", "clovenHoofed"],
+  "symbols": ["deer", "clovenHoofedAnimal"],
   "expansion": "base",
   "scoring": [
     {
@@ -1444,7 +1444,7 @@ const CARDS = [
   "names": { "en": "Roe Deer", "nl": "Ree" },
   "category": "deer",
   "zone": "sides",
-  "symbols": ["deer", "clovenHoofed", "beech"],
+  "symbols": ["deer", "clovenHoofedAnimal", "beech"],
   "expansion": "base",
   "scoring": [
     { 
@@ -1460,7 +1460,7 @@ const CARDS = [
   "names": { "en": "Roe Deer", "nl": "Ree" },
   "category": "deer",
   "zone": "sides",
-  "symbols": ["deer", "clovenHoofed", "linden"],
+  "symbols": ["deer", "clovenHoofedAnimal", "linden"],
   "expansion": "base",
   "scoring": [
     { 
@@ -1476,7 +1476,7 @@ const CARDS = [
   "names": { "en": "Roe Deer", "nl": "Ree" },
   "category": "deer",
   "zone": "sides",
-  "symbols": ["deer", "clovenHoofed", "silverFir"],
+  "symbols": ["deer", "clovenHoofedAnimal", "silverFir"],
   "expansion": "base",
   "scoring": [
     { 
@@ -1492,7 +1492,7 @@ const CARDS = [
   "names": { "en": "Roe Deer", "nl": "Ree" },
   "category": "deer",
   "zone": "sides",
-  "symbols": ["deer", "clovenHoofed", "horseChestnut"],
+  "symbols": ["deer", "clovenHoofedAnimal", "horseChestnut"],
   "expansion": "base",
   "scoring": [
     { 
@@ -1508,7 +1508,7 @@ const CARDS = [
   "names": { "en": "Roe Deer", "nl": "Ree" },
   "category": "deer",
   "zone": "sides",
-  "symbols": ["deer", "clovenHoofed", "birch"],
+  "symbols": ["deer", "clovenHoofedAnimal", "birch"],
   "expansion": "base",
   "scoring": [
     { 
