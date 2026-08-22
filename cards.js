@@ -1489,11 +1489,11 @@ const CARDS = [
   "scoring": [
     { 
       "count": { "of": "attachedCards" }, 
-      "reward": { "mode": "perUnit", "points": 3 } 
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" } 
     }
   ],
   "tags": ["roe"],
-  "attachedCards": { "en": "Beech symbols", "nl": "Beuksymbolen", "symbols": ["beech"] }
+  "attachedCards": { "en": "Beech symbols", "nl": "Beuksymbolen", "symbols": ["beech"], "relation": "oneToMany" }
 },
 {
   "id": "roeDeerLinden",
@@ -1505,11 +1505,11 @@ const CARDS = [
   "scoring": [
     { 
       "count": { "of": "attachedCards" }, 
-      "reward": { "mode": "perUnit", "points": 3 } 
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" } 
     }
   ],
   "tags": ["roe"],
-  "attachedCards": { "en": "Linden symbols", "nl": "Lindesymbolen", "symbols": ["linden"] }
+  "attachedCards": { "en": "Linden symbols", "nl": "Lindesymbolen", "symbols": ["linden"], "relation": "oneToMany" }
 },
 {
   "id": "roeDeerSilverFir",
@@ -1521,11 +1521,11 @@ const CARDS = [
   "scoring": [
     { 
       "count": { "of": "attachedCards" }, 
-      "reward": { "mode": "perUnit", "points": 3 } 
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" } 
     }
   ],
   "tags": ["roe"],
-  "attachedCards": { "en": "Silver Fir symbols", "nl": "Zilversparsymbolen", "symbols": ["silverFir"] }
+  "attachedCards": { "en": "Silver Fir symbols", "nl": "Zilversparsymbolen", "symbols": ["silverFir"], "relation": "oneToMany" }
 },
 {
   "id": "roeDeerHorseChestnut",
@@ -1537,11 +1537,11 @@ const CARDS = [
   "scoring": [
     { 
       "count": { "of": "attachedCards" }, 
-      "reward": { "mode": "perUnit", "points": 3 } 
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" } 
     }
   ],
   "tags": ["roe"],
-  "attachedCards": { "en": "Horse Chestnut symbols", "nl": "Paardenkastanjesymbolen", "symbols": ["horseChestnut"] }
+  "attachedCards": { "en": "Horse Chestnut symbols", "nl": "Paardenkastanjesymbolen", "symbols": ["horseChestnut"], "relation": "oneToMany" }
 },
 {
   "id": "roeDeerBirch",
@@ -1553,10 +1553,10 @@ const CARDS = [
   "scoring": [
     { 
       "count": { "of": "attachedCards" }, 
-      "reward": { "mode": "perUnit", "points": 3 } 
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" } 
     }
   ],
   "tags": ["roe"],
-  "attachedCards": { "en": "Birch symbols", "nl": "Beuksymbolen", "symbols": ["birch"] }
+  "attachedCards": { "en": "Birch symbols", "nl": "Beuksymbolen", "symbols": ["birch"], "relation": "oneToMany" }
 }
 ];
