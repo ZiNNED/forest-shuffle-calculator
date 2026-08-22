@@ -1067,61 +1067,20 @@ const CARDS = [
   },
   "category": "insect",
   "zone": "sides",
-  "symbols": [
-    "insect"
-  ],
+  "symbols": ["insect"],
   "expansion": "base",
   "scoring": [],
-  "effect": {
-    "type": "boostTree"
-  },
+  "effect": { "type": "boostTree" },
   "tags": [],
   "attachedCards": [
-    {
-      "en": "at a Birch",
-      "nl": "aan een berk",
-      "target": "birch"
-    },
-    {
-      "en": "at a Beech",
-      "nl": "aan een beuk",
-      "target": "beech"
-    },
-    {
-      "en": "at a Douglas Fir",
-      "nl": "aan een douglasspar",
-      "target": "douglasFir"
-    },
-    {
-      "en": "at an Oak",
-      "nl": "aan een eik",
-      "target": "oak"
-    },
-    {
-      "en": "at a Linden",
-      "nl": "aan een linde",
-      "target": "linden"
-    },
-    {
-      "en": "at a Horse Chestnut",
-      "nl": "aan een paardenkastanje",
-      "target": "horseChestnut"
-    },
-    {
-      "en": "at a Silver Fir",
-      "nl": "aan een zilverspar",
-      "target": "silverFir"
-    },
-    {
-      "en": "at a Sycamore",
-      "nl": "aan een esdoorn",
-      "target": "sycamore"
-    },
-    {
-      "en": "at a Tree Sapling",
-      "nl": "aan een jong boompje",
-      "target": "sapling"
-    }
+    { "en": "at a Birch", "nl": "aan een berk", "target": "birch", "symbols": ["birch"] },
+    { "en": "at a Beech", "nl": "aan een beuk", "target": "beech", "symbols": ["beech"] },
+    { "en": "at a Douglas Fir", "nl": "aan een douglasspar", "target": "douglasFir", "symbols": ["douglasFir"] },
+    { "en": "at an Oak", "nl": "aan een eik", "target": "oak", "symbols": ["oak"] },
+    { "en": "at a Linden", "nl": "aan een linde", "target": "linden", "symbols": ["linden"] },
+    { "en": "at a Horse Chestnut", "nl": "aan een paardenkastanje", "target": "horseChestnut", "symbols": ["horseChestnut"] },
+    { "en": "at a Silver Fir", "nl": "aan een zilverspar", "target": "silverFir", "symbols": ["silverFir"] },
+    { "en": "at a Sycamore", "nl": "aan een esdoorn", "target": "sycamore", "symbols": ["sycamore"] }
   ]
 },
 {
