@@ -5,6 +5,30 @@
 
 const CARDS = [
 {
+  "id": "cave",
+  "names": {
+    "en": "Cards In Cave",
+    "nl": "Kaarten in grot"
+  },
+  "category": "cave",
+  "zone": "general",
+  "symbols": [],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": {
+        "of": "self"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 1
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+},
+{
   "id": "birch",
   "names": {
     "en": "Birch",

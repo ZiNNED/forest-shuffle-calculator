@@ -27,6 +27,7 @@ const L10N = {
         sides: 'Sides',
         general: 'General',
         categories: {
+            cave: 'CAVE',
             tree: 'TREES',
             shrub: 'SHRUBS',
             bird: 'BIRDS',
@@ -61,6 +62,7 @@ const L10N = {
         sides: 'Zijkanten',
         general: 'Generiek',
         categories: {
+            cave: 'GROT',
             tree: 'BOMEN',
             shrub: 'STRUIKEN',
             bird: 'VOGELS',
@@ -111,7 +113,7 @@ try { localStorage.removeItem('forestState'); } catch (e) { /* ignore */ }
 
 // ===== Zone definitions =====
 const ZONES = [
-    { id: 'general', color: 'var(--green)', categories: ['tree'] },
+    { id: 'general', color: 'var(--green)', categories: ['cave', 'tree'] },
     { id: 'tops', color: '#547AA5', categories: ['bird', 'butterfly', 'pawedAnimal'] },
     { id: 'bottoms', color: '#A8201A', categories: ['plant', 'mushroom', 'amphibian', 'insect', 'pawedAnimal'] },
     { id: 'sides', color: '#EC9A29', categories: ['insect', 'bat', 'pawedAnimal', 'deer'] }
@@ -129,7 +131,8 @@ const CATEGORY_COLORS = {
     insect: { bg: '#608780', border: '#4d6c66' },
     bat: { bg: '#1f1b18', border: '#151210' },
     deer: { bg: '#cbac40', border: '#a38c33' },
-    clovenHoofedAnimal: { bg: '#7e5541', border: '#654435' }
+    clovenHoofedAnimal: { bg: '#7e5541', border: '#654435' },
+    cave: { bg: '#4a4a4a', border: '#3a3a3a' }
 };
 
 // ===== Scoring Engine =====
