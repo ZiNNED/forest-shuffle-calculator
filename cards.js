@@ -1522,7 +1522,7 @@ const CARDS = [
 {
   "id": "squeeker",
   "names": { "en": "Squeeker", "nl": "Zwijnenbig" },
-  "category": "clovenHoofedAnimal",
+  "category": "deer",
   "zone": "sides",
   "symbols": ["clovenHoofedAnimal"],
   "expansion": "base",
@@ -1538,7 +1538,7 @@ const CARDS = [
 {
   "id": "wildBoar",
   "names": { "en": "Wild Boar", "nl": "Wild Zwijn" },
-  "category": "clovenHoofedAnimal",
+  "category": "deer",
   "zone": "sides",
   "symbols": ["clovenHoofedAnimal"],
   "expansion": "base",

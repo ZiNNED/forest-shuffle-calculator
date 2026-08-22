@@ -448,7 +448,9 @@ function renderCardRow(container, card) {
     row.className = 'card-row';
     row.dataset.cardKey = card.id;
     // Set category colors as CSS vars
-    const cc = CATEGORY_COLORS[card.category];
+    let catKey = card.category;
+    if (card.id === 'squeeker' || card.id === 'wildBoar') catKey = 'clovenHoofedAnimal';
+    const cc = CATEGORY_COLORS[catKey];
     if (cc) {
         row.style.setProperty('--cat-bg', cc.bg);
         row.style.setProperty('--cat-border', cc.border);
