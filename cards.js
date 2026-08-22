@@ -12,7 +12,7 @@ const CARDS = [
   },
   "category": "cave",
   "zone": "general",
-  "symbols": [],
+  "symbols": ["cave"],
   "expansion": "base",
   "scoring": [
     {
