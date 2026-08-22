@@ -1518,5 +1518,37 @@ const CARDS = [
   ],
   "tags": ["roe"],
   "attachedCards": { "en": "Birch symbols", "nl": "Beuksymbolen", "symbols": ["birch"], "relation": "oneToMany" }
+},
+{
+  "id": "squeeker",
+  "names": { "en": "Squeeker", "nl": "Zwijnenbig" },
+  "category": "deer",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 1 }
+    }
+  ],
+  "tags": ["squeeker"],
+  "attachedCards": {}
+},
+{
+  "id": "wildBoar",
+  "names": { "en": "Wild Boar", "nl": "Wild Zwijn" },
+  "category": "deer",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "tag", "value": "squeeker" },
+      "reward": { "mode": "flat", "points": 10 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
 }
 ];
