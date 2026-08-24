@@ -2362,6 +2362,23 @@ const CARDS = [
   ],
   "tags": [],
   "attachedCards": {}
+},
+{
+  "id": "waterVole",
+  "names": {
+    "en": "Water Vole",
+    "nl": "Woelrat"
+  },
+  "category": "pawedAnimal",
+  "zone": "bottoms",
+  "symbols": [
+    "pawedAnimal",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": {}
 }
 ];
 
