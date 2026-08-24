@@ -2437,6 +2437,35 @@ const CARDS = [
   ],
   "tags": [],
   "attachedCards": {}
+},
+{
+  "id": "commonPipistrelle",
+  "names": {
+    "en": "Common Pipistrelle",
+    "nl": "Gewone dwergvleermuis"
+  },
+  "category": "bat",
+  "zone": "sides",
+  "symbols": [
+    "bat",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [
+    {
+      "count": {
+        "of": "distinct",
+        "value": "bat"
+      },
+      "reward": {
+        "mode": "threshold",
+        "minimum": 3,
+        "points": 5
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
 }
 ];
 
