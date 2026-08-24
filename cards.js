@@ -2525,6 +2525,61 @@ const CARDS = [
   ],
   "tags": [],
   "attachedCards": {}
+},
+{
+  "id": "wildBoarFemale",
+  "names": { "en": "Wild Boar ♀", "nl": "Wild zwijn (zeug)" },
+  "category": "deer",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal", "woodlandEdge"],
+  "expansion": "woodlandEdge",
+  "scoring": [
+    {
+      "count": { "of": "tag", "value": "squeeker" },
+      "reward": { "mode": "perUnit", "points": 10, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "squeekerWildlandEdge",
+  "names": { "en": "Squeeker", "nl": "Zwijnenbig" },
+  "category": "deer",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal","woodlandEdge"],
+  "expansion": "woodlandEdge",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 1 }
+    }
+  ],
+  "tags": ["squeeker"],
+  "attachedCards": {}
+},
+{
+  "id": "europeanBison",
+  "names": { "en": "European Bison", "nl": "Wisent" },
+  "category": "deer",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal"],
+  "expansion": "woodlandEdge",
+  "scoring": [
+    { 
+      "count": { "of": "attachedCards" }, 
+      "reward": { "mode": "perUnit", "points": 2, "multiply": "self" } 
+    },
+    { 
+      "count": { "of": "attachedCards" }, 
+      "reward": { "mode": "perUnit", "points": 2, "multiply": "self" } 
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "Beech symbols", "nl": "Beuksymbolen", "symbols": ["beech"], "relation": "oneToMany" },
+    { "en": "Oak symbols", "nl": "Eikensymbolen", "symbols": ["oak"], "relation": "oneToMany" }
+  ]
 }
 ];
 
