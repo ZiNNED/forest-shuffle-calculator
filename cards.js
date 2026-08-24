@@ -1724,6 +1724,44 @@ const CARDS = [
   ],
   "tags": [],
   "attachedCards": {}
+},
+{
+  "id": "phoebusApollo",
+  "names": {
+    "en": "Phoebus Apollo",
+    "nl": "Kleine apollovlinder"
+  },
+  "zone": "tops",
+  "category": "butterfly",
+  "symbols": [
+    "butterfly",
+    "insect",
+    "alpine"
+  ],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": {
+        "of": "distinct",
+        "value": "butterfly"
+      },
+      "reward": {
+        "mode": "lookup",
+        "table": [
+          0,
+          3,
+          6,
+          12,
+          20,
+          35,
+          55
+        ],
+        "repeated": true
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
 }
-]
+];
 
