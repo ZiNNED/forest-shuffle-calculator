@@ -455,6 +455,7 @@ function buildCardSections() {
         const catGroups = byCategory(cards);
         (zone.categories || []).forEach(cat => {
             const catCards = catGroups[cat] || [];
+            if (catCards.length === 0) return;
             details.appendChild(buildCategoryDetails(cat, catCards, zone.id));
         });
 
