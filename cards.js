@@ -1929,6 +1929,35 @@ const CARDS = [
   ],
   "tags": [],
   "attachedCards": {}
+},
+{
+  "id": "savisPipistrelle",
+  "names": {
+    "en": "Savi's Pipistrelle",
+    "nl": "Savi's dwergvleermuis"
+  },
+  "category": "bat",
+  "zone": "sides",
+  "symbols": [
+    "bat",
+    "alpine"
+  ],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": {
+        "of": "distinct",
+        "value": "bat"
+      },
+      "reward": {
+        "mode": "threshold",
+        "minimum": 3,
+        "points": 5
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
 }
 ];
 
