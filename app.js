@@ -224,11 +224,12 @@ function getBoostForTree(treeId) {
 }
 
 // Get total attached count across all targets for an array-based attachedCards card
-function getTotalAttachedCount(cardId) {
+function getTotalAttachedCount(cardId, targetId) {
     const p = state.players[state.currentPlayer];
     if (!p.attached || !p.attached[cardId]) return 0;
     const att = p.attached[cardId];
     if (typeof att === 'number') return att;
+    if (targetId) return att[targetId] || 0;
     return Object.values(att).reduce((sum, v) => sum + v, 0);
 }
 
@@ -276,7 +277,7 @@ function computeCardTotal(cardId) {
             });
             count = species.size;
         } else if (countOf === 'attachedCards') {
-            count = getTotalAttachedCount(cardId);
+            count = getTotalAttachedCount(cardId, c.target);
         } else if (countOf === 'condition') {
             if (countValue === 'mostTreesNoTies') {
                 count = hasMostTreesNoTies(state.currentPlayer) ? 1 : 0;
@@ -670,8 +671,13 @@ function updateAllScores() {
     if (p.attached) {
         Object.keys(p.attached).forEach(cardId => {
             const card = CARDS.find(c => c.id === cardId);
-            // oneToMany cards (Silver Fir) have no cap
-            if (card && card.attachedCards && card.attachedCards.relation === 'oneToMany') return;
+            // oneToMany cards (Silver Fir, European Bison) have no cap
+            if (card && card.attachedCards) {
+                const isOneToMany = Array.isArray(card.attachedCards)
+                    ? card.attachedCards.some(a => a.relation === 'oneToMany')
+                    : card.attachedCards.relation === 'oneToMany';
+                if (isOneToMany) return;
+            }
             const max = p.cards[cardId] || 0;
             const att = p.attached[cardId];
             if (typeof att === 'number') {

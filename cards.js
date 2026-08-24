@@ -2567,11 +2567,11 @@ const CARDS = [
   "expansion": "woodlandEdge",
   "scoring": [
     { 
-      "count": { "of": "attachedCards" }, 
+      "count": { "of": "attachedCards", "target": "beech" }, 
       "reward": { "mode": "perUnit", "points": 2, "multiply": "self" } 
     },
     { 
-      "count": { "of": "attachedCards" }, 
+      "count": { "of": "attachedCards", "target": "oak" }, 
       "reward": { "mode": "perUnit", "points": 2, "multiply": "self" } 
     }
   ],
