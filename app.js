@@ -143,6 +143,8 @@ const CATEGORY_COLORS = {
 function countUniqueTreeSpecies(player) {
     const species = new Set();
     CARDS.forEach(card => {
+        const cExp = card.expansion || 'base';
+        if (cExp !== 'base' && !state.expansions[cExp]) return;
         if (card.zone === 'general' && player.cards[card.id] > 0) {
             species.add(card.id);
         }
@@ -156,6 +158,8 @@ function getEffectiveCount(cardId, playerIdx) {
     const base = p.cards[cardId] || 0;
     let boost = 0;
     CARDS.forEach(card => {
+        const cExp = card.expansion || 'base';
+        if (cExp !== 'base' && !state.expansions[cExp]) return;
         if (card.effect && card.effect.type === 'boostTree') {
             const att = p.attached && p.attached[card.id];
             if (att && typeof att === 'object') {
@@ -180,6 +184,8 @@ function hasMostOfType(cardId, playerIdx) {
 function hasMostTreesNoTies(playerIdx) {
     let myTrees = 0;
     CARDS.forEach(c => {
+        const cExp = c.expansion || 'base';
+        if (cExp !== 'base' && !state.expansions[cExp]) return;
         if (c.zone === 'general') {
             myTrees += getEffectiveCount(c.id, playerIdx);
         }
@@ -188,6 +194,8 @@ function hasMostTreesNoTies(playerIdx) {
         if (i === playerIdx) continue;
         let theirTrees = 0;
         CARDS.forEach(c => {
+            const cExp = c.expansion || 'base';
+            if (cExp !== 'base' && !state.expansions[cExp]) return;
             if (c.zone === 'general') {
                 theirTrees += getEffectiveCount(c.id, i);
             }
@@ -202,6 +210,8 @@ function getBoostForTree(treeId) {
     const p = state.players[state.currentPlayer];
     let boost = 0;
     CARDS.forEach(card => {
+        const cExp = card.expansion || 'base';
+        if (cExp !== 'base' && !state.expansions[cExp]) return;
         if (card.effect && card.effect.type === 'boostTree') {
             const att = p.attached && p.attached[card.id];
             if (att && typeof att === 'object') {
@@ -248,6 +258,8 @@ function computeCardTotal(cardId) {
         } else if (countOf === 'symbol') {
             const useBoost = r.mode === 'threshold';
             CARDS.forEach(card => {
+                const cExp = card.expansion || 'base';
+                if (cExp !== 'base' && !state.expansions[cExp]) return;
                 if (card.symbols.includes(countValue)) {
                     count += useBoost ? getEffectiveCount(card.id, state.currentPlayer) : (p.cards[card.id] || 0);
                 }
@@ -255,6 +267,8 @@ function computeCardTotal(cardId) {
         } else if (countOf === 'distinct') {
             const species = new Set();
             CARDS.forEach(card => {
+                const cExp = card.expansion || 'base';
+                if (cExp !== 'base' && !state.expansions[cExp]) return;
                 if (card.symbols.includes(countValue) && (p.cards[card.id] || 0) > 0) {
                     species.add(card.id);
                 }
@@ -269,6 +283,8 @@ function computeCardTotal(cardId) {
         } else if (countOf === 'tag') {
             // Count cards owned that have the specified tag in tags[]
             CARDS.forEach(c => {
+                const cExp = c.expansion || 'base';
+                if (cExp !== 'base' && !state.expansions[cExp]) return;
                 if (c.tags && c.tags.includes(countValue)) {
                     count += p.cards[c.id] || 0;
                 }
@@ -276,6 +292,8 @@ function computeCardTotal(cardId) {
         } else if (countOf === 'zone') {
             // Count all cards owned in the specified zone
             CARDS.forEach(c => {
+                const cExp = c.expansion || 'base';
+                if (cExp !== 'base' && !state.expansions[cExp]) return;
                 if (c.zone === countValue) {
                     count += p.cards[c.id] || 0;
                 }
@@ -343,9 +361,11 @@ function buildCardSections() {
     const container = document.getElementById('cardSections');
     container.innerHTML = '';
 
-    // Group cards by zone
+    // Group cards by zone, filtering by expansion
     const byZone = {};
     CARDS.forEach(card => {
+        const exp = card.expansion || 'base';
+        if (exp !== 'base' && !state.expansions[exp]) return;
         if (!byZone[card.zone]) byZone[card.zone] = [];
         byZone[card.zone].push(card);
     });
@@ -686,6 +706,10 @@ function updateAllScores() {
     let catScores = {};
 
     CARDS.forEach(card => {
+        // Skip cards from disabled expansions
+        const exp = card.expansion || 'base';
+        if (exp !== 'base' && !state.expansions[exp]) return;
+
         const totalPts = computeCardTotal(card.id);
 
         // Update per-card display
@@ -900,6 +924,9 @@ function computeCategoryTotals() {
                     // Collect counts per species
                     const counts = {};
                     CARDS.forEach(c => {
+                        // Skip cards from disabled expansions
+                        const cExp = c.expansion || 'base';
+                        if (cExp !== 'base' && !state.expansions[cExp]) return;
                         if (c.symbols.includes(sym) && (p.cards[c.id] || 0) > 0) {
                             counts[c.id] = p.cards[c.id] || 0;
                         }
@@ -1050,6 +1077,8 @@ function toggleExpansion(key) {
         row.querySelector('.toggle').classList.toggle('on', state.expansions[key]);
     }
     saveSettings();
+    buildCardSections();
+    updateAllScores();
 }
 
 // ===== Persist Settings =====
