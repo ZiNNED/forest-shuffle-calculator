@@ -367,7 +367,7 @@ function buildCardSections() {
     }
 
     // Render a category <details> with cards inside
-    function buildCategoryDetails(cat, cards) {
+    function buildCategoryDetails(cat, cards, zoneId) {
         const details = document.createElement('details');
         details.className = 'cat-details';
 
@@ -394,7 +394,7 @@ function buildCardSections() {
         // Category-level score display
         const catScore = document.createElement('span');
         catScore.className = 'cat-score';
-        catScore.id = 'catScore-' + cat;
+        catScore.id = 'catScore-' + zoneId + '-' + cat;
         catScore.textContent = '0';
         summary.appendChild(catScore);
 
@@ -432,7 +432,7 @@ function buildCardSections() {
         const catGroups = byCategory(cards);
         (zone.categories || []).forEach(cat => {
             const catCards = catGroups[cat] || [];
-            details.appendChild(buildCategoryDetails(cat, catCards));
+            details.appendChild(buildCategoryDetails(cat, catCards, zone.id));
         });
 
         details.setAttribute('open', '');
@@ -699,10 +699,11 @@ function updateAllScores() {
         // Also update attached count display
         updateAttachedDisplay(card.id);
 
-        // Accumulate category totals
+        // Accumulate category totals (scoped by zone)
         const cat = card.category;
-        if (!catScores[cat]) catScores[cat] = 0;
-        catScores[cat] += totalPts;
+        const zk = card.zone + '-' + cat;
+        if (!catScores[zk]) catScores[zk] = 0;
+        catScores[zk] += totalPts;
 
         // Route points to correct zone — skip differentTypes categories
         // (added separately below)
@@ -720,8 +721,9 @@ function updateAllScores() {
         const val = categoryTotals[cat];
         const sampleCard = CARDS.find(c => c.category === cat);
         if (sampleCard) {
-            // Use the category total as the catScore for this category
-            catScores[cat] = val;
+            // Use the category total as the catScore for this category (zone-scoped)
+            const zk = sampleCard.zone + '-' + cat;
+            catScores[zk] = val;
             if (sampleCard.zone === 'general') treePoints += val;
             else if (sampleCard.zone === 'tops') topPoints += val;
             else if (sampleCard.zone === 'bottoms') bottomPoints += val;
@@ -730,10 +732,10 @@ function updateAllScores() {
         }
     }
 
-    // Update category-level score displays
-    for (let cat in catScores) {
-        const el = document.getElementById('catScore-' + cat);
-        if (el) el.textContent = catScores[cat];
+    // Update category-level score displays (zone-scoped)
+    for (let zk in catScores) {
+        const el = document.getElementById('catScore-' + zk);
+        if (el) el.textContent = catScores[zk];
     }
 
     document.getElementById('treePoints').textContent = treePoints;
