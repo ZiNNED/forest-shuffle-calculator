@@ -546,6 +546,9 @@ function renderCardRow(container, card) {
                 return nameA.localeCompare(nameB, LANG);
             });
             sorted.forEach(entry => {
+                // Skip attachment entries that belong to a disabled expansion
+                const aExp = entry.expansion || 'base';
+                if (aExp !== 'base' && !state.expansions[aExp]) return;
                 const aRow = document.createElement('div');
                 aRow.className = 'attached-row';
                 aRow.dataset.cardKey = card.id + '-attached-' + entry.target;

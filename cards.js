@@ -1109,7 +1109,9 @@ const CARDS = [
     { "en": "at a Horse Chestnut", "nl": "aan een paardenkastanje", "target": "horseChestnut", "symbols": ["horseChestnut"] },
     { "en": "at a Silver Fir", "nl": "aan een zilverspar", "target": "silverFir", "symbols": ["silverFir"] },
     { "en": "at a Sycamore", "nl": "aan een esdoorn", "target": "sycamore", "symbols": ["sycamore"] },
-    { "en": "at a Tree Sapling", "nl": "aan een jong boompje", "target": "sapling", "symbols": ["sapling"] }
+    { "en": "at a Tree Sapling", "nl": "aan een jong boompje", "target": "sapling", "symbols": ["sapling"] },
+    { "en": "at a European Larch", "nl": "aan een Europese lariks", "target": "europeanLarch", "symbols": ["europeanLarch", "alpine"], "expansion": "alpine" },
+    { "en": "at a Stone Pine", "nl": "aan een Alpenden", "target": "stonePine", "symbols": ["stonePine", "alpine"], "expansion": "alpine" }
   ]
 },
 {
