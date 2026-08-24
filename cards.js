@@ -2333,6 +2333,35 @@ const CARDS = [
   ],
   "tags": [],
   "attachedCards": {}
+},
+{
+  "id": "greatGreenBushCricket",
+  "names": {
+    "en": "Great Green Bush Cricket",
+    "nl": "Grote groene sabelsprinkhaan"
+  },
+  "category": "insect",
+  "zone": "bottoms",
+  "symbols": [
+    "insect",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [
+    {
+      "count": {
+        "of": "symbol",
+        "value": "insect"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 1,
+        "multiply": "self"
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
 }
 ];
 
