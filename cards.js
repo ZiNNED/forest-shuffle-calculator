@@ -2322,7 +2322,7 @@ const CARDS = [
     {
       "count": {
         "of": "symbol",
-        "value": "bat"
+        "value": "butterfly"
       },
       "reward": {
         "mode": "perUnit",
