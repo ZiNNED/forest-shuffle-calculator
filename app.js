@@ -245,7 +245,7 @@ function computeCardTotal(cardId) {
         } else if (countOf === 'symbol') {
             CARDS.forEach(card => {
                 if (card.symbols.includes(countValue)) {
-                    count += p.cards[card.id] || 0;
+                    count += getEffectiveCount(card.id, state.currentPlayer);
                 }
             });
         } else if (countOf === 'distinct') {
