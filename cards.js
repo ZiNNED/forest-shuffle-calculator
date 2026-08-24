@@ -2466,6 +2466,65 @@ const CARDS = [
   ],
   "tags": [],
   "attachedCards": {}
+},
+{
+  "id": "europeanPolecat",
+  "names": {
+    "en": "European Polecat",
+    "nl": "Bunzing"
+  },
+  "category": "pawedAnimal",
+  "zone": "sides",
+  "symbols": [
+    "pawedAnimal",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [
+    {
+      "count": {
+        "of": "attachedCards"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 10
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {
+    "en": "alone at tree or shrub",
+    "nl": "als enige bij boom of struik"
+  }
+},
+{
+  "id": "europeanWildcat",
+  "names": {
+    "en": "European Wildcat",
+    "nl": "Wilde kat"
+  },
+  "category": "pawedAnimal",
+  "zone": "sides",
+  "symbols": [
+    "pawedAnimal",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [
+    {
+      "count": {
+        "of": "symbol",
+        "value": "woodlandEdge"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 1,
+        "multiply": "self"
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
 }
 ];
 
