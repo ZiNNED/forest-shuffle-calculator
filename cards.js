@@ -2093,6 +2093,57 @@ const CARDS = [
   ],
   "tags": [],
   "attachedCards": { "en": "Stone Pine symbols", "nl": "Alpendensymbolen", "symbols": ["stonePine"], "relation": "oneToMany" }
+},
+{
+  "id": "blackthorn",
+  "names": {
+    "en": "Blackthorn",
+    "nl": "Sleedoorn"
+  },
+  "category": "shrub",
+  "zone": "general",
+  "symbols": [
+    "shrub",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "commonHazel",
+  "names": {
+    "en": "Common Hazel",
+    "nl": "Hazelaar"
+  },
+  "category": "shrub",
+  "zone": "general",
+  "symbols": [
+    "shrub",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "elderberry",
+  "names": {
+    "en": "Elderberry",
+    "nl": "Gewone vlier"
+  },
+  "category": "shrub",
+  "zone": "general",
+  "symbols": [
+    "shrub",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": {}
 }
 ];
 
