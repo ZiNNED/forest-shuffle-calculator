@@ -2379,6 +2379,64 @@ const CARDS = [
   "scoring": [],
   "tags": [],
   "attachedCards": {}
+},
+{
+  "id": "craneFly",
+  "names": {
+    "en": "Crane Fly",
+    "nl": "Vliegende hooiwagen"
+  },
+  "category": "insect",
+  "zone": "sides",
+  "symbols": [
+    "insect",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [
+    {
+      "count": {
+        "of": "symbol",
+        "value": "bat"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 1,
+        "multiply": "self"
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "beeSwarm",
+  "names": {
+    "en": "Bee Swarm",
+    "nl": "Zwerm honingbijen"
+  },
+  "category": "insect",
+  "zone": "sides",
+  "symbols": [
+    "insect",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [
+    {
+      "count": {
+        "of": "symbol",
+        "value": "plant"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 1,
+        "multiply": "self"
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
 }
 ];
 
