@@ -276,7 +276,7 @@ function computeCardTotal(cardId) {
             });
             count = species.size;
         } else if (countOf === 'attachedCards') {
-            count = (p.attached && p.attached[cardId]) || 0;
+            count = getTotalAttachedCount(cardId);
         } else if (countOf === 'condition') {
             if (countValue === 'mostTreesNoTies') {
                 count = hasMostTreesNoTies(state.currentPlayer) ? 1 : 0;
