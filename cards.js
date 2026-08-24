@@ -1574,5 +1574,63 @@ const CARDS = [
   ],
   "tags": [],
   "attachedCards": {}
+},{
+  "id": "europeanLarch",
+  "names": {
+    "en": "European Larch",
+    "nl": "Europese lariks"
+  },
+  "category": "tree",
+  "zone": "general",
+  "symbols": [
+    "tree",
+    "europeanLarch",
+    "alpine"
+  ],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": {
+        "of": "self"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 3
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "stonePine",
+  "names": {
+    "en": "Stone Pine",
+    "nl": "Alpenden"
+  },
+  "category": "tree",
+  "zone": "general",
+  "symbols": [
+    "tree",
+    "stonePine",
+    "alpine"
+  ],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": {
+        "of": "symbol",
+        "value": "alpine"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 1,
+        "multiply": "self"
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
 }
 ];
+
