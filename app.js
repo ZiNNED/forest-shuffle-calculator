@@ -1110,9 +1110,12 @@ function setLanguage(lang) {
     LANG = lang;
     localStorage.setItem('forestLang', lang);
     saveSettings();
+    // Translate UI and buttons FIRST — before any rebuild that might throw
+    translateUI();
+    updateLangButtons();
+    // Now rebuild cards and scores
     buildCardSections();
     updateAllScores();
-    translateUI();
     // Update dynamically generated player names if unchanged from default
     state.players.forEach((p, i) => {
         const defaultEn = 'Player ' + (i + 1);
@@ -1176,13 +1179,18 @@ window.addEventListener('DOMContentLoaded', function() {
         }
     } catch (e) { /* ignore */ }
 
-    buildCardSections();
-    updateAllScores();
-    rebuildPlayerList();
-    updateHeaderPlayerName();
     translateUI();
     updateLangButtons();
-    restoreExpansionToggles();
+
+    try {
+        buildCardSections();
+        updateAllScores();
+        rebuildPlayerList();
+        updateHeaderPlayerName();
+        restoreExpansionToggles();
+    } catch (e) {
+        console.error('Init error:', e);
+    }
 
     // Click outside the summary closes the details
     document.addEventListener('click', function(e) {
