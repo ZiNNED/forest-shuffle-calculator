@@ -2049,7 +2049,7 @@ const CARDS = [
   "names": { "en": "Chamois", "nl": "Gems" },
   "category": "deer",
   "zone": "sides",
-  "symbols": ["clovenHoofedAnimal", "douglasFir"],
+  "symbols": ["clovenHoofedAnimal", "douglasFir", "alpine"],
   "expansion": "alpine",
   "scoring": [
     {
@@ -2065,7 +2065,7 @@ const CARDS = [
   "names": { "en": "Chamois", "nl": "Gems" },
   "category": "deer",
   "zone": "sides",
-  "symbols": ["clovenHoofedAnimal", "europeanLarch"],
+  "symbols": ["clovenHoofedAnimal", "europeanLarch", "alpine"],
   "expansion": "alpine",
   "scoring": [
     {
@@ -2081,7 +2081,7 @@ const CARDS = [
   "names": { "en": "Chamois", "nl": "Gems" },
   "category": "deer",
   "zone": "sides",
-  "symbols": ["clovenHoofedAnimal", "stonePine"],
+  "symbols": ["clovenHoofedAnimal", "stonePine", "alpine"],
   "expansion": "alpine",
   "scoring": [
     {
