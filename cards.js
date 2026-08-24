@@ -1900,6 +1900,35 @@ const CARDS = [
   ],
   "tags": [],
   "attachedCards": {}
+},
+{
+  "id": "capercaillie",
+  "names": {
+    "en": "Capercaillie",
+    "nl": "Auerhoen"
+  },
+  "zone": "sides",
+  "category": "bird",
+  "symbols": [
+    "bird",
+    "alpine"
+  ],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": {
+        "of": "symbol",
+        "value": "plant"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 1,
+        "multiply": "self"
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
 }
 ];
 
