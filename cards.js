@@ -2016,6 +2016,82 @@ const CARDS = [
   ],
   "tags": ["hare"],
   "attachedCards": {}
+},
+{
+  "id": "steinbock",
+  "names": {
+    "en": "Steinbock",
+    "nl": "Alpensteenbok"
+  },
+  "category": "deer",
+  "zone": "sides",
+  "symbols": [
+    "clovenHoofedAnimal",
+    "alpine"
+  ],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": {
+        "of": "self"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 10,
+        "multiply": "self"
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "chamoisDouglasFir",
+  "names": { "en": "Chamois", "nl": "Gems" },
+  "category": "deer",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal", "douglasFir"],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": { "en": "Douglas Fir symbols", "nl": "Douglassparsymbolen", "symbols": ["douglasFir"], "relation": "oneToMany" }
+},
+{
+  "id": "chamoisEuropeanLarch",
+  "names": { "en": "Chamois", "nl": "Gems" },
+  "category": "deer",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal", "europeanLarch"],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": { "en": "European Larch symbols", "nl": "Europese larikssymbolen", "symbols": ["europeanLarch"], "relation": "oneToMany" }
+},
+{
+  "id": "chamoisStonePine",
+  "names": { "en": "Chamois", "nl": "Gems" },
+  "category": "deer",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal", "stonePine"],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": { "en": "Stone Pine symbols", "nl": "Alpendensymbolen", "symbols": ["stonePine"], "relation": "oneToMany" }
 }
 ];
 
