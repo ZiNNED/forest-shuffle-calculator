@@ -2037,8 +2037,7 @@ const CARDS = [
       },
       "reward": {
         "mode": "perUnit",
-        "points": 10,
-        "multiply": "self"
+        "points": 10
       }
     }
   ],
