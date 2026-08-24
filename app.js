@@ -119,7 +119,7 @@ const ZONES = [
     { id: 'general', color: 'var(--green)', categories: ['cave', 'tree'] },
     { id: 'tops', color: '#547AA5', categories: ['bird', 'butterfly', 'pawedAnimal'] },
     { id: 'bottoms', color: '#A8201A', categories: ['plant', 'mushroom', 'amphibian', 'insect', 'pawedAnimal'] },
-    { id: 'sides', color: '#EC9A29', categories: ['insect', 'bat', 'pawedAnimal', 'deer', 'bird'] }
+    { id: 'sides', color: '#EC9A29', categories: ['bird', 'insect', 'bat', 'pawedAnimal', 'deer'] }
 ];
 
 // ===== Category Colors =====
