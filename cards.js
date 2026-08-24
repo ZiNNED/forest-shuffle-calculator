@@ -1867,6 +1867,35 @@ const CARDS = [
   "scoring": [],
   "tags": [],
   "attachedCards": {}
+},
+{
+  "id": "alpineNewt",
+  "names": {
+    "en": "Alpine Newt",
+    "nl": "Alpenwatersalamander"
+  },
+  "zone": "bottoms",
+  "category": "amphibian",
+  "symbols": [
+    "amphibian",
+    "alpine"
+  ],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": {
+        "of": "symbol",
+        "value": "insect"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 2,
+        "multiply": "self"
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
 }
-]
+];
 
