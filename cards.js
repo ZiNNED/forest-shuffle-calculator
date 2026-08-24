@@ -2298,7 +2298,7 @@ const CARDS = [
           10,
           15
         ],
-        "repeated": true
+        "multiply": "self"
       }
     }
   ],
