@@ -1365,7 +1365,7 @@ const CARDS = [
   "expansion": "base",
   "scoring": [
     {
-      "count": { "of": "self" },
+      "count": { "of": "tag", "value": "hare" },
       "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
     }
   ],
@@ -1957,6 +1957,64 @@ const CARDS = [
     }
   ],
   "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "alpineMarmot",
+  "names": {
+    "en": "Alpine Marmot",
+    "nl": "Alpenmarmot"
+  },
+  "category": "pawedAnimal",
+  "zone": "sides",
+  "symbols": [
+    "pawedAnimal",
+    "alpine"
+  ],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": {
+        "of": "distinct",
+        "value": "plant"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 3,
+        "multiply": "self"
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "mountainHare",
+  "names": {
+    "en": "Mountain Hare",
+    "nl": "Sneeuwhaas"
+  },
+  "category": "pawedAnimal",
+  "zone": "sides",
+  "symbols": [
+    "pawedAnimal",
+    "alpine"
+  ],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": {
+        "of": "tag",
+        "value": "hare"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 1,
+        "multiply": "self"
+      }
+    }
+  ],
+  "tags": ["hare"],
   "attachedCards": {}
 }
 ];
