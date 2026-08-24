@@ -2269,6 +2269,70 @@ const CARDS = [
   ],
   "tags": [],
   "attachedCards": {}
+},
+{
+  "id": "digitalis",
+  "names": {
+    "en": "Digitalis",
+    "nl": "Vingerhoedskruid"
+  },
+  "category": "plant",
+  "zone": "bottoms",
+  "symbols": [
+    "plant",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [
+    {
+      "count": {
+        "of": "distinct",
+        "value": "plant"
+      },
+      "reward": {
+        "mode": "lookup",
+        "table": [
+          1,
+          3,
+          6,
+          10,
+          15
+        ],
+        "repeated": true
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "stingingNettle",
+  "names": {
+    "en": "Stinging Nettle",
+    "nl": "Grote brandnetel"
+  },
+  "category": "plant",
+  "zone": "bottoms",
+  "symbols": [
+    "plant",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [
+    {
+      "count": {
+        "of": "symbol",
+        "value": "bat"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 2,
+        "multiply": "self"
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
 }
 ];
 
