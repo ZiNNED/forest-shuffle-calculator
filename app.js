@@ -108,13 +108,14 @@ let state = {
     currentPlayer: 0,
     players: [{ name: defaultPlayerName(0), cards: {}, attached: {} }],
     game: 'forest',
-    expansions: { alpine: false, woodlandEdge: false, exploration: false },
+    expansions: { alpine: false, woodlandEdge: false, exmoor: false },
 };
 
 // Clean up any old persisted state
 try { localStorage.removeItem('forestState'); } catch (e) { /* ignore */ }
 
 // ===== Zone definitions =====
+let currentCards = CARDS_FOREST;
 const ZONES = [
     { id: 'general', color: 'var(--green)', categories: ['cave', 'tree', 'shrub'] },
     { id: 'tops', color: '#547AA5', categories: ['bird', 'butterfly', 'pawedAnimal'] },
@@ -143,7 +144,7 @@ const CATEGORY_COLORS = {
 // Count unique tree species owned by a player
 function countUniqueTreeSpecies(player) {
     const species = new Set();
-    CARDS.forEach(card => {
+    currentCards.forEach(card => {
         const cExp = card.expansion || 'base';
         if (cExp !== 'base' && !state.expansions[cExp]) return;
         if (card.zone === 'general' && player.cards[card.id] > 0) {
@@ -158,7 +159,7 @@ function getEffectiveCount(cardId, playerIdx) {
     const p = state.players[playerIdx];
     const base = p.cards[cardId] || 0;
     let boost = 0;
-    CARDS.forEach(card => {
+    currentCards.forEach(card => {
         const cExp = card.expansion || 'base';
         if (cExp !== 'base' && !state.expansions[cExp]) return;
         if (card.effect && card.effect.type === 'boostTree') {
@@ -184,7 +185,7 @@ function hasMostOfType(cardId, playerIdx) {
 // Check if player has strictly the most trees (no ties allowed)
 function hasMostTreesNoTies(playerIdx) {
     let myTrees = 0;
-    CARDS.forEach(c => {
+    currentCards.forEach(c => {
         const cExp = c.expansion || 'base';
         if (cExp !== 'base' && !state.expansions[cExp]) return;
         if (c.zone === 'general') {
@@ -194,7 +195,7 @@ function hasMostTreesNoTies(playerIdx) {
     for (let i = 0; i < state.players.length; i++) {
         if (i === playerIdx) continue;
         let theirTrees = 0;
-        CARDS.forEach(c => {
+        currentCards.forEach(c => {
             const cExp = c.expansion || 'base';
             if (cExp !== 'base' && !state.expansions[cExp]) return;
             if (c.zone === 'general') {
@@ -210,7 +211,7 @@ function hasMostTreesNoTies(playerIdx) {
 function getBoostForTree(treeId) {
     const p = state.players[state.currentPlayer];
     let boost = 0;
-    CARDS.forEach(card => {
+    currentCards.forEach(card => {
         const cExp = card.expansion || 'base';
         if (cExp !== 'base' && !state.expansions[cExp]) return;
         if (card.effect && card.effect.type === 'boostTree') {
@@ -236,7 +237,7 @@ function getTotalAttachedCount(cardId, targetId) {
 // ===== Scoring Engine =====
 
 function computeCardTotal(cardId) {
-    const card = CARDS.find(c => c.id === cardId);
+    const card = currentCards.find(c => c.id === cardId);
     if (!card) return 0;
     const p = state.players[state.currentPlayer];
     const selfCount = p.cards[cardId] || 0;
@@ -259,7 +260,7 @@ function computeCardTotal(cardId) {
             count = effectiveSelf;
         } else if (countOf === 'symbol') {
             const useBoost = r.mode === 'threshold';
-            CARDS.forEach(card => {
+            currentCards.forEach(card => {
                 const cExp = card.expansion || 'base';
                 if (cExp !== 'base' && !state.expansions[cExp]) return;
                 if (card.symbols.includes(countValue)) {
@@ -268,7 +269,7 @@ function computeCardTotal(cardId) {
             });
         } else if (countOf === 'distinct') {
             const species = new Set();
-            CARDS.forEach(card => {
+            currentCards.forEach(card => {
                 const cExp = card.expansion || 'base';
                 if (cExp !== 'base' && !state.expansions[cExp]) return;
                 if (card.symbols.includes(countValue) && (p.cards[card.id] || 0) > 0) {
@@ -284,7 +285,7 @@ function computeCardTotal(cardId) {
             }
         } else if (countOf === 'tag') {
             // Count cards owned that have the specified tag in tags[]
-            CARDS.forEach(c => {
+            currentCards.forEach(c => {
                 const cExp = c.expansion || 'base';
                 if (cExp !== 'base' && !state.expansions[cExp]) return;
                 if (c.tags && c.tags.includes(countValue)) {
@@ -293,7 +294,7 @@ function computeCardTotal(cardId) {
             });
         } else if (countOf === 'zone') {
             // Count all cards owned in the specified zone
-            CARDS.forEach(c => {
+            currentCards.forEach(c => {
                 const cExp = c.expansion || 'base';
                 if (cExp !== 'base' && !state.expansions[cExp]) return;
                 if (c.zone === countValue) {
@@ -365,7 +366,7 @@ function buildCardSections() {
 
     // Group cards by zone, filtering by expansion
     const byZone = {};
-    CARDS.forEach(card => {
+    currentCards.forEach(card => {
         const exp = card.expansion || 'base';
         if (exp !== 'base' && !state.expansions[exp]) return;
         if (!byZone[card.zone]) byZone[card.zone] = [];
@@ -670,7 +671,7 @@ function updateAllScores() {
     const p = state.players[state.currentPlayer];
     if (p.attached) {
         Object.keys(p.attached).forEach(cardId => {
-            const card = CARDS.find(c => c.id === cardId);
+            const card = currentCards.find(c => c.id === cardId);
             // oneToMany cards (Silver Fir, European Bison) have no cap
             if (card && card.attachedCards) {
                 const isOneToMany = Array.isArray(card.attachedCards)
@@ -716,7 +717,7 @@ function updateAllScores() {
     // Track per-card and per-category scores
     let catScores = {};
 
-    CARDS.forEach(card => {
+    currentCards.forEach(card => {
         // Skip cards from disabled expansions
         const exp = card.expansion || 'base';
         if (exp !== 'base' && !state.expansions[exp]) return;
@@ -757,7 +758,7 @@ function updateAllScores() {
     // Add repeated-lookup category totals to zones once
     for (let cat in categoryTotals) {
         const val = categoryTotals[cat];
-        const sampleCard = CARDS.find(c => c.category === cat);
+        const sampleCard = currentCards.find(c => c.category === cat);
         if (sampleCard) {
             // Use the category total as the catScore for this category (zone-scoped)
             const zk = sampleCard.zone + '-' + cat;
@@ -810,7 +811,7 @@ function updateCount(cardId) {
 // ===== Attached Card Actions =====
 function addAttachedCard(cardId, targetId) {
     const p = state.players[state.currentPlayer];
-    const card = CARDS.find(c => c.id === cardId);
+    const card = currentCards.find(c => c.id === cardId);
     if (!p.cards[cardId] || p.cards[cardId] < 1) return;
     if (!p.attached) p.attached = {};
 
@@ -845,7 +846,7 @@ function addAttachedCard(cardId, targetId) {
 function removeAttachedCard(cardId, targetId) {
     const p = state.players[state.currentPlayer];
     if (!p.attached) p.attached = {};
-    const card = CARDS.find(c => c.id === cardId);
+    const card = currentCards.find(c => c.id === cardId);
 
     if (targetId && card && Array.isArray(card.attachedCards)) {
         // Array-based: remove from specific target
@@ -867,7 +868,7 @@ function removeAttachedCard(cardId, targetId) {
 
 function updateAttachedDisplay(cardId, targetId) {
     const p = state.players[state.currentPlayer];
-    const card = CARDS.find(c => c.id === cardId);
+    const card = currentCards.find(c => c.id === cardId);
     if (targetId) {
         // Per-target display
         const el = document.getElementById('attached-count-' + cardId + '-' + targetId);
@@ -927,7 +928,7 @@ let categoryTotals = {};
 function computeCategoryTotals() {
     categoryTotals = {};
     const p = state.players[state.currentPlayer];
-    CARDS.forEach(card => {
+    currentCards.forEach(card => {
         card.scoring.forEach(rule => {
             const r = rule.reward;
             if (r && r.mode === 'lookup' && r.repeated === true) {
@@ -935,7 +936,7 @@ function computeCategoryTotals() {
                 if (categoryTotals[sym] === undefined) {
                     // Collect counts per species
                     const counts = {};
-                    CARDS.forEach(c => {
+                    currentCards.forEach(c => {
                         // Skip cards from disabled expansions
                         const cExp = c.expansion || 'base';
                         if (cExp !== 'base' && !state.expansions[cExp]) return;
@@ -1054,7 +1055,7 @@ function switchPlayer(idx) {
     const rows = document.querySelectorAll('.settings-player-row');
     if (rows[idx]) rows[idx].classList.add('active');
     updateHeaderPlayerName();
-    CARDS.forEach(c => updateCount(c.id));
+    currentCards.forEach(c => updateCount(c.id));
     updateAllScores();
 }
 
@@ -1073,12 +1074,37 @@ function updatePlusButton() {
 
 // ===== Game Selection =====
 function selectGame(game) {
-    if (game === 'dartmoor') return;
+    if (state.game === game) return;
     state.game = game;
     document.querySelectorAll('.settings-row .radio').forEach(r => r.classList.remove('checked'));
-    const forestRow = document.getElementById('gameForest');
-    if (forestRow) forestRow.querySelector('.radio').classList.add('checked');
+    const row = document.getElementById('game' + game.charAt(0).toUpperCase() + game.slice(1));
+    if (row) row.querySelector('.radio').classList.add('checked');
+
+    // Swap card data
+    currentCards = game === 'forest' ? CARDS_FOREST : CARDS_DARTMOOR;
+
+    // Reset current player state
+    const p = state.players[state.currentPlayer];
+    p.cards = {};
+    p.attached = {};
+
+    // Show/hide expansion toggles per game
+    document.querySelectorAll('[data-game]').forEach(el => {
+        el.style.display = el.dataset.game === game ? '' : 'none';
+    });
+
+    // Reset all card counts display
+    document.querySelectorAll('.card-count').forEach(el => el.textContent = '0×');
+    document.querySelectorAll('.card-points').forEach(el => el.textContent = '0');
+
     saveSettings();
+    buildCardSections();
+    updateAllScores();
+    updateCountDisplay();
+}
+
+function updateCountDisplay() {
+    currentCards.forEach(c => updateCount(c.id));
 }
 
 // ===== Expansion Toggle =====
@@ -1163,7 +1189,7 @@ function closeSettings() {
 function newGame() {
     if (confirm(t('confirmNewGame'))) {
         state.players.forEach(p => { p.cards = {}; p.attached = {}; });
-        CARDS.forEach(c => updateCount(c.id));
+        currentCards.forEach(c => updateCount(c.id));
         updateAllScores();
         closeSettings();
     }
@@ -1185,6 +1211,16 @@ window.addEventListener('DOMContentLoaded', function() {
             }
         }
     } catch (e) { /* ignore */ }
+
+    // Apply game state: swap currentCards and show/hide expansion toggles
+    currentCards = state.game === 'forest' ? CARDS_FOREST : CARDS_DARTMOOR;
+    document.querySelectorAll('[data-game]').forEach(el => {
+        el.style.display = el.dataset.game === state.game ? '' : 'none';
+    });
+    // Update radio buttons to match saved game
+    document.querySelectorAll('.settings-row .radio').forEach(r => r.classList.remove('checked'));
+    const gameRow = document.getElementById('game' + state.game.charAt(0).toUpperCase() + state.game.slice(1));
+    if (gameRow) gameRow.querySelector('.radio').classList.add('checked');
 
     translateUI();
     updateLangButtons();

@@ -32,8 +32,8 @@
             <span class="settings-label">Forest Shuffle</span>
             <span class="radio checked"></span>
         </div>
-        <div class="settings-row disabled" id="gameDartmoor" onclick="selectGame('dartmoor')">
-            <span class="settings-label">Dartmoor <span class="badge-soon" data-i18n="soon">Soon</span></span>
+        <div class="settings-row" id="gameDartmoor" onclick="selectGame('dartmoor')">
+            <span class="settings-label">Dartmoor</span>
             <span class="radio"></span>
         </div>
     </div>
@@ -59,12 +59,16 @@
 
     <div class="settings-group">
         <div class="settings-group-title" data-i18n="expansions">Expansions</div>
-        <div class="settings-row" id="expAlpine" onclick="toggleExpansion('alpine')">
+        <div class="settings-row" id="expAlpine" onclick="toggleExpansion('alpine')" data-game="forest">
             <span class="settings-label"><img class="symbol-icon" src="assets/symbols/alpine.png" alt="alpine"> Alpine</span>
             <span class="toggle"></span>
         </div>
-        <div class="settings-row" id="expWoodlandEdge" onclick="toggleExpansion('woodlandEdge')">
+        <div class="settings-row" id="expWoodlandEdge" onclick="toggleExpansion('woodlandEdge')" data-game="forest">
             <span class="settings-label"><img class="symbol-icon" src="assets/symbols/woodlandEdge.png" alt="woodlandEdge"> Woodland Edge</span>
+            <span class="toggle"></span>
+        </div>
+        <div class="settings-row" id="expExmoor" onclick="toggleExpansion('exmoor')" data-game="dartmoor" style="display:none">
+            <span class="settings-label">Exmoor</span>
             <span class="toggle"></span>
         </div>
     </div>
@@ -113,8 +117,9 @@
     <div style="height: 40px;"></div>
 </div>
 
-<script src="cards.js?v=148"></script>
-<script src="app.js?v=148"></script>
+<script src="cards-forest.js?v=149"></script>
+<script src="cards-dartmoor.js?v=149"></script>
+<script src="app.js?v=149"></script>
 <script>
     // Set version from cache-busting parameter
     (function() {
