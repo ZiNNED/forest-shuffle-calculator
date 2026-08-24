@@ -2231,6 +2231,44 @@ const CARDS = [
   ],
   "tags": [],
   "attachedCards": {}
+},
+{
+  "id": "mapButterfly",
+  "names": {
+    "en": "Map Butterfly",
+    "nl": "Landkaartje"
+  },
+  "zone": "tops",
+  "category": "butterfly",
+  "symbols": [
+    "butterfly",
+    "insect",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [
+    {
+      "count": {
+        "of": "distinct",
+        "value": "butterfly"
+      },
+      "reward": {
+        "mode": "lookup",
+        "table": [
+          0,
+          3,
+          6,
+          12,
+          20,
+          35,
+          55
+        ],
+        "repeated": true
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
 }
 ];
 
