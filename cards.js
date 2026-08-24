@@ -2543,7 +2543,7 @@ const CARDS = [
   "attachedCards": {}
 },
 {
-  "id": "squeekerWildlandEdge",
+  "id": "squeekerWoodlandEdge",
   "names": { "en": "Squeeker", "nl": "Zwijnenbig" },
   "category": "deer",
   "zone": "sides",
