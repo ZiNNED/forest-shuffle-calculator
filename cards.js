@@ -1631,6 +1631,99 @@ const CARDS = [
   ],
   "tags": [],
   "attachedCards": {}
+},
+{
+  "id": "commonRaven",
+  "names": {
+    "en": "Common Raven",
+    "nl": "Raaf"
+  },
+  "category": "bird",
+  "zone": "tops",
+  "symbols": [
+    "bird",
+    "alpine"
+  ],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": {
+        "of": "self"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 5
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "goldenEagle",
+  "names": {
+    "en": "Golden Eagle",
+    "nl": "Steenarend"
+  },
+  "category": "bird",
+  "zone": "tops",
+  "symbols": [
+    "bird",
+    "alpine"
+  ],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": {
+        "of": "symbol",
+        "value": "pawedAnimal"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 1
+      }
+    },
+    {
+      "count": {
+        "of": "symbol",
+        "value": "amphibian"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 1
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "beardedVulture",
+  "names": {
+    "en": "Bearded Vulture",
+    "nl": "Lammergier"
+  },
+  "category": "bird",
+  "zone": "tops",
+  "symbols": [
+    "bird",
+    "alpine"
+  ],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": {
+        "of": "symbol",
+        "value": "cave"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 1
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
 }
-];
+]
 
