@@ -873,6 +873,7 @@ function updateAttachedDisplay(cardId, targetId) {
     // If card has array-based attachedCards, update all targets
     if (card && Array.isArray(card.attachedCards)) {
         card.attachedCards.forEach(entry => {
+            if (!entry.target) return;
             updateAttachedDisplay(cardId, entry.target);
         });
         return;

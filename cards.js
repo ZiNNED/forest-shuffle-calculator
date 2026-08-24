@@ -2577,8 +2577,8 @@ const CARDS = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "Beech symbols", "nl": "Beuksymbolen", "symbols": ["beech"], "relation": "oneToMany" },
-    { "en": "Oak symbols", "nl": "Eikensymbolen", "symbols": ["oak"], "relation": "oneToMany" }
+    { "en": "Beech symbols", "nl": "Beuksymbolen", "target": "beech", "symbols": ["beech"], "relation": "oneToMany" },
+    { "en": "Oak symbols", "nl": "Eikensymbolen", "target": "oak", "symbols": ["oak"], "relation": "oneToMany" }
   ]
 }
 ];
