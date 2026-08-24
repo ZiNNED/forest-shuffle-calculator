@@ -1567,7 +1567,7 @@ const CARDS = [
 },
 {
   "id": "wildBoar",
-  "names": { "en": "Wild Boar", "nl": "Wild Zwijn" },
+  "names": { "en": "Wild Boar", "nl": "Wild zwijn" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["clovenHoofedAnimal"],
