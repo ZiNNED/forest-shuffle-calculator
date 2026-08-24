@@ -2145,5 +2145,92 @@ const CARDS = [
   "tags": [],
   "attachedCards": {}
 }
+,
+{
+  "id": "nightingale",
+  "names": {
+    "en": "Nightingale",
+    "nl": "Nachtegaal"
+  },
+  "zone": "tops",
+  "category": "bird",
+  "symbols": [
+    "bird",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [
+    {
+      "count": {
+        "of": "attachedCards"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 5
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {
+    "en": "atop a shrub",
+    "nl": "bovenop een struik"
+  }
+},
+{
+  "id": "barnOwl",
+  "names": {
+    "en": "Barn Owl",
+    "nl": "Kerkuil"
+  },
+  "zone": "tops",
+  "category": "bird",
+  "symbols": [
+    "bird",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [
+    {
+      "count": {
+        "of": "symbol",
+        "value": "bat"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 3,
+        "multiply": "self"
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "eurasianMagpie",
+  "names": {
+    "en": "Eurasian Magpie",
+    "nl": "Ekster"
+  },
+  "zone": "tops",
+  "category": "bird",
+  "symbols": [
+    "bird",
+    "woodlandEdge"
+  ],
+  "expansion": "woodlandEdge",
+  "scoring": [
+    {
+      "count": {
+        "of": "self"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 3
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+}
 ];
 
