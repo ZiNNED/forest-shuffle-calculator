@@ -1680,7 +1680,8 @@ const CARDS = [
       },
       "reward": {
         "mode": "perUnit",
-        "points": 1
+        "points": 1,
+        "multiply": "self"
       }
     },
     {
@@ -1690,7 +1691,8 @@ const CARDS = [
       },
       "reward": {
         "mode": "perUnit",
-        "points": 1
+        "points": 1,
+        "multiply": "self"
       }
     }
   ],
@@ -1718,7 +1720,8 @@ const CARDS = [
       },
       "reward": {
         "mode": "perUnit",
-        "points": 1
+        "points": 1,
+        "multiply": "self"
       }
     }
   ],
@@ -1738,7 +1741,7 @@ const CARDS = [
     "insect",
     "alpine"
   ],
-  "expansion": "base",
+  "expansion": "alpine",
   "scoring": [
     {
       "count": {
