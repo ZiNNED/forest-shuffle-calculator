@@ -1765,6 +1765,108 @@ const CARDS = [
   ],
   "tags": [],
   "attachedCards": {}
+},
+{
+  "id": "Blueberry",
+  "names": {
+    "en": "Blueberry",
+    "nl": "Blauwe bosbes"
+  },
+  "zone": "bottoms",
+  "category": "plant",
+  "symbols": [
+    "plant",
+    "alpine"
+  ],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": {
+        "of": "distinct",
+        "value": "bird"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 2,
+        "multiply": "self"
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "Gentian",
+  "names": {
+    "en": "Gentian",
+    "nl": "Gentiaan"
+  },
+  "zone": "bottoms",
+  "category": "plant",
+  "symbols": [
+    "plant",
+    "alpine"
+  ],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": {
+        "of": "symbol",
+        "value": "butterfly"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 3,
+        "multiply": "self"
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "Edelweiss",
+  "names": {
+    "en": "Edelweiss",
+    "nl": "Edelweiss"
+  },
+  "zone": "bottoms",
+  "category": "plant",
+  "symbols": [
+    "plant",
+    "alpine"
+  ],
+  "expansion": "alpine",
+  "scoring": [
+    {
+      "count": {
+        "of": "self"
+      },
+      "reward": {
+        "mode": "perUnit",
+        "points": 3
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
+},
+{
+  "id": "blackTrumpet",
+  "names": {
+    "en": "Black Trumpet",
+    "nl": "Hoorn-van-overvloed"
+  },
+  "zone": "bottoms",
+  "category": "mushroom",
+  "symbols": [
+    "mushroom",
+    "alpine"
+  ],
+  "expansion": "base",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": {}
 }
-];
+]
 
