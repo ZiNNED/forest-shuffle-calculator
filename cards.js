@@ -2563,7 +2563,7 @@ const CARDS = [
   "names": { "en": "European Bison", "nl": "Wisent" },
   "category": "deer",
   "zone": "sides",
-  "symbols": ["clovenHoofedAnimal"],
+  "symbols": ["clovenHoofedAnimal", "woodlandEdge"],
   "expansion": "woodlandEdge",
   "scoring": [
     { 
