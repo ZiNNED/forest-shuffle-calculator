@@ -243,9 +243,10 @@ function computeCardTotal(cardId) {
         if (countOf === 'self') {
             count = effectiveSelf;
         } else if (countOf === 'symbol') {
+            const useBoost = r.mode === 'threshold';
             CARDS.forEach(card => {
                 if (card.symbols.includes(countValue)) {
-                    count += getEffectiveCount(card.id, state.currentPlayer);
+                    count += useBoost ? getEffectiveCount(card.id, state.currentPlayer) : (p.cards[card.id] || 0);
                 }
             });
         } else if (countOf === 'distinct') {
