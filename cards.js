@@ -333,7 +333,8 @@ const CARDS = [
       },
       "reward": {
         "mode": "perUnit",
-        "points": 2
+        "points": 2,
+        "multiply": "self"
       }
     }
   ],
@@ -387,7 +388,8 @@ const CARDS = [
       },
       "reward": {
         "mode": "perUnit",
-        "points": 3
+        "points": 3,
+        "multiply": "self"
       }
     }
   ],
@@ -683,7 +685,8 @@ const CARDS = [
       },
       "reward": {
         "mode": "perUnit",
-        "points": 6
+        "points": 6,
+        "multiply": "self"
       }
     }
   ],
@@ -710,7 +713,8 @@ const CARDS = [
       },
       "reward": {
         "mode": "perUnit",
-        "points": 2
+        "points": 2,
+        "multiply": "self"
       }
     }
   ],
