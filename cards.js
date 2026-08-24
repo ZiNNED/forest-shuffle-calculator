@@ -1867,7 +1867,7 @@ const CARDS = [
     "mushroom",
     "alpine"
   ],
-  "expansion": "base",
+  "expansion": "alpine",
   "scoring": [],
   "tags": [],
   "attachedCards": {}
@@ -1884,7 +1884,7 @@ const CARDS = [
     "amphibian",
     "alpine"
   ],
-  "expansion": "base",
+  "expansion": "alpine",
   "scoring": [
     {
       "count": {
