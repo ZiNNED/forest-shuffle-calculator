@@ -52,22 +52,22 @@
     <div class="settings-group">
         <div class="settings-group-title" data-i18n="language">Language</div>
         <div class="settings-lang-row">
-            <button class="lang-btn" id="langEn" onclick="setLanguage('en')">&#127482;&#127480;</button>
+            <button class="lang-btn" id="langEn" onclick="setLanguage('en')">&#127468;&#127463;</button>
             <button class="lang-btn" id="langNl" onclick="setLanguage('nl')">&#127475;&#127473;</button>
         </div>
     </div>
 
-    <div class="settings-group disabled">
-        <div class="settings-group-title"><span data-i18n="expansions">Expansions</span> <span class="badge-soon" data-i18n="soon">Soon</span></div>
-        <div class="settings-row">
+    <div class="settings-group">
+        <div class="settings-group-title" data-i18n="expansions">Expansions</div>
+        <div class="settings-row" id="expAlpine" onclick="toggleExpansion('alpine')">
             <span class="settings-label">Alpine</span>
             <span class="toggle"></span>
         </div>
-        <div class="settings-row">
+        <div class="settings-row" id="expWoodlandEdge" onclick="toggleExpansion('woodlandEdge')">
             <span class="settings-label">Woodland Edge</span>
             <span class="toggle"></span>
         </div>
-        <div class="settings-row">
+        <div class="settings-row" id="expExploration" onclick="toggleExpansion('exploration')">
             <span class="settings-label">Exploration</span>
             <span class="toggle"></span>
         </div>
@@ -117,8 +117,8 @@
     <div style="height: 40px;"></div>
 </div>
 
-<script src="cards.js?v=104"></script>
-<script src="app.js?v=104"></script>
+<script src="cards.js?v=105"></script>
+<script src="app.js?v=105"></script>
 <script>
     // Set version from cache-busting parameter
     (function() {

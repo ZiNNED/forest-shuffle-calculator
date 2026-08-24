@@ -108,6 +108,7 @@ let state = {
     currentPlayer: 0,
     players: [{ name: defaultPlayerName(0), cards: {}, attached: {} }],
     game: 'forest',
+    expansions: { alpine: false, woodlandEdge: false, exploration: false },
 };
 
 // Clean up any old persisted state
@@ -1038,12 +1039,43 @@ function selectGame(game) {
     document.querySelectorAll('.settings-row .radio').forEach(r => r.classList.remove('checked'));
     const forestRow = document.getElementById('gameForest');
     if (forestRow) forestRow.querySelector('.radio').classList.add('checked');
+    saveSettings();
+}
+
+// ===== Expansion Toggle =====
+function toggleExpansion(key) {
+    state.expansions[key] = !state.expansions[key];
+    const row = document.getElementById('exp' + key.charAt(0).toUpperCase() + key.slice(1));
+    if (row) {
+        row.querySelector('.toggle').classList.toggle('on', state.expansions[key]);
+    }
+    saveSettings();
+}
+
+// ===== Persist Settings =====
+function saveSettings() {
+    localStorage.setItem('forestSettings', JSON.stringify({
+        game: state.game,
+        expansions: state.expansions,
+        lang: LANG,
+    }));
+}
+
+// ===== Restore Expansion Toggles =====
+function restoreExpansionToggles() {
+    for (const key in state.expansions) {
+        if (state.expansions[key]) {
+            const row = document.getElementById('exp' + key.charAt(0).toUpperCase() + key.slice(1));
+            if (row) row.querySelector('.toggle').classList.add('on');
+        }
+    }
 }
 
 // ===== Language Toggle =====
 function setLanguage(lang) {
     LANG = lang;
     localStorage.setItem('forestLang', lang);
+    saveSettings();
     buildCardSections();
     updateAllScores();
     translateUI();
@@ -1097,12 +1129,26 @@ function newGame() {
 
 // ===== Init =====
 window.addEventListener('DOMContentLoaded', function() {
+    // Load persisted settings
+    try {
+        const saved = JSON.parse(localStorage.getItem('forestSettings'));
+        if (saved) {
+            if (saved.game) state.game = saved.game;
+            if (saved.expansions) state.expansions = saved.expansions;
+            if (saved.lang) {
+                LANG = saved.lang;
+                localStorage.setItem('forestLang', saved.lang);
+            }
+        }
+    } catch (e) { /* ignore */ }
+
     buildCardSections();
     updateAllScores();
     rebuildPlayerList();
     updateHeaderPlayerName();
     translateUI();
     updateLangButtons();
+    restoreExpansionToggles();
 
     // Click outside the summary closes the details
     document.addEventListener('click', function(e) {
