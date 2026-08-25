@@ -30,12 +30,13 @@ const CARDS_DARTMOOR = [
             "of": "attachedCards"
         },
         "reward": {
-            "mode": "flat",
+            "mode": "flatTotal",
             "points": 5
         }
     }
   ],
   "tags": [],
+  "maxAttached": 1,
   "attachedCards": {
     "en": "5 points at end of game",
     "nl": "5 punten aan het einde van het spel"

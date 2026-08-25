@@ -320,6 +320,8 @@ function computeCardTotal(cardId) {
 
         if (r.mode === 'flat') {
             if (count > 0) points = r.points * selfCount;
+        } else if (r.mode === 'flatTotal') {
+            if (count > 0) points = r.points;
         } else if (r.mode === 'perUnit') {
             // For self-count rules, use actual selfCount (exclude boost)
             const ptsCount = (countOf === 'self') ? selfCount : count;
@@ -685,7 +687,8 @@ function updateAllScores() {
             const att = p.attached[cardId];
             if (typeof att === 'number') {
                 // Simple (object-form) attachedCards
-                if (att > max) p.attached[cardId] = max;
+                const maxAtt = card && card.maxAttached ? card.maxAttached : max;
+                if (att > maxAtt) p.attached[cardId] = maxAtt;
             } else if (typeof att === 'object') {
                 // Array-based attachedCards: clamp per-target and total
                 let total = 0;
@@ -896,8 +899,9 @@ function addAttachedCard(cardId, targetId) {
     // Simple (object-form) attachedCards
     const isOneToMany = card && card.attachedCards && card.attachedCards.relation === 'oneToMany';
     if (!isOneToMany) {
-        const maxAttached = (p.cards[cardId] || 0);
-        if ((p.attached[cardId] || 0) >= maxAttached) return;
+        const maxPerSelf = (p.cards[cardId] || 0);
+        const hardCap = card && card.maxAttached ? card.maxAttached : Infinity;
+        if ((p.attached[cardId] || 0) >= Math.min(maxPerSelf, hardCap)) return;
     }
     p.attached[cardId] = (p.attached[cardId] || 0) + 1;
     updateAttachedDisplay(cardId);
