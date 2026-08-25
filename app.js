@@ -1098,6 +1098,7 @@ function selectGame(game) {
     document.querySelectorAll('.card-points').forEach(el => el.textContent = '0');
 
     saveSettings();
+    updateGameTitle();
     buildCardSections();
     updateAllScores();
     updateCountDisplay();
@@ -1105,6 +1106,14 @@ function selectGame(game) {
 
 function updateCountDisplay() {
     currentCards.forEach(c => updateCount(c.id));
+}
+
+function updateGameTitle() {
+    const el = document.getElementById('navTitle');
+    if (!el) return;
+    el.textContent = state.game === 'dartmoor'
+        ? 'Forest Calculator | Forest Shuffle: Dartmoor'
+        : 'Forest Calculator | Forest Shuffle';
 }
 
 // ===== Expansion Toggle =====
@@ -1222,6 +1231,7 @@ window.addEventListener('DOMContentLoaded', function() {
     const gameRow = document.getElementById('game' + state.game.charAt(0).toUpperCase() + state.game.slice(1));
     if (gameRow) gameRow.querySelector('.radio').classList.add('checked');
 
+    updateGameTitle();
     translateUI();
     updateLangButtons();
 

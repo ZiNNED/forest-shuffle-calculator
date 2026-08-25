@@ -12,7 +12,7 @@
 <nav class="top-nav">
     <div class="nav-left">
         <button class="nav-btn" onclick="openSettings()">&#9776;</button>
-        <span class="nav-title">Forest Calculator</span>
+        <span class="nav-title" id="navTitle">Forest Calculator | Forest Shuffle</span>
     </div>
     <div class="nav-right">
         <span class="current-player-name" id="currentPlayerName">Player 1</span>
@@ -33,7 +33,7 @@
             <span class="radio checked"></span>
         </div>
         <div class="settings-row" id="gameDartmoor" onclick="selectGame('dartmoor')">
-            <span class="settings-label">Dartmoor</span>
+            <span class="settings-label">Forest Shuffle: Dartmoor</span>
             <span class="radio"></span>
         </div>
     </div>
@@ -117,9 +117,9 @@
     <div style="height: 40px;"></div>
 </div>
 
-<script src="cards-forest.js?v=149"></script>
-<script src="cards-dartmoor.js?v=149"></script>
-<script src="app.js?v=149"></script>
+<script src="cards-forest.js?v=150"></script>
+<script src="cards-dartmoor.js?v=150"></script>
+<script src="app.js?v=150"></script>
 <script>
     // Set version from cache-busting parameter
     (function() {
