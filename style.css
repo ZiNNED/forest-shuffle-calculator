@@ -682,6 +682,28 @@ html, body {
 }
 .toggle.on::after { left: 18px; }
 
+/* ===== Leaderboard ===== */
+.lb-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin: 2px 0;
+    font-size: 14px;
+}
+.lb-row.lb-active {
+    background: rgba(255,255,255,0.08);
+}
+.lb-name {
+    font-weight: 600;
+}
+.lb-score {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--green);
+}
+
 /* ===== Responsive ===== */
 @media (min-width: 481px) {
     .forest-scroll { max-width: 75vw; margin: 0 auto; }

@@ -15,6 +15,7 @@ const L10N = {
         newGame: 'New Game',
         language: 'Language',
         expansions: 'Expansions',
+        leaderboard: 'Leaderboard',
         soon: 'Soon',
         treePoints: 'General Points',
         topPoints: 'Top Points',
@@ -50,6 +51,7 @@ const L10N = {
         newGame: 'Nieuw spel',
         language: 'Taal',
         expansions: 'Uitbreidingen',
+        leaderboard: 'Scorebord',
         soon: 'Binnenkort',
         treePoints: 'Generieke punten',
         topPoints: 'Bovenpunten',
@@ -782,6 +784,65 @@ function updateAllScores() {
     document.getElementById('bottomPoints').textContent = bottomPoints;
     document.getElementById('sidePoints').textContent = sidePoints;
     document.getElementById('totalPoints').textContent = total;
+
+    renderLeaderboard();
+}
+
+// ===== Leaderboard =====
+function computePlayerTotal(playerIdx) {
+    const saved = state.currentPlayer;
+    state.currentPlayer = playerIdx;
+    computeCategoryTotals();
+
+    const p = state.players[playerIdx];
+    let total = 0;
+
+    currentCards.forEach(card => {
+        const exp = card.expansion || 'base';
+        if (exp !== 'base' && !state.expansions[exp]) return;
+        const pts = computeCardTotal(card.id);
+        // Skip repeated-lookup categories (added separately below)
+        if (categoryTotals[card.category] !== undefined) return;
+        total += pts;
+    });
+
+    // Add repeated-lookup category totals
+    for (const cat in categoryTotals) {
+        total += categoryTotals[cat];
+    }
+
+    state.currentPlayer = saved;
+    return total;
+}
+
+function renderLeaderboard() {
+    const container = document.getElementById('leaderboardList');
+    if (!container) return;
+
+    const scores = state.players.map((p, i) => ({
+        name: p.name,
+        score: computePlayerTotal(i),
+        idx: i,
+        isActive: i === state.currentPlayer,
+    }));
+
+    scores.sort((a, b) => b.score - a.score);
+
+    container.innerHTML = '';
+    scores.forEach((s, rank) => {
+        const row = document.createElement('div');
+        row.className = 'lb-row' + (s.isActive ? ' lb-active' : '');
+        const crown = rank === 0 && scores.length > 1 ? '👑 ' : '';
+        const nameEl = document.createElement('span');
+        nameEl.className = 'lb-name';
+        nameEl.textContent = crown + s.name;
+        const scoreEl = document.createElement('span');
+        scoreEl.className = 'lb-score';
+        scoreEl.textContent = s.score;
+        row.appendChild(nameEl);
+        row.appendChild(scoreEl);
+        container.appendChild(row);
+    });
 }
 
 // ===== Card Actions =====
