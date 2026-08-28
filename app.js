@@ -145,7 +145,7 @@ const CATEGORY_COLORS = {
     cave: { bg: '#4a4a4a', border: '#3a3a3a' },
     shrub: { bg: '#5d8a4f', border: '#4a7040' },
     moor: { bg: '#8b6f47', border: '#6f5938' },
-    dragonfly: { bg: '#609e8e', border: '#4d7e72' }
+    dragonfly: { bg: '#C882AA', border: '#a06888' }
 };
 
 // ===== Scoring Engine =====
@@ -804,7 +804,7 @@ function updateAllScores() {
 
         // Route points to correct zone — skip differentTypes categories
         // (added separately below)
-        if (categoryTotals[cat] !== undefined) return;
+        if (categoryWideLookup[cat]) return;
 
         if (card.zone === 'general') treePoints += totalPts;
         else if (card.zone === 'tops') topPoints += totalPts;
@@ -814,8 +814,9 @@ function updateAllScores() {
     });
 
     // Add repeated-lookup category totals to zones once
-    for (let cat in categoryTotals) {
+    for (let cat in categoryWideLookup) {
         const val = categoryTotals[cat];
+        if (val === undefined) continue;
         const sampleCard = currentCards.find(c => c.category === cat);
         if (sampleCard) {
             // Use the category total as the catScore for this category (zone-scoped)
@@ -858,13 +859,14 @@ function computePlayerTotal(playerIdx) {
         if (exp !== 'base' && !state.expansions[exp]) return;
         const pts = computeCardTotal(card.id);
         // Skip repeated-lookup categories (added separately below)
-        if (categoryTotals[card.category] !== undefined) return;
+        if (categoryWideLookup[card.category]) return;
         total += pts;
     });
 
     // Add repeated-lookup category totals
-    for (const cat in categoryTotals) {
-        total += categoryTotals[cat];
+    for (const cat in categoryWideLookup) {
+        const val = categoryTotals[cat];
+        if (val !== undefined) total += val;
     }
 
     state.currentPlayer = saved;
@@ -1056,8 +1058,10 @@ let categoryTotals = {};
 
 // Compute category-scoped total scores (called once per updateAllScores)
 // Handles 'repeated: true' lookup rules like butterfly differentTypes
+let categoryWideLookup = {};
 function computeCategoryTotals() {
     categoryTotals = {};
+    categoryWideLookup = {};
     const p = state.players[state.currentPlayer];
     currentCards.forEach(card => {
         card.scoring.forEach(rule => {
@@ -1065,10 +1069,26 @@ function computeCategoryTotals() {
             if (r && r.mode === 'lookup' && r.repeated === true) {
                 const sym = rule.count.value;
                 if (categoryTotals[sym] === undefined) {
+                    // Only mark as category-wide if ALL cards in this category
+                    // share the same repeated-lookup scoring (e.g. butterfly, dragonfly)
+                    const catCards = currentCards.filter(c => {
+                        if (c.category !== sym) return false;
+                        const cExp = c.expansion || 'base';
+                        return cExp === 'base' || state.expansions[cExp];
+                    });
+                    const isCategoryWide = catCards.length > 0 && catCards.every(c =>
+                        c.scoring.some(s =>
+                            s.reward && s.reward.mode === 'lookup' && s.reward.repeated === true &&
+                            s.count && s.count.of === 'distinct' && s.count.value === sym
+                        )
+                    );
+                    if (isCategoryWide) {
+                        categoryWideLookup[sym] = true;
+                    }
+
                     // Collect counts per species
                     const counts = {};
                     currentCards.forEach(c => {
-                        // Skip cards from disabled expansions
                         const cExp = c.expansion || 'base';
                         if (cExp !== 'base' && !state.expansions[cExp]) return;
                         if (c.symbols.includes(sym) && (p.cards[c.id] || 0) > 0) {
