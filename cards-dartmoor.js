@@ -580,7 +580,7 @@ const CARDS_DARTMOOR = [
   "expansion": "base",
   "scoring": [
     {
-      "count": { "of": "self", "when": "mostOfCategory" },
+      "count": { "of": "self", "when": "mostOfCategory", "value": "moor" },
       "reward": { "mode": "perUnit", "points": 10 }
     },
     {

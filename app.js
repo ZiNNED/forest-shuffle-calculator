@@ -336,7 +336,8 @@ function computeCardTotal(cardId) {
             }
         }
         if (c && c.when === 'mostOfCategory') {
-            if (!hasMostOfCategory(card.category, state.currentPlayer)) {
+            const targetCat = c.value || card.category;
+            if (!hasMostOfCategory(targetCat, state.currentPlayer)) {
                 count = 0;
             }
         }
