@@ -107,8 +107,7 @@ const CARDS_DARTMOOR = [
       },
       "reward": {
         "mode": "perUnit",
-        "points": 8,
-        "multiply": "self"
+        "points": 8
       }
     }
   ],
