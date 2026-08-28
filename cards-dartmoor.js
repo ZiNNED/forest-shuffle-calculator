@@ -568,6 +568,92 @@ const CARDS_DARTMOOR = [
     }
   ],
   "tags": [],
-  "attachedCards": {}
+  "attachedCards": []
+},
+{
+  "id": "blackTailedGodwit",
+  "names": { "en": "Black-Tailed Godwit", "nl": "Grutto" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "tops",
+  "symbols": ["bird"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "self", "when": "mostOfCategory" },
+      "reward": { "mode": "perUnit", "points": 10 }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "Played in High Coastal Heath", "nl": "Gespeeld in kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "buzzard",
+  "names": { "en": "Buzzard", "nl": "Buizerd" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "tops",
+  "symbols": ["bird"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "mouse" },
+      "reward": { "mode": "perUnit", "points": 2, "multiply": "self" }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "Played in High Coastal Heath", "nl": "Gespeeld in kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "commonMoorhen",
+  "names": { "en": "Common Moorhen", "nl": "Waterhoen" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "tops",
+  "symbols": ["bird"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "dragonfly" },
+      "reward": { "mode": "perUnit", "points": 2, "multiply": "self" }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "Played in High Coastal Heath", "nl": "Gespeeld in kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "cuckoo",
+  "names": { "en": "Cuckoo", "nl": "Koekoek" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "tops",
+  "symbols": ["bird"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 7 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
 }
 ];

@@ -187,6 +187,27 @@ function hasMostOfType(cardId, playerIdx) {
     return true;
 }
 
+// Check if player has the most cards in a given category (ties are "most")
+function hasMostOfCategory(category, playerIdx) {
+    function countCategory(idx) {
+        let total = 0;
+        currentCards.forEach(c => {
+            const cExp = c.expansion || 'base';
+            if (cExp !== 'base' && !state.expansions[cExp]) return;
+            if (c.category === category) {
+                total += state.players[idx].cards[c.id] || 0;
+            }
+        });
+        return total;
+    }
+    const myCount = countCategory(playerIdx);
+    for (let i = 0; i < state.players.length; i++) {
+        if (i === playerIdx) continue;
+        if (countCategory(i) > myCount) return false;
+    }
+    return true;
+}
+
 // Check if player has strictly the most trees (no ties allowed)
 function hasMostTreesNoTies(playerIdx) {
     let myTrees = 0;
@@ -311,6 +332,11 @@ function computeCardTotal(cardId) {
         // ---- Step 2: Apply 'when' modifier ----
         if (c && c.when === 'mostOfType') {
             if (!hasMostOfType(cardId, state.currentPlayer)) {
+                count = 0;
+            }
+        }
+        if (c && c.when === 'mostOfCategory') {
+            if (!hasMostOfCategory(card.category, state.currentPlayer)) {
                 count = 0;
             }
         }
