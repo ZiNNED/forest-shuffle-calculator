@@ -963,5 +963,130 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": []
+},
+{
+  "id": "adder",
+  "names": { "en": "Adder", "nl": "Adder" },
+  "game": "dartmoor",
+  "category": "amphibian",
+  "zone": "bottoms",
+  "symbols": ["amphibian"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "amphibian" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    },
+    {
+      "count": { "of": "symbol", "value": "mouse" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "commonLizard",
+  "names": { "en": "Common Lizard", "nl": "Kleine hagedis" },
+  "game": "dartmoor",
+  "category": "amphibian",
+  "zone": "bottoms",
+  "symbols": ["amphibian"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "amphibian" },
+      "reward": { "mode": "lookup", "table": [0, 5, 5, 15], "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "grassSnake",
+  "names": { "en": "Grass Snake", "nl": "Ringslang" },
+  "game": "dartmoor",
+  "category": "amphibian",
+  "zone": "bottoms",
+  "symbols": ["amphibian"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 5 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "moorFrog",
+  "names": { "en": "Moor Frog", "nl": "Heikikker" },
+  "game": "dartmoor",
+  "category": "amphibian",
+  "zone": "bottoms",
+  "symbols": ["amphibian"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "moor" },
+      "reward": { "mode": "threshold", "minimum": 5, "points": 8, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "natterjackToad",
+  "names": { "en": "Natterjack Toad", "nl": "Rugstreeppad" },
+  "game": "dartmoor",
+  "category": "amphibian",
+  "zone": "bottoms",
+  "symbols": ["amphibian", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 1 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "smoothSnake",
+  "names": { "en": "Smooth Snake", "nl": "Gladde slang" },
+  "game": "dartmoor",
+  "category": "amphibian",
+  "zone": "bottoms",
+  "symbols": ["amphibian", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "attachedCards", "target": "moorBirch" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "number of Moor Birch symbols", "nl": "aantal zachte berksymbolen", "target": "moorBirch", "symbols": ["moorBirch"], "relation": "oneToMany" }
+  ]
+},
+{
+  "id": "wartyNewt",
+  "names": { "en": "Warty Newt", "nl": "Kamsalamander" },
+  "game": "dartmoor",
+  "category": "amphibian",
+  "zone": "bottoms",
+  "symbols": ["amphibian"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "lookup", "table": [5, 15, 25], "repeated": true }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
 }
 ];

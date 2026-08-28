@@ -44,6 +44,9 @@ const L10N = {
             moor: 'MOORS',
             dragonfly: 'DRAGONFLIES',
         },
+        dartmoorCategories: {
+            amphibian: 'AMPHIBIANS & REPTILES',
+        },
     },
     nl: {
         menu: 'Menu',
@@ -83,6 +86,9 @@ const L10N = {
             deer: 'HERTEN & EENHOEVIGE DIEREN',
             dragonfly: 'LIBELLEN',
         },
+        dartmoorCategories: {
+            amphibian: 'AMFIBIEËN & REPTIELEN',
+        },
     },
 };
 
@@ -95,6 +101,11 @@ function t(key) {
 
 function catLabel(cat) {
     const lang = L10N[LANG];
+    // Dartmoor-specific category label overrides
+    if (state.game === 'dartmoor') {
+        const dmLabels = lang.dartmoorCategories;
+        if (dmLabels && dmLabels[cat] !== undefined) return dmLabels[cat];
+    }
     if (lang && lang.categories && lang.categories[cat] !== undefined) return lang.categories[cat];
     const fallback = L10N['en'];
     if (fallback && fallback.categories && fallback.categories[cat] !== undefined) return fallback.categories[cat];
