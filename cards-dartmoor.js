@@ -499,7 +499,7 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "number of Goat Willow symbols", "nl": "aantal Boswilgsymbolen", "target": "goatWillow", "symbols": ["goatWillow"], "relation": "oneToMany" }
+    { "en": "number of Goat Willow symbols", "nl": "aantal boswilgsymbolen", "target": "goatWillow", "symbols": ["goatWillow"], "relation": "oneToMany" }
   ]
 },
 {
