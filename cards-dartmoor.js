@@ -844,5 +844,107 @@ const CARDS_DARTMOOR = [
     { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "exclusiveWith": "moorAttach" },
     { "en": "played at a different moor", "nl": "gespeeld bij andere heide", "target": "moor", "symbols": ["moor"], "exclusiveWith": "moorAttach" }
   ]
+},
+{
+  "id": "beautifulDemoiselle",
+  "names": { "en": "Beautiful Demoiselle", "nl": "Bosbeekjuffer" },
+  "game": "dartmoor",
+  "category": "dragonfly",
+  "zone": "tops",
+  "symbols": ["dragonfly", "insect"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "dragonfly" },
+      "reward": { "mode": "lookup", "table": [0, 5, 10, 15, 30, 50], "repeated": true }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "emeraldDamselfly",
+  "names": { "en": "Emerald Damselfly", "nl": "Gewone pantserjuffer" },
+  "game": "dartmoor",
+  "category": "dragonfly",
+  "zone": "tops",
+  "symbols": ["dragonfly", "insect"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "dragonfly" },
+      "reward": { "mode": "lookup", "table": [0, 5, 10, 15, 30, 50], "repeated": true }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "goldenRingedDamselfly",
+  "names": { "en": "Golden-ringed Damselfly", "nl": "Gewone bronlibel" },
+  "game": "dartmoor",
+  "category": "dragonfly",
+  "zone": "tops",
+  "symbols": ["dragonfly", "insect", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "dragonfly" },
+      "reward": { "mode": "lookup", "table": [0, 5, 10, 15, 30, 50], "repeated": true }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "keeledSkimmer",
+  "names": { "en": "Keeled Skimmer", "nl": "Beekoeverlibel" },
+  "game": "dartmoor",
+  "category": "dragonfly",
+  "zone": "tops",
+  "symbols": ["dragonfly", "insect"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "dragonfly" },
+      "reward": { "mode": "lookup", "table": [0, 5, 10, 15, 30, 50], "repeated": true }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "smallRedDamselfly",
+  "names": { "en": "Small Red Damselfly", "nl": "Koraaljuffer" },
+  "game": "dartmoor",
+  "category": "dragonfly",
+  "zone": "tops",
+  "symbols": ["dragonfly", "insect"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "dragonfly" },
+      "reward": { "mode": "lookup", "table": [0, 5, 10, 15, 30, 50], "repeated": true }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "southernDamselfly",
+  "names": { "en": "Southern Damselfly", "nl": "Mercuurwaterjuffer" },
+  "game": "dartmoor",
+  "category": "dragonfly",
+  "zone": "tops",
+  "symbols": ["dragonfly", "insect"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "dragonfly" },
+      "reward": { "mode": "lookup", "table": [0, 5, 10, 15, 30, 50], "repeated": true }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
 }
 ];
