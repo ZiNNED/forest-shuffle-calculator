@@ -946,5 +946,22 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": []
+},
+{
+  "id": "harvestMouse",
+  "names": { "en": "Harvest Mouse", "nl": "Dwergmuis" },
+  "game": "dartmoor",
+  "category": "pawedAnimal",
+  "zone": "tops",
+  "symbols": ["pawedAnimal", "mouse", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "bird" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
 }
 ];
