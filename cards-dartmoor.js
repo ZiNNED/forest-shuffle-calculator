@@ -239,5 +239,282 @@ const CARDS_DARTMOOR = [
   "scoring": [],
   "tags": [],
   "attachedCards": []
+},
+{
+  "id": "blanketBog",
+  "names": {
+    "en": "Blanket Bog",
+    "nl": "Dekenveen"
+  },
+  "game": "dartmoor",
+  "category": "moor",
+  "zone": "general",
+  "symbols": ["moor"],
+  "expansion": "base",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "tor",
+  "names": {
+    "en": "Tor",
+    "nl": "Rotsheuvel"
+  },
+  "game": "dartmoor",
+  "category": "moor",
+  "zone": "general",
+  "symbols": ["moor"],
+  "expansion": "base",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "valleyMire",
+  "names": {
+    "en": "Valley Mire",
+    "nl": "Dalveen"
+  },
+  "game": "dartmoor",
+  "category": "moor",
+  "zone": "general",
+  "symbols": ["moor"],
+  "expansion": "base",
+  "scoring": [
+    {
+        "count": {
+            "of": "symbol",
+            "value": "insect"
+        },
+        "reward": {
+            "mode": "perUnit",
+            "points": 2,
+            "multiply": "self"
+        }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "waxcapGrassland",
+  "names": {
+    "en": "Waxcap Grassland",
+    "nl": "Wasplatengrasland"
+  },
+  "game": "dartmoor",
+  "category": "moor",
+  "zone": "general",
+  "symbols": ["moor", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "wetWoodland",
+  "names": {
+    "en": "Wet Woodland",
+    "nl": "Vochtig veen"
+  },
+  "game": "dartmoor",
+  "category": "moor",
+  "zone": "general",
+  "symbols": ["moor"],
+  "expansion": "base",
+  "scoring": [
+    {
+        "count": {
+            "of": "symbol",
+            "value": "moor"
+        },
+        "reward": {
+            "mode": "perUnit",
+            "points": 2,
+            "multiply": "self"
+        }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "fountainhead",
+  "names": {
+    "en": "Fountainhead",
+    "nl": "Bron"
+  },
+  "game": "dartmoor",
+  "category": "moor",
+  "zone": "general",
+  "symbols": ["moor"],
+  "expansion": "base",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "lowlandHeath",
+  "names": {
+    "en": "Lowland Heath",
+    "nl": "Laaglandheide"
+  },
+  "game": "dartmoor",
+  "category": "moor",
+  "zone": "general",
+  "symbols": ["moor"],
+  "expansion": "base",
+  "scoring": [
+    {
+        "count": {
+            "of": "symbol",
+            "value": "amphibian"
+        },
+        "reward": {
+            "mode": "perUnit",
+            "points": 2,
+            "multiply": "self"
+        }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "ringCairn",
+  "names": {
+    "en": "Ring Cairn",
+    "nl": "Steencirkelheide"
+  },
+  "game": "dartmoor",
+  "category": "moor",
+  "zone": "general",
+  "symbols": ["moor", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "warrens",
+  "names": {
+    "en": "Warrens",
+    "nl": "Konijnenhol"
+  },
+  "game": "dartmoor",
+  "category": "moor",
+  "zone": "general",
+  "symbols": ["moor"],
+  "expansion": "base",
+  "scoring": [
+    {
+        "count": {
+            "of": "symbol",
+            "value": "pawedAnimal"
+        },
+        "reward": {
+            "mode": "perUnit",
+            "points": 2,
+            "multiply": "self"
+        }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "highCoastalHeath",
+  "names": {
+    "en": "High Coastal Heath",
+    "nl": "Kustheide"
+  },
+  "game": "dartmoor",
+  "category": "moor",
+  "zone": "general",
+  "symbols": ["moor", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "rhosPasture",
+  "names": {
+    "en": "Rhôs Pasture",
+    "nl": "Grasland"
+  },
+  "game": "dartmoor",
+  "category": "moor",
+  "zone": "general",
+  "symbols": ["moor"],
+  "expansion": "base",
+  "scoring": [
+    {
+        "count": {
+            "of": "symbol",
+            "value": "clovenHoofedAnimal"
+        },
+        "reward": {
+            "mode": "perUnit",
+            "points": 2,
+            "multiply": "self"
+        }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "tarrSteps",
+  "names": {
+    "en": "Tarr Steps",
+    "nl": "Klepelbrug"
+  },
+  "game": "dartmoor",
+  "category": "moor",
+  "zone": "general",
+  "symbols": ["moor","exmoor"],
+  "expansion": "exmoor",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "rivulet",
+  "names": {
+    "en": "Rivulet",
+    "nl": "Beek"
+  },
+  "game": "dartmoor",
+  "category": "moor",
+  "zone": "general",
+  "symbols": ["moor"],
+  "expansion": "base",
+  "scoring": [
+    { 
+      "count": { "of": "attachedCards", "target": "goatWillow" }, 
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" } 
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "Goat Willow symbols", "nl": "Boswilgsymbolen", "target": "goatWillow", "symbols": ["goatWillow"], "relation": "oneToMany" }
+  ]
+},
+{
+  "id": "universalMoor",
+  "names": {
+    "en": "Universal Moor",
+    "nl": "Universele heide"
+  },
+  "game": "dartmoor",
+  "category": "moor",
+  "zone": "general",
+  "symbols": ["moor"],
+  "expansion": "base",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": []
 }
 ];
