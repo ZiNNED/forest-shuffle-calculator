@@ -917,6 +917,21 @@ function addAttachedCard(cardId, targetId) {
             if (currentTargetCount >= max) return;
         }
         p.attached[cardId][targetId] = (p.attached[cardId][targetId] || 0) + 1;
+
+        // Mutual exclusion: if this target has an exclusiveWith group,
+        // remove one from other targets in the same group
+        const clickedEntry = card.attachedCards.find(a => a.target === targetId);
+        if (clickedEntry && clickedEntry.exclusiveWith) {
+            card.attachedCards.forEach(entry => {
+                if (entry.target !== targetId && entry.exclusiveWith === clickedEntry.exclusiveWith) {
+                    if (p.attached[cardId][entry.target] > 0) {
+                        p.attached[cardId][entry.target]--;
+                        updateAttachedDisplay(cardId, entry.target);
+                    }
+                }
+            });
+        }
+
         updateAttachedDisplay(cardId, targetId);
         updateAllScores();
         return;
