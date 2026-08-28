@@ -1483,7 +1483,7 @@ const CARDS_FOREST = [
     }
   ],
   "tags": ["roe"],
-  "attachedCards": { "en": "Beech symbols", "nl": "Beuksymbolen", "symbols": ["beech"], "relation": "oneToMany" }
+  "attachedCards": { "en": "number of Beech symbols", "nl": "aantal beuksymbolen", "symbols": ["beech"], "relation": "oneToMany" }
 },
 {
   "id": "roeDeerLinden",
@@ -1499,7 +1499,7 @@ const CARDS_FOREST = [
     }
   ],
   "tags": ["roe"],
-  "attachedCards": { "en": "Linden symbols", "nl": "Lindesymbolen", "symbols": ["linden"], "relation": "oneToMany" }
+  "attachedCards": { "en": "number of Linden symbols", "nl": "aantal lindesymbolen", "symbols": ["linden"], "relation": "oneToMany" }
 },
 {
   "id": "roeDeerSilverFir",
@@ -1515,7 +1515,7 @@ const CARDS_FOREST = [
     }
   ],
   "tags": ["roe"],
-  "attachedCards": { "en": "Silver Fir symbols", "nl": "Zilversparsymbolen", "symbols": ["silverFir"], "relation": "oneToMany" }
+  "attachedCards": { "en": "number of Silver Fir symbols", "nl": "aantal zilversparsymbolen", "symbols": ["silverFir"], "relation": "oneToMany" }
 },
 {
   "id": "roeDeerHorseChestnut",
@@ -1531,7 +1531,7 @@ const CARDS_FOREST = [
     }
   ],
   "tags": ["roe"],
-  "attachedCards": { "en": "Horse Chestnut symbols", "nl": "Paardenkastanjesymbolen", "symbols": ["horseChestnut"], "relation": "oneToMany" }
+  "attachedCards": { "en": "number of Horse Chestnut symbols", "nl": "aantal paardenkastanjesymbolen", "symbols": ["horseChestnut"], "relation": "oneToMany" }
 },
 {
   "id": "roeDeerBirch",
@@ -1547,7 +1547,7 @@ const CARDS_FOREST = [
     }
   ],
   "tags": ["roe"],
-  "attachedCards": { "en": "Birch symbols", "nl": "Beuksymbolen", "symbols": ["birch"], "relation": "oneToMany" }
+  "attachedCards": { "en": "number of Birch symbols", "nl": "aantal beuksymbolen", "symbols": ["birch"], "relation": "oneToMany" }
 },
 {
   "id": "squeeker",
