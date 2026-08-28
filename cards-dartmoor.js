@@ -540,7 +540,7 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
@@ -590,7 +590,7 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
@@ -613,7 +613,7 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
@@ -636,7 +636,7 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
@@ -680,7 +680,7 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
@@ -703,7 +703,7 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
@@ -726,7 +726,7 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
@@ -749,7 +749,7 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
@@ -772,7 +772,7 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
@@ -795,7 +795,7 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
@@ -818,7 +818,7 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
@@ -841,7 +841,7 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "exclusiveWith": "moorAttach" },
+    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "exclusiveWith": "moorAttach", "expansion": "exmoor" },
     { "en": "played at a different moor", "nl": "gespeeld bij andere heide", "target": "moor", "symbols": ["moor"], "exclusiveWith": "moorAttach" }
   ]
 },
