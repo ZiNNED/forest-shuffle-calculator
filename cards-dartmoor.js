@@ -41,8 +41,7 @@ const CARDS_DARTMOOR = [
     "en": "5 points at end of game",
     "nl": "5 punten aan het einde van het spel"
   }
-}
-,
+},
 {
   "id": "ash",
   "names": {
@@ -178,6 +177,66 @@ const CARDS_DARTMOOR = [
       "reward": { "mode": "perUnit", "points": 1, "multiply": "self" } 
     }
   ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "commonGorse",
+  "names": {
+    "en": "Common Gorse",
+    "nl": "Gaspeldoorn"
+  },
+  "game": "dartmoor",
+  "category": "shrub",
+  "zone": "general",
+  "symbols": ["shrub", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "commonHolly",
+  "names": {
+    "en": "Common Holly",
+    "nl": "Hulst"
+  },
+  "game": "dartmoor",
+  "category": "shrub",
+  "zone": "general",
+  "symbols": ["shrub", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "commonHazel",
+  "names": {
+    "en": "Common Hazel",
+    "nl": "Hazelaar"
+  },
+  "game": "dartmoor",
+  "category": "shrub",
+  "zone": "general",
+  "symbols": ["shrub"],
+  "expansion": "base",
+  "scoring": [],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "elderBerry",
+  "names": {
+    "en": "Elder Berry",
+    "nl": "Gewone vlier"
+  },
+  "game": "dartmoor",
+  "category": "shrub",
+  "zone": "general",
+  "symbols": ["shrub"],
+  "expansion": "base",
+  "scoring": [],
   "tags": [],
   "attachedCards": []
 }
