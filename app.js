@@ -732,6 +732,30 @@ function updateAllScores() {
                     if (att[targetId] < 0) att[targetId] = 0;
                     if (att[targetId] > max) att[targetId] = max;
                 });
+                // Clamp exclusiveWith groups: group total cannot exceed card count
+                if (card && Array.isArray(card.attachedCards)) {
+                    const groups = {};
+                    card.attachedCards.forEach(entry => {
+                        if (entry.exclusiveWith) {
+                            if (!groups[entry.exclusiveWith]) groups[entry.exclusiveWith] = [];
+                            groups[entry.exclusiveWith].push(entry.target);
+                        }
+                    });
+                    Object.keys(groups).forEach(group => {
+                        let groupTotal = 0;
+                        groups[group].forEach(target => { groupTotal += att[target] || 0; });
+                        if (groupTotal > max) {
+                            // Reduce from the last target first
+                            for (let i = groups[group].length - 1; i >= 0 && groupTotal > max; i--) {
+                                const t = groups[group][i];
+                                if (att[t] === undefined) continue;
+                                const reduce = Math.min(att[t], groupTotal - max);
+                                att[t] -= reduce;
+                                groupTotal -= reduce;
+                            }
+                        }
+                    });
+                }
             }
         });
     }
@@ -915,22 +939,20 @@ function addAttachedCard(cardId, targetId) {
             const currentTargetCount = (p.attached[cardId] && p.attached[cardId][targetId]) || 0;
             const max = p.cards[cardId] || 0;
             if (currentTargetCount >= max) return;
+
+            // If this target is part of an exclusiveWith group, check the group total cap
+            const clickedEntry = card.attachedCards.find(a => a.target === targetId);
+            if (clickedEntry && clickedEntry.exclusiveWith) {
+                let groupTotal = 0;
+                card.attachedCards.forEach(entry => {
+                    if (entry.exclusiveWith === clickedEntry.exclusiveWith) {
+                        groupTotal += (p.attached[cardId] && p.attached[cardId][entry.target]) || 0;
+                    }
+                });
+                if (groupTotal >= max) return;
+            }
         }
         p.attached[cardId][targetId] = (p.attached[cardId][targetId] || 0) + 1;
-
-        // Mutual exclusion: if this target has an exclusiveWith group,
-        // remove one from other targets in the same group
-        const clickedEntry = card.attachedCards.find(a => a.target === targetId);
-        if (clickedEntry && clickedEntry.exclusiveWith) {
-            card.attachedCards.forEach(entry => {
-                if (entry.target !== targetId && entry.exclusiveWith === clickedEntry.exclusiveWith) {
-                    if (p.attached[cardId][entry.target] > 0) {
-                        p.attached[cardId][entry.target]--;
-                        updateAttachedDisplay(cardId, entry.target);
-                    }
-                }
-            });
-        }
 
         updateAttachedDisplay(cardId, targetId);
         updateAllScores();
