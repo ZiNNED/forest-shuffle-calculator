@@ -727,22 +727,11 @@ function updateAllScores() {
                 const maxAtt = card && card.maxAttached ? card.maxAttached : max;
                 if (att > maxAtt) p.attached[cardId] = maxAtt;
             } else if (typeof att === 'object') {
-                // Array-based attachedCards: clamp per-target and total
-                let total = 0;
+                // Array-based attachedCards: clamp per-target independently
                 Object.keys(att).forEach(targetId => {
                     if (att[targetId] < 0) att[targetId] = 0;
-                    total += att[targetId];
+                    if (att[targetId] > max) att[targetId] = max;
                 });
-                // If total exceeds max, reduce in some order (last key first for fairness)
-                if (total > max) {
-                    const keys = Object.keys(att);
-                    let excess = total - max;
-                    for (let i = keys.length - 1; i >= 0 && excess > 0; i--) {
-                        const reduce = Math.min(att[keys[i]], excess);
-                        att[keys[i]] -= reduce;
-                        excess -= reduce;
-                    }
-                }
             }
         });
     }
@@ -923,9 +912,9 @@ function addAttachedCard(cardId, targetId) {
         }
         const oneToMany = card.attachedCards.some(a => a.relation === 'oneToMany');
         if (!oneToMany) {
-            const total = getTotalAttachedCount(cardId);
+            const currentTargetCount = (p.attached[cardId] && p.attached[cardId][targetId]) || 0;
             const max = p.cards[cardId] || 0;
-            if (total >= max) return;
+            if (currentTargetCount >= max) return;
         }
         p.attached[cardId][targetId] = (p.attached[cardId][targetId] || 0) + 1;
         updateAttachedDisplay(cardId, targetId);

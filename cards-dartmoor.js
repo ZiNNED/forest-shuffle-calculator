@@ -751,5 +751,98 @@ const CARDS_DARTMOOR = [
   "attachedCards": [
     { "en": "Played in High Coastal Heath", "nl": "Gespeeld in kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
   ]
+},
+{
+  "id": "meadowPipit",
+  "names": { "en": "Meadow Pipit", "nl": "Graspieper" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "tops",
+  "symbols": ["bird"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "bird" },
+      "reward": { "mode": "lookup", "table": [1, 3, 6, 10], "repeated": true }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "Played in High Coastal Heath", "nl": "Gespeeld in kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "peregrineFalcon",
+  "names": { "en": "Peregrine Falcon", "nl": "Slechtvalk" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "tops",
+  "symbols": ["bird", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "mouse" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "Played in High Coastal Heath", "nl": "Gespeeld in kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "piedFlycatcher",
+  "names": { "en": "Pied Flycatcher", "nl": "Bonte vliegenvanger" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "tops",
+  "symbols": ["bird", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 4 }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "Played in High Coastal Heath", "nl": "Gespeeld in kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "wheatear",
+  "names": { "en": "Wheatear", "nl": "Tapuit" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "tops",
+  "symbols": ["bird"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "attachedCards", "target": "moor" },
+      "reward": { "mode": "perUnit", "points": 5 }
+    },
+    {
+      "count": { "of": "attachedCards", "target": "highCoastalHeath" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "Played at a moor", "nl": "Gespeeld bij heide", "target": "moor", "symbols": ["moor"] },
+    { "en": "Played in High Coastal Heath", "nl": "Gespeeld in kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+  ]
 }
 ];
