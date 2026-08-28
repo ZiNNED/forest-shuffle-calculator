@@ -655,5 +655,101 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": []
+},
+{
+  "id": "curlew",
+  "names": { "en": "Curlew", "nl": "Wulp" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "tops",
+  "symbols": ["bird"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 3 }
+    },
+    {
+      "count": { "of": "symbol", "value": "insect" },
+      "reward": { "mode": "threshold", "minimum": 5, "points": 7 }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "Played in High Coastal Heath", "nl": "Gespeeld in kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "dartfordWarbler",
+  "names": { "en": "Dartford Warbler", "nl": "Provençaalse grasmus" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "tops",
+  "symbols": ["bird", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 1 }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "Played in High Coastal Heath", "nl": "Gespeeld in kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "greyHeron",
+  "names": { "en": "Grey Heron", "nl": "Blauwe reiger" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "tops",
+  "symbols": ["bird"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 8 }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "Played in High Coastal Heath", "nl": "Gespeeld in kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "greyWagtail",
+  "names": { "en": "Grey Wagtail", "nl": "Grote gele kwikstaart" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "tops",
+  "symbols": ["bird", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "exmoor" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "Played in High Coastal Heath", "nl": "Gespeeld in kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+  ]
 }
 ];
