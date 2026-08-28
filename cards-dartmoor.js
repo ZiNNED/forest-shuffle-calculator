@@ -516,5 +516,58 @@ const CARDS_DARTMOOR = [
   "scoring": [],
   "tags": [],
   "attachedCards": []
+},
+{
+  "id": "barnOwl",
+  "names": {
+    "en": "Barn Owl",
+    "nl": "Kerkuil"
+  },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "tops",
+  "symbols": ["bird"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "bat" },
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "Played in High Coastal Heath", "nl": "Gespeeld in kustheide", "target": "highCoastalHeath", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "alcathoeBat",
+  "names": {
+    "en": "Alcathoe Bat",
+    "nl": "Nimfvleermuis"
+  },
+  "game": "dartmoor",
+  "category": "bat",
+  "zone": "sides",
+  "symbols": ["bat"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": {
+        "of": "distinct",
+        "value": "bat"
+      },
+      "reward": {
+        "mode": "threshold",
+        "minimum": 3,
+        "points": 5
+      }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {}
 }
 ];

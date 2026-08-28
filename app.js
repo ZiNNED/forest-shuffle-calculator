@@ -354,10 +354,17 @@ function computeCardTotal(cardId) {
                     points = r.table[idx];
                 }
             }
+        } else if (r.mode === 'multiply') {
+            if (count > 0 && selfCount > 0) {
+                // Multiply: adds (by - 1) × per-instance base points per attached copy
+                // This correctly handles partial attachment (e.g. 2 owls, 1 in heath)
+                const perInstance = total / selfCount;
+                points = perInstance * (r.by - 1) * count;
+            }
         }
 
         // ---- Step 4: Apply self multiplier ----
-        if (r.multiply === 'self') {
+        if (r.multiply === 'self' && r.mode !== 'multiply') {
             points *= selfCount;
         }
 
