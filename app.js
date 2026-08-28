@@ -625,7 +625,10 @@ function renderCardRow(container, card) {
                 }
                 const aName = document.createElement('span');
                 aName.className = 'card-name';
-                aName.textContent = entry[LANG] || entry.en || entry.target;
+                // Conditional label: if altNames and whenExpansionOff are set
+                // and the expansion is not enabled, show the alt text instead
+                const useAlt = entry.altNames && entry.whenExpansionOff && !state.expansions[entry.whenExpansionOff];
+                aName.textContent = useAlt ? (entry.altNames[LANG] || entry.altNames.en) : (entry[LANG] || entry.en || entry.target);
                 aBtn.appendChild(aName);
                 const target = entry.target;
                 aBtn.onclick = function() { addAttachedCard(card.id, target); };

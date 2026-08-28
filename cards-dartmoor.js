@@ -842,7 +842,7 @@ const CARDS_DARTMOOR = [
   "tags": [],
   "attachedCards": [
     { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "exclusiveWith": "moorAttach", "expansion": "exmoor" },
-    { "en": "played at a different moor", "nl": "gespeeld bij andere heide", "target": "moor", "symbols": ["moor"], "exclusiveWith": "moorAttach" }
+    { "en": "played at a different moor", "nl": "gespeeld bij andere heide", "target": "moor", "symbols": ["moor"], "exclusiveWith": "moorAttach", "altNames": { "en": "played at a moor", "nl": "gespeeld bij een heide" }, "whenExpansionOff": "exmoor" }
   ]
 },
 {
