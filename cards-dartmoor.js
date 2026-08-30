@@ -1545,7 +1545,7 @@ const CARDS_DARTMOOR = [
   "scoring": [
     {
       "count": { "of": "attachedCards" },
-      "reward": { "mode": "perUnit", "points": 10, "multiply": "self" }
+      "reward": { "mode": "perUnit", "points": 10 }
     }
   ],
   "tags": [],
