@@ -1342,5 +1342,73 @@ const CARDS_DARTMOOR = [
   "attachedCards": [
     { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
   ]
+},
+{
+  "id": "bankVole",
+  "names": { "en": "Bank Vole", "nl": "Rosse woelmuis" },
+  "game": "dartmoor",
+  "category": "pawedAnimal",
+  "zone": "bottoms",
+  "symbols": ["pawedAnimal", "mouse", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 3 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "beaver",
+  "names": { "en": "Beaver", "nl": "Bever" },
+  "game": "dartmoor",
+  "category": "pawedAnimal",
+  "zone": "bottoms",
+  "symbols": ["pawedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "cave" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "otter",
+  "names": { "en": "Otter", "nl": "Otter" },
+  "game": "dartmoor",
+  "category": "pawedAnimal",
+  "zone": "bottoms",
+  "symbols": ["pawedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "amphibian" },
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "blueGroundBeetle",
+  "names": { "en": "Blue Ground Beetle", "nl": "Blauwe schallebijter" },
+  "game": "dartmoor",
+  "category": "insect",
+  "zone": "bottoms",
+  "symbols": ["insect"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "zone", "value": "bottoms" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
 }
 ];
