@@ -1570,5 +1570,110 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": []
+},
+{
+  "id": "dartmoorBadger",
+  "names": { "en": "Dartmoor Badger", "nl": "Dartmoordas" },
+  "game": "dartmoor",
+  "category": "pawedAnimal",
+  "zone": "sides",
+  "symbols": ["pawedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "pawedAnimal" },
+      "reward": { "mode": "perUnit", "points": 2, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "dartmoorBlackRabbit",
+  "names": { "en": "Dartmoor Black Rabbit", "nl": "Dartmoorkonijn" },
+  "game": "dartmoor",
+  "category": "pawedAnimal",
+  "zone": "sides",
+  "symbols": ["pawedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "tag", "value": "rabbit" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    }
+  ],
+  "tags": ["rabbit"],
+  "attachedCards": []
+},
+{
+  "id": "dormouse",
+  "names": { "en": "Dormouse", "nl": "Relmuis" },
+  "game": "dartmoor",
+  "category": "pawedAnimal",
+  "zone": "sides",
+  "symbols": ["pawedAnimal", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "perUnit", "points": 15 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {
+    "en": "opposite bat",
+    "nl": "tegenover vleermuis"
+  }
+},
+{
+  "id": "fieldVole",
+  "names": { "en": "Field Vole", "nl": "Aardmuis" },
+  "game": "dartmoor",
+  "category": "pawedAnimal",
+  "zone": "sides",
+  "symbols": ["pawedAnimal", "mouse"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "mouse" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "shrew",
+  "names": { "en": "Shrew", "nl": "Millers waterspitsmuis" },
+  "game": "dartmoor",
+  "category": "pawedAnimal",
+  "zone": "sides",
+  "symbols": ["pawedAnimal", "mouse"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 1 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "woodMouse",
+  "names": { "en": "Wood Mouse", "nl": "Bosmuis" },
+  "game": "dartmoor",
+  "category": "pawedAnimal",
+  "zone": "sides",
+  "symbols": ["pawedAnimal", "mouse"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "mouse" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
 }
 ];

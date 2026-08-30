@@ -1,14 +1,14 @@
 // Forest Shuffle Calculator — Service Worker
-const CACHE_VERSION = 'v178';
+const CACHE_VERSION = 'v179';
 const CACHE_NAME = 'forest-calc-' + CACHE_VERSION;
 
 const PRECACHE_URLS = [
   '/',
   '/index.html',
-  '/app.js?v=178',
-  '/cards-forest.js?v=178',
-  '/cards-dartmoor.js?v=178',
-  '/style.css?v=178',
+  '/app.js?v=179',
+  '/cards-forest.js?v=179',
+  '/cards-dartmoor.js?v=179',
+  '/style.css?v=179',
   '/manifest.json',
   '/assets/icon-192.png',
   '/assets/icon-512.png',
