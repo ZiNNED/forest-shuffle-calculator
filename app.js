@@ -947,7 +947,10 @@ function updateCount(cardId) {
 function addAttachedCard(cardId, targetId) {
     const p = state.players[state.currentPlayer];
     const card = currentCards.find(c => c.id === cardId);
-    if (!p.cards[cardId] || p.cards[cardId] < 1) return;
+    if (!p.cards[cardId] || p.cards[cardId] < 1) {
+        // Cards with an explicit maxAttached (e.g. cave) can be toggled regardless of card count
+        if (!card || !card.maxAttached) return;
+    }
     if (!p.attached) p.attached = {};
 
     if (targetId && card && Array.isArray(card.attachedCards)) {
@@ -985,7 +988,9 @@ function addAttachedCard(cardId, targetId) {
     if (!isOneToMany) {
         const maxPerSelf = (p.cards[cardId] || 0);
         const hardCap = card && card.maxAttached ? card.maxAttached : Infinity;
-        if ((p.attached[cardId] || 0) >= Math.min(maxPerSelf, hardCap)) return;
+        // When maxAttached is explicitly set, use it as the sole cap (not limited by card count)
+        const cap = card && card.maxAttached ? hardCap : Math.min(maxPerSelf, hardCap);
+        if ((p.attached[cardId] || 0) >= cap) return;
     }
     p.attached[cardId] = (p.attached[cardId] || 0) + 1;
     updateAttachedDisplay(cardId);
