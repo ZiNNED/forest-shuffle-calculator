@@ -1686,8 +1686,12 @@ const CARDS_DARTMOOR = [
   "expansion": "base",
   "scoring": [
     {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 5 }
+    },
+    {
       "count": { "of": "self", "when": "mostOfCategory", "value": "moor" },
-      "reward": { "mode": "lookup", "table": [5, 15] }
+      "reward": { "mode": "perUnit", "points": 10 }
     }
   ],
   "tags": ["pony"],
