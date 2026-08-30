@@ -283,7 +283,14 @@ function computeCardTotal(cardId) {
     if (!card) return 0;
     const p = state.players[state.currentPlayer];
     const selfCount = p.cards[cardId] || 0;
-    if (selfCount === 0) return 0;
+    if (selfCount === 0) {
+        // Cards with maxAttached can have scoring via attached toggles (e.g. cave 5pts)
+        const hasAttached = p.attached && p.attached[cardId] && (
+            (typeof p.attached[cardId] === 'number' && p.attached[cardId] > 0) ||
+            (typeof p.attached[cardId] === 'object' && Object.values(p.attached[cardId]).some(v => v > 0))
+        );
+        if (!hasAttached) return 0;
+    }
     // Boost from boostTree effect cards (e.g. Violet Carpenter Bee)
     const boost = getBoostForTree(cardId);
     const effectiveSelf = selfCount + boost;
