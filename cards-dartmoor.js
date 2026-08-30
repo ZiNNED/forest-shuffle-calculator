@@ -763,7 +763,7 @@ const CARDS_DARTMOOR = [
   "scoring": [
     {
       "count": { "of": "distinct", "value": "bird" },
-      "reward": { "mode": "lookup", "table": [1, 3, 6, 10], "repeated": true }
+      "reward": { "mode": "lookup", "table": [1, 3, 3, 6, 6, 10], "multiply": "self" }
     },
     {
       "count": { "of": "attachedCards" },

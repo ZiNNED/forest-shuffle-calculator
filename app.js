@@ -803,7 +803,7 @@ function updateAllScores() {
         if (ptsEl) {
             // For multi-set butterfly lookup (distinct + repeated), hide individual score
             const isMultiSet = card.scoring.some(r => r.reward && r.reward.mode === 'lookup' && r.reward.repeated === true && r.count && r.count.of === 'distinct');
-            if (isMultiSet) {
+            if (isMultiSet && categoryWideLookup[card.category]) {
                 ptsEl.textContent = '';
             } else {
                 ptsEl.textContent = totalPts;
