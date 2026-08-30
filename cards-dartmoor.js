@@ -1495,5 +1495,80 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": []
+},
+{
+  "id": "capercaillie",
+  "names": { "en": "Capercaillie", "nl": "Auerhoen" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "sides",
+  "symbols": ["bird"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "plant" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "commonPheasant",
+  "names": { "en": "Common Pheasant", "nl": "Fazant" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "sides",
+  "symbols": ["bird"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "tree" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    },
+    {
+      "count": { "of": "symbol", "value": "shrub" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "nuthatch",
+  "names": { "en": "Nuthatch", "nl": "Boomklever" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "sides",
+  "symbols": ["bird"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "perUnit", "points": 10, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": {
+    "en": "at fully occupied tree or shrub",
+    "nl": "bij volledig bezette boom of struik"
+  }
+},
+{
+  "id": "treecreeper",
+  "names": { "en": "Treecreeper", "nl": "Taigaboomkruiper" },
+  "game": "dartmoor",
+  "category": "bird",
+  "zone": "sides",
+  "symbols": ["bird"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 5 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
 }
 ];
