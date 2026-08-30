@@ -1675,5 +1675,185 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": []
+},
+{
+  "id": "dartmoorPony",
+  "names": { "en": "Dartmoor Pony", "nl": "Dartmoorpony" },
+  "game": "dartmoor",
+  "category": "clovenHoofedAnimal",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "self", "when": "mostOfCategory", "value": "moor" },
+      "reward": { "mode": "lookup", "table": [5, 15] }
+    }
+  ],
+  "tags": ["pony"],
+  "attachedCards": []
+},
+{
+  "id": "dartmoorSheep",
+  "names": { "en": "Dartmoor Sheep", "nl": "Dartmoorschaap" },
+  "game": "dartmoor",
+  "category": "clovenHoofedAnimal",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "clovenHoofedAnimal" },
+      "reward": { "mode": "perUnit", "points": 2, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "exmoorPony",
+  "names": { "en": "Exmoor Pony", "nl": "Exmoorpony" },
+  "game": "dartmoor",
+  "category": "clovenHoofedAnimal",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "tag", "value": "pony" },
+      "reward": { "mode": "perUnit", "points": 10, "multiply": "self" }
+    }
+  ],
+  "tags": ["pony"],
+  "attachedCards": []
+},
+{
+  "id": "exmoorPonyFoal",
+  "names": { "en": "Exmoor Pony Foal", "nl": "Exmoorponyveulen" },
+  "game": "dartmoor",
+  "category": "clovenHoofedAnimal",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 1 }
+    }
+  ],
+  "tags": ["pony"],
+  "attachedCards": []
+},
+{
+  "id": "redRubyDevons",
+  "names": { "en": "Red Ruby Devons", "nl": "Dartmoorschaap" },
+  "game": "dartmoor",
+  "category": "clovenHoofedAnimal",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "plant" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "roeDeerAsh",
+  "names": { "en": "Roe Deer", "nl": "Ree" },
+  "game": "dartmoor",
+  "category": "clovenHoofedAnimal",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    { 
+      "count": { "of": "attachedCards", "target": "ash" }, 
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" } 
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "number of Ash symbols", "nl": "aantal essymbolen", "target": "ash", "symbols": ["ash"], "relation": "oneToMany" }
+  ]
+},
+{
+  "id": "roeDeerBlackAlder",
+  "names": { "en": "Roe Deer", "nl": "Ree" },
+  "game": "dartmoor",
+  "category": "clovenHoofedAnimal",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    { 
+      "count": { "of": "attachedCards", "target": "blackAlder" }, 
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" } 
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "number of Black Alder symbols", "nl": "aantal zwarte elssymbolen", "target": "blackAlder", "symbols": ["blackAlder"], "relation": "oneToMany" }
+  ]
+},
+{
+  "id": "roeDeerCrabApple",
+  "names": { "en": "Roe Deer", "nl": "Ree" },
+  "game": "dartmoor",
+  "category": "clovenHoofedAnimal",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    { 
+      "count": { "of": "attachedCards", "target": "crabApple" }, 
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" } 
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "number of Crab Apple symbols", "nl": "aantal wilde appelboomsymbolen", "target": "crabApple", "symbols": ["crabApple"], "relation": "oneToMany" }
+  ]
+},
+{
+  "id": "roeDeerMoorBirch",
+  "names": { "en": "Roe Deer", "nl": "Ree" },
+  "game": "dartmoor",
+  "category": "clovenHoofedAnimal",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    { 
+      "count": { "of": "attachedCards", "target": "moorBirch" }, 
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" } 
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "number of Moor Birch symbols", "nl": "aantal zachte berksymbolen", "target": "moorBirch", "symbols": ["moorBirch"], "relation": "oneToMany" }
+  ]
+},
+{
+  "id": "roeDeerSessileOak",
+  "names": { "en": "Roe Deer", "nl": "Ree" },
+  "game": "dartmoor",
+  "category": "clovenHoofedAnimal",
+  "zone": "sides",
+  "symbols": ["clovenHoofedAnimal"],
+  "expansion": "base",
+  "scoring": [
+    { 
+      "count": { "of": "attachedCards", "target": "sessileOak" }, 
+      "reward": { "mode": "perUnit", "points": 3, "multiply": "self" } 
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "number of Sessile Oak symbols", "nl": "aantal wintereiksymbolen", "target": "sessileOak", "symbols": ["sessileOak"], "relation": "oneToMany" }
+  ]
 }
 ];
