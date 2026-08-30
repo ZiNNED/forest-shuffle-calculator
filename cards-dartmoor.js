@@ -1746,7 +1746,7 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "redRubyDevons",
-  "names": { "en": "Red Ruby Devons", "nl": "Dartmoorschaap" },
+  "names": { "en": "Red Ruby Devons", "nl": "Devon rund" },
   "game": "dartmoor",
   "category": "clovenHoofedAnimal",
   "zone": "sides",
@@ -1855,5 +1855,56 @@ const CARDS_DARTMOOR = [
   "attachedCards": [
     { "en": "number of Sessile Oak symbols", "nl": "aantal wintereiksymbolen", "target": "sessileOak", "symbols": ["sessileOak"], "relation": "oneToMany" }
   ]
+},
+{
+  "id": "gnat",
+  "names": { "en": "Gnat", "nl": "Mug" },
+  "game": "dartmoor",
+  "category": "insect",
+  "zone": "sides",
+  "symbols": ["insect"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "bat" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "lakeFly",
+  "names": { "en": "Lake Fly", "nl": "Dansmug" },
+  "game": "dartmoor",
+  "category": "insect",
+  "zone": "sides",
+  "symbols": ["insect"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "bat" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "mountainBumblebee",
+  "names": { "en": "Mountain Bumblebee", "nl": "Berghommel" },
+  "game": "dartmoor",
+  "category": "insect",
+  "zone": "sides",
+  "symbols": ["insect", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "shrub" },
+      "reward": { "mode": "perUnit", "points": 2, "multiply": "self" }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
 }
 ];
