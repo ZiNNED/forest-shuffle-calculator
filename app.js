@@ -41,12 +41,12 @@ const L10N = {
             amphibian: 'AMPHIBIANS',
             bat: 'BATS',
             deer: 'DEER & CLOVEN-HOOFED',
-            clovenHoofedAnimal: 'DEER & CLOVEN-HOOFED',
             moor: 'MOORS',
             dragonfly: 'DRAGONFLIES',
         },
         dartmoorCategories: {
             amphibian: 'AMPHIBIANS & REPTILES',
+            clovenHoofedAnimal: 'CLOVEN-HOOFED',
         },
     },
     nl: {
@@ -85,11 +85,11 @@ const L10N = {
             amphibian: 'AMFIBIEËN',
             bat: 'VLEERMUIZEN',
             deer: 'HERTEN & EENHOEVIGE DIEREN',
-            clovenHoofedAnimal: 'HERTEN & EENHOEVIGE DIEREN',
             dragonfly: 'LIBELLEN',
         },
         dartmoorCategories: {
             amphibian: 'AMFIBIEËN & REPTIELEN',
+            clovenHoofedAnimal: 'EENHOEVIGE DIEREN',
         },
     },
 };
@@ -462,7 +462,7 @@ function buildCardSections() {
         img.src = 'assets/symbols/' + cat + '.png';
         img.alt = cat;
         summary.appendChild(img);
-        if (cat === 'deer' || cat === 'clovenHoofedAnimal') {
+        if (cat === 'deer') {
             const img2 = document.createElement('img');
             img2.className = 'symbol-icon';
             img2.src = 'assets/symbols/clovenHoofedAnimal.png';
