@@ -1410,5 +1410,90 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": []
+},
+{
+  "id": "brandtsBat",
+  "names": { "en": "Brandt's Bat", "nl": "Brandts vleermuis" },
+  "game": "dartmoor",
+  "category": "bat",
+  "zone": "sides",
+  "symbols": ["bat"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "bat" },
+      "reward": { "mode": "threshold", "minimum": 3, "points": 5 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "commonNoctule",
+  "names": { "en": "Common Noctule", "nl": "Laatvlieger" },
+  "game": "dartmoor",
+  "category": "bat",
+  "zone": "sides",
+  "symbols": ["bat"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "bat" },
+      "reward": { "mode": "threshold", "minimum": 3, "points": 5 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "daubentonsBat",
+  "names": { "en": "Daubenton's Bat", "nl": "Watervleermuis" },
+  "game": "dartmoor",
+  "category": "bat",
+  "zone": "sides",
+  "symbols": ["bat"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "bat" },
+      "reward": { "mode": "threshold", "minimum": 3, "points": 5 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "serotineBat",
+  "names": { "en": "Serotine Bat", "nl": "Rosse vleermuis" },
+  "game": "dartmoor",
+  "category": "bat",
+  "zone": "sides",
+  "symbols": ["bat"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "bat" },
+      "reward": { "mode": "threshold", "minimum": 3, "points": 5 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
+},
+{
+  "id": "whiskeredBat",
+  "names": { "en": "Whiskered Bat", "nl": "Baardvleermuis" },
+  "game": "dartmoor",
+  "category": "bat",
+  "zone": "sides",
+  "symbols": ["bat", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "bat" },
+      "reward": { "mode": "threshold", "minimum": 3, "points": 5 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": []
 }
 ];
