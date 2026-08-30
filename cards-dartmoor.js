@@ -1088,5 +1088,259 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": []
+},
+{
+  "id": "addersTongue",
+  "names": { "en": "Adder's Tongue", "nl": "Addertong" },
+  "game": "dartmoor",
+  "category": "plant",
+  "zone": "bottoms",
+  "symbols": ["plant"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 3 }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "blueBerry",
+  "names": { "en": "Blueberry", "nl": "Blauwe bosbes" },
+  "game": "dartmoor",
+  "category": "plant",
+  "zone": "bottoms",
+  "symbols": ["plant"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "bird" },
+      "reward": { "mode": "perUnit", "points": 2, "multiply": "self" }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "bogAsphodel",
+  "names": { "en": "Bog Asphodel", "nl": "Beenbreek" },
+  "game": "dartmoor",
+  "category": "plant",
+  "zone": "bottoms",
+  "symbols": ["plant"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "moor" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "commonTormentil",
+  "names": { "en": "Common Tormentil", "nl": "Tormentil" },
+  "game": "dartmoor",
+  "category": "plant",
+  "zone": "bottoms",
+  "symbols": ["plant", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 5 }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "greatButterflyOrchid",
+  "names": { "en": "Great Butterfly Orchid", "nl": "Bergnachtorchis" },
+  "game": "dartmoor",
+  "category": "plant",
+  "zone": "bottoms",
+  "symbols": ["plant"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "plant" },
+      "reward": { "mode": "lookup", "table": [0, 3, 3, 3, 3, 15] }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "greaterWoodrush",
+  "names": { "en": "Greater Wood-rush", "nl": "Grote veldbies" },
+  "game": "dartmoor",
+  "category": "plant",
+  "zone": "bottoms",
+  "symbols": ["plant", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "self" },
+      "reward": { "mode": "perUnit", "points": 3 }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "heather",
+  "names": { "en": "Heather", "nl": "Struikhei" },
+  "game": "dartmoor",
+  "category": "plant",
+  "zone": "bottoms",
+  "symbols": ["plant"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "insect" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "meadowsweet",
+  "names": { "en": "Meadowsweet", "nl": "Moerasspirea" },
+  "game": "dartmoor",
+  "category": "plant",
+  "zone": "bottoms",
+  "symbols": ["plant"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "attachedCards", "target": "moor" },
+      "reward": { "mode": "perUnit", "points": 5 }
+    },
+    {
+      "count": { "of": "attachedCards", "target": "blanketBog" },
+      "reward": { "mode": "perUnit", "points": 10 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"], "exclusiveWith": "moorAttach" },
+    { "en": "played at a different moor", "nl": "gespeeld bij andere heide", "target": "moor", "symbols": ["moor"], "exclusiveWith": "moorAttach" }
+  ]
+},
+{
+  "id": "royalFern",
+  "names": { "en": "Royal Fern", "nl": "Koningsvaren" },
+  "game": "dartmoor",
+  "category": "plant",
+  "zone": "bottoms",
+  "symbols": ["plant"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "distinct", "value": "plant" },
+      "reward": { "mode": "perUnit", "points": 2, "multiply": "self" }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "sundew",
+  "names": { "en": "Sundew", "nl": "Zonnedauw" },
+  "game": "dartmoor",
+  "category": "plant",
+  "zone": "bottoms",
+  "symbols": ["plant", "exmoor"],
+  "expansion": "exmoor",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "insect" },
+      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+  ]
+},
+{
+  "id": "waterSoldiers",
+  "names": { "en": "Water Soldiers", "nl": "Krabbenscheer" },
+  "game": "dartmoor",
+  "category": "plant",
+  "zone": "bottoms",
+  "symbols": ["plant"],
+  "expansion": "base",
+  "scoring": [
+    {
+      "count": { "of": "symbol", "value": "dragonfly" },
+      "reward": { "mode": "perUnit", "points": 2, "multiply": "self" }
+    },
+    {
+      "count": { "of": "attachedCards" },
+      "reward": { "mode": "multiply", "by": 2 }
+    }
+  ],
+  "tags": [],
+  "attachedCards": [
+    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+  ]
 }
 ];
