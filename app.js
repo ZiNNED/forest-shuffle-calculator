@@ -41,6 +41,7 @@ const L10N = {
             amphibian: 'AMPHIBIANS',
             bat: 'BATS',
             deer: 'DEER & CLOVEN-HOOFED',
+            clovenHoofedAnimal: 'DEER & CLOVEN-HOOFED',
             moor: 'MOORS',
             dragonfly: 'DRAGONFLIES',
         },
@@ -84,6 +85,7 @@ const L10N = {
             amphibian: 'AMFIBIEËN',
             bat: 'VLEERMUIZEN',
             deer: 'HERTEN & EENHOEVIGE DIEREN',
+            clovenHoofedAnimal: 'HERTEN & EENHOEVIGE DIEREN',
             dragonfly: 'LIBELLEN',
         },
         dartmoorCategories: {
@@ -137,7 +139,7 @@ const ZONES = [
     { id: 'general', color: 'var(--green)', categories: ['cave', 'tree', 'shrub', 'moor'] },
     { id: 'tops', color: '#547AA5', categories: ['bird', 'butterfly', 'dragonfly', 'pawedAnimal'] },
     { id: 'bottoms', color: '#A8201A', categories: ['plant', 'mushroom', 'amphibian', 'insect', 'pawedAnimal'] },
-    { id: 'sides', color: '#EC9A29', categories: ['bird', 'insect', 'bat', 'pawedAnimal', 'deer'] }
+    { id: 'sides', color: '#EC9A29', categories: ['bird', 'insect', 'bat', 'pawedAnimal', 'deer', 'clovenHoofedAnimal'] }
 ];
 
 // ===== Category Colors =====
@@ -460,7 +462,7 @@ function buildCardSections() {
         img.src = 'assets/symbols/' + cat + '.png';
         img.alt = cat;
         summary.appendChild(img);
-        if (cat === 'deer') {
+        if (cat === 'deer' || cat === 'clovenHoofedAnimal') {
             const img2 = document.createElement('img');
             img2.className = 'symbol-icon';
             img2.src = 'assets/symbols/clovenHoofedAnimal.png';
