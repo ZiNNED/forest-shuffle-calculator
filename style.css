@@ -299,6 +299,19 @@ html, body {
     opacity: 0.6;
 }
 
+.settings-credit {
+    text-align: center;
+    padding: 0 0 16px;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    opacity: 0.6;
+}
+
+.settings-credit a {
+    color: inherit;
+    text-decoration: underline;
+}
+
 /* ===== Radio Button ===== */
 .radio {
     width: 20px;

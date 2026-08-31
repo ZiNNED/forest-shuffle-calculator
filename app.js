@@ -1355,6 +1355,16 @@ function translateUI() {
         const key = el.dataset.i18n;
         el.textContent = t(key);
     });
+    updateCredit();
+}
+
+function updateCredit() {
+    const el = document.getElementById('settingsCredit');
+    if (!el) return;
+    const text = LANG === 'nl'
+        ? 'ge\u00EFnspireerd door <a href="https://forestshuffle.app" target="_blank" rel="noopener">ForestShuffle.app</a>'
+        : 'inspired by <a href="https://forestshuffle.app" target="_blank" rel="noopener">ForestShuffle.app</a>';
+    el.innerHTML = text;
 }
 
 function updateLangButtons() {

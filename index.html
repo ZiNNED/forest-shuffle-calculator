@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Forest Calculator</title>
-    <!-- Cache busting: v=189 -->
-    <link rel="stylesheet" href="style.css?v=189">
+    <!-- Cache busting: v=190 -->
+    <link rel="stylesheet" href="style.css?v=190">
     <link rel="icon" type="image/png" href="assets/icon-512.png">
     <link rel="apple-touch-icon" href="assets/icon-192.png">
     <link rel="manifest" href="manifest.json">
@@ -87,7 +87,8 @@
         <button class="settings-new-game" onclick="newGame()" data-i18n="newGame">New Game</button>
     </div>
 
-    <div class="settings-version" id="settingsVersion"></div>
+    <div class="settings-version">v1.0</div>
+    <div class="settings-credit" id="settingsCredit"></div>
 </div>
 
 <!-- Scrollable content -->
@@ -127,22 +128,9 @@
     <div style="height: 40px;"></div>
 </div>
 
-<script src="cards-forest.js?v=189"></script>
-<script src="cards-dartmoor.js?v=189"></script>
-<script src="app.js?v=189"></script>
-<script>
-    // Set version from cache-busting parameter
-    (function() {
-        const scripts = document.getElementsByTagName('script');
-        for (const s of scripts) {
-            const m = s.src && s.src.match(/app\.js\?v=(\d+)/);
-            if (m) {
-                document.getElementById('settingsVersion').textContent = 'v0.' + m[1];
-                break;
-            }
-        }
-    })();
-</script>
+<script src="cards-forest.js?v=190"></script>
+<script src="cards-dartmoor.js?v=190"></script>
+<script src="app.js?v=190"></script>
 
 <script>
     // Register service worker for offline PWA support
