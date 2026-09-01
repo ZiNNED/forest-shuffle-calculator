@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Forest Calculator</title>
-    <!-- Cache busting: v=190 -->
-    <link rel="stylesheet" href="style.css?v=190">
+    <!-- Cache busting: v=191 -->
+    <link rel="stylesheet" href="style.css?v=191">
     <link rel="icon" type="image/png" href="assets/icon-512.png">
     <link rel="apple-touch-icon" href="assets/icon-192.png">
     <link rel="manifest" href="manifest.json">
@@ -85,6 +85,12 @@
 
     <div class="settings-group" style="margin-top: 24px;">
         <button class="settings-new-game" onclick="newGame()" data-i18n="newGame">New Game</button>
+        <button class="settings-install" id="installBtn" onclick="installApp()" style="display:none">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style="vertical-align:middle;margin-right:6px">
+                <path d="M8 1v9M4 6l4 4 4-4M2 13h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span data-i18n="installApp">Install App</span>
+        </button>
     </div>
 
     <div class="settings-version">v1.0</div>
@@ -128,9 +134,9 @@
     <div style="height: 40px;"></div>
 </div>
 
-<script src="cards-forest.js?v=190"></script>
-<script src="cards-dartmoor.js?v=190"></script>
-<script src="app.js?v=190"></script>
+<script src="cards-forest.js?v=191"></script>
+<script src="cards-dartmoor.js?v=191"></script>
+<script src="app.js?v=191"></script>
 
 <script>
     // Register service worker for offline PWA support

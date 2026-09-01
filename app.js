@@ -23,6 +23,7 @@ const L10N = {
         sidePoints: 'Side Points',
         total: 'Total',
         confirmNewGame: 'Start a new game? This will reset all scores.',
+        installApp: 'Install App',
         player: 'Player',
         attachedCards: 'attached cards',
         tops: 'Tops',
@@ -65,6 +66,7 @@ const L10N = {
         sidePoints: 'Zijpunten',
         total: 'Totaal',
         confirmNewGame: 'Nieuw spel starten? Dit reset alle scores.',
+        installApp: 'App installeren',
         player: 'Speler',
         attachedCards: 'aangelegde kaarten',
         tops: 'Bovenkanten',
@@ -1446,4 +1448,28 @@ window.addEventListener('DOMContentLoaded', function() {
     document.getElementById('summaryDetails').addEventListener('toggle', function() {
         document.getElementById('forestScroll').classList.toggle('summary-open', this.open);
     });
+});
+
+// ===== PWA Install Prompt =====
+let deferredPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const btn = document.getElementById('installBtn');
+    if (btn) btn.style.display = '';
+});
+
+function installApp() {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => {
+        deferredPrompt = null;
+    });
+}
+
+window.addEventListener('appinstalled', () => {
+    const btn = document.getElementById('installBtn');
+    if (btn) btn.style.display = 'none';
+    deferredPrompt = null;
 });
