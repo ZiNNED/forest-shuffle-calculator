@@ -16,22 +16,29 @@ An interactive scoring calculator for the award-winning board game [Forest Shuff
 - **Works Offline** — Service worker caching lets you use it without an internet connection
 - **Open Data** — All card scoring rules are in `cards-forest.js` and `cards-dartmoor.js` — easy to verify, extend, or port
 
-## Supported Expansions
+## Supported Games and expansions
 
-| Game | Cards | Status |
+| Game | Type | Status |
 |---|---|---|
-| Forest Shuffle (base) | 101 | ✅ Complete |
-| Dartmoor | 96 | ✅ Complete |
-| Exmoor | 16 | ✅ Supported |
+| Forest Shuffle | base | ✅ Supported |
+| Alpine | expansion | ✅ Supported |
+| Woodland Edge | expansion | ✅ Supported |
+| Exploration | expansion | ❌ Unsupported |
+| Promo cards | expansion | ❌ Unsupported |
+|---|---|---|
+| Forest Shuffle: Dartmoor | base | ✅ Supported |
+| Exmoor | expansion | ✅ Supported |
+| Promo cards | expansion | ❌ Unsupported |
 
 ## How to Use
 
 1. Open the app in your browser
-2. Select a game (Forest / Dartmoor)
-3. Add players
-4. Click card icons to add them to your forest
-5. Toggle attached cards where applicable
-6. Score updates automatically
+2. Select a game (Forest Shuffle / Forest Shuffle: Dartmoor)
+3. Select any expansions to use
+4. Add players
+5. Click card icons to add them to your forest
+6. Toggle attached cards where applicable
+7. Score updates automatically
 
 ## Development
 
@@ -70,7 +77,7 @@ Card definitions are data-driven JSON objects. Each card specifies:
 - **Category** (bird, tree, plant, mushroom, etc.)
 - **Zone** (top, bottom, side, general, cave)
 - **Scoring rules** using a flexible engine (lookup tables, per-unit, thresholds, conditional bonuses)
-- **Attached card relationships** (eggs on birds, tree hollow dwellers, cave bonuses)
+- **Attached card relationships** (number of symbols, fulfilled conditions)
 - **Symbol bonuses** for species-specific counts
 
 See `cards-forest.js` and `cards-dartmoor.js` for the complete card data.
