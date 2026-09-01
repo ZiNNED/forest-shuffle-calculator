@@ -24,6 +24,7 @@ const L10N = {
         total: 'Total',
         confirmNewGame: 'Start a new game? This will reset all scores.',
         installApp: 'Install App',
+        darkTheme: 'Dark Theme',
         player: 'Player',
         attachedCards: 'attached cards',
         tops: 'Tops',
@@ -67,6 +68,7 @@ const L10N = {
         total: 'Totaal',
         confirmNewGame: 'Nieuw spel starten? Dit reset alle scores.',
         installApp: 'App installeren',
+        darkTheme: 'Donker thema',
         player: 'Speler',
         attachedCards: 'aangelegde kaarten',
         tops: 'Bovenkanten',
@@ -130,6 +132,7 @@ let state = {
     players: [{ name: defaultPlayerName(0), cards: {}, attached: {} }],
     game: 'forest',
     expansions: { alpine: false, woodlandEdge: false, exmoor: false },
+    theme: 'light',
 };
 
 // Clean up any old persisted state
@@ -1315,6 +1318,7 @@ function saveSettings() {
         game: state.game,
         expansions: state.expansions,
         lang: LANG,
+        theme: state.theme,
     }));
 }
 
@@ -1374,6 +1378,19 @@ function updateLangButtons() {
     document.getElementById('langNl').classList.toggle('active', LANG === 'nl');
 }
 
+// ===== Theme Toggle =====
+function applyTheme(theme) {
+    state.theme = theme;
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    const toggle = document.getElementById('themeToggle');
+    if (toggle) toggle.classList.toggle('on', theme === 'dark');
+    saveSettings();
+}
+
+function toggleTheme() {
+    applyTheme(state.theme === 'dark' ? 'light' : 'dark');
+}
+
 // ===== Settings =====
 function openSettings() {
     rebuildPlayerList();
@@ -1409,8 +1426,12 @@ window.addEventListener('DOMContentLoaded', function() {
                 LANG = saved.lang;
                 localStorage.setItem('forestLang', saved.lang);
             }
+            if (saved.theme) state.theme = saved.theme;
         }
     } catch (e) { /* ignore */ }
+
+    // Apply theme
+    applyTheme(state.theme);
 
     // Apply game state: swap currentCards and show/hide expansion toggles
     currentCards = state.game === 'forest' ? CARDS_FOREST : CARDS_DARTMOOR;
