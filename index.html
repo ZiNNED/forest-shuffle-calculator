@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Forest Calculator</title>
-    <!-- Cache busting: v=192 -->
-    <link rel="stylesheet" href="style.css?v=192">
+    <!-- Cache busting: v=193 -->
+    <link rel="stylesheet" href="style.css?v=193">
     <link rel="icon" type="image/png" href="assets/icon-512.png">
     <link rel="apple-touch-icon" href="assets/icon-192.png">
     <link rel="manifest" href="manifest.json">
@@ -45,25 +45,6 @@
     </div>
 
     <div class="settings-group">
-        <div class="settings-group-title" data-i18n="players">Players</div>
-        <div class="settings-players" id="settingsPlayerList">
-            <!-- Rendered by JS -->
-        </div>
-        <button class="settings-add-player" id="settingsAddPlayer" onclick="addPlayer()">
-            <span class="settings-add-plus">+</span>
-            <span data-i18n="addPlayer">Add Player</span>
-        </button>
-    </div>
-
-    <div class="settings-group">
-        <div class="settings-group-title" data-i18n="language">Language</div>
-        <div class="settings-lang-row">
-            <button class="lang-btn" id="langEn" onclick="setLanguage('en')">&#127468;&#127463;</button>
-            <button class="lang-btn" id="langNl" onclick="setLanguage('nl')">&#127475;&#127473;</button>
-        </div>
-    </div>
-
-    <div class="settings-group">
         <div class="settings-group-title" data-i18n="expansions">Expansions</div>
         <div class="settings-row" id="expAlpine" onclick="toggleExpansion('alpine')" data-game="forest">
             <span class="settings-label"><img class="symbol-icon" src="assets/symbols/alpine.png" alt="alpine"> Alpine</span>
@@ -80,8 +61,27 @@
     </div>
 
     <div class="settings-group">
+        <div class="settings-group-title" data-i18n="players">Players</div>
+        <div class="settings-players" id="settingsPlayerList">
+            <!-- Rendered by JS -->
+        </div>
+        <button class="settings-add-player" id="settingsAddPlayer" onclick="addPlayer()">
+            <span class="settings-add-plus">+</span>
+            <span data-i18n="addPlayer">Add Player</span>
+        </button>
+    </div>
+
+    <div class="settings-group">
         <div class="settings-group-title" data-i18n="leaderboard">Leaderboard</div>
         <div id="leaderboardList"></div>
+    </div>
+
+    <div class="settings-group">
+        <div class="settings-group-title" data-i18n="language">Language</div>
+        <div class="settings-lang-row">
+            <button class="lang-btn" id="langEn" onclick="setLanguage('en')">&#127468;&#127463;</button>
+            <button class="lang-btn" id="langNl" onclick="setLanguage('nl')">&#127475;&#127473;</button>
+        </div>
     </div>
 
     <div class="settings-group" style="margin-top: 24px;">
@@ -135,9 +135,9 @@
     <div style="height: 40px;"></div>
 </div>
 
-<script src="cards-forest.js?v=192"></script>
-<script src="cards-dartmoor.js?v=192"></script>
-<script src="app.js?v=192"></script>
+<script src="cards-forest.js?v=193"></script>
+<script src="cards-dartmoor.js?v=193"></script>
+<script src="app.js?v=193"></script>
 
 <script>
     // Register service worker for offline PWA support

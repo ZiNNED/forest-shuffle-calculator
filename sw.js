@@ -1,5 +1,5 @@
 // Forest Shuffle Calculator — Service Worker
-const CACHE_VERSION = 'v192';
+const CACHE_VERSION = 'v193';
 const CACHE_NAME = 'forest-calc-' + CACHE_VERSION;
 
 const PRECACHE_URLS = [
