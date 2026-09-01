@@ -7,8 +7,7 @@ An interactive scoring calculator for the award-winning board game [Forest Shuff
 ## Features
 
 - **Real-time Scoring** — Add cards to your forest and see your score update instantly
-- **Three Games** — Supports base Forest Shuffle, Dartmoor, and Exmoor expansions
-- **Attached Cards** — Toggle attached tokens (cave bonus, bird eggs, tree hollow dwellers, etc.)
+- **Two Games** — Supports both base Forest Shuffle and Forest Shuffle: Dartmoor, plus expansions
 - **Multi-player** — Track scores for up to 6 players
 - **Expansion Toggles** — Turn expansions on/off per game
 - **Bilingual** — Supports English and Dutch (Nederlands)
