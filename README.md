@@ -1,8 +1,8 @@
 # 🌲 Forest Shuffle Calculator
 
-An interactive scoring calculator for the award-winning board game [Forest Shuffle](https://boardgamegeek.com/boardgame/391163/forest-shuffle) and its expansions **Dartmoor** and **Exmoor**. Track scores, attached cards, and player totals — all from your browser.
+An interactive scoring calculator for the award-winning board game [Forest Shuffle](https://boardgamegeek.com/boardgame/391163/forest-shuffle), [Forest Shuffle: Dartmoor](https://boardgamegeek.com/boardgame/438402/forest-shuffle-dartmoor) and its expansions. Track scores, attached cards, and player totals — all from your browser.
 
-🌐 **[forest.dss-solutions.nl](https://forest.dss-solutions.nl)** · coming soon to **forest.boardbuddy.games**
+🌐 **[forest.boardbuddy.games](https://forest.boardbuddy.games)**
 
 ## Features
 
