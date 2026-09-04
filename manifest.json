@@ -1,6 +1,6 @@
 {
   "name": "Forest Shuffle Calculator",
-  "short_name": "Forest Calc",
+  "short_name": "Forest Shuffle Calculator",
   "description": "Scoring calculator for Forest Shuffle and Forest Shuffle: Dartmoor",
   "start_url": "/",
   "display": "standalone",
