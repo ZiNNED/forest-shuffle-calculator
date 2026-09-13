@@ -996,7 +996,7 @@ const CARDS_DARTMOOR = [
   "scoring": [
     {
       "count": { "of": "distinct", "value": "amphibian" },
-      "reward": { "mode": "lookup", "table": [0, 5, 5, 15], "multiply": "self" }
+      "reward": { "mode": "lookup", "table": [5, 5, 15], "multiply": "self" }
     }
   ],
   "tags": [],
@@ -1192,7 +1192,7 @@ const CARDS_DARTMOOR = [
   "scoring": [
     {
       "count": { "of": "distinct", "value": "plant" },
-      "reward": { "mode": "lookup", "table": [0, 3, 3, 3, 3, 15] }
+      "reward": { "mode": "lookup", "table": [3, 3, 3, 3, 15] }
     },
     {
       "count": { "of": "attachedCards" },
