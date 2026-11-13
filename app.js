@@ -1274,8 +1274,9 @@ function setLanguage(lang) {
     updateLangButtons();
     // Now rebuild cards and scores
     buildCardSections();
-    updateAllScores();
     // Update dynamically generated player names if unchanged from default
+    // BEFORE updateAllScores (which renders the leaderboard), so the
+    // leaderboard shows translated names on the first click.
     state.players.forEach((p, i) => {
         // Only rename if the current name matches the default of any language
         const isDefaultName = Object.keys(I18N).some(code =>
@@ -1284,6 +1285,7 @@ function setLanguage(lang) {
             p.name = defaultPlayerName(i);
         }
     });
+    updateAllScores();
     rebuildPlayerList();
     updateLangButtons();
 }
