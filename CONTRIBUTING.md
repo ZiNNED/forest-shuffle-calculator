@@ -60,6 +60,7 @@ Then open [http://localhost:8000](http://localhost:8000) in your browser.
 Cards are defined in `cards-forest.js` and `cards-dartmoor.js`. Each card follows a JSON structure with scoring rules. The engine in `app.js` interprets these rules to calculate scores automatically. When adding or editing cards:
 
 - Keep scoring logic data-driven — avoid adding code paths in `app.js`
+- Put card names and attached-card labels in every `i18n/<lang>.js` file (keyed by card id), not in the card files
 - Test that existing cards still work when adding new ones
 - Run `node -c app.js` to check for syntax errors
 

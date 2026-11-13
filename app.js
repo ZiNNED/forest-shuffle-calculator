@@ -3,119 +3,56 @@
 // ============================================
 
 // ===== Localization (i18n) =====
-// Add a new language by adding a block with ALL keys below.
-let LANG = localStorage.getItem('forestLang') || 'en';
+// Translations live in i18n/<lang>.js (loaded before this file) and register themselves on window.I18N.
+const DEFAULT_LANG = 'en';
+let LANG = localStorage.getItem('forestLang') || DEFAULT_LANG;
+if (!I18N[LANG]) LANG = DEFAULT_LANG;
 
-const L10N = {
-    en: {
-        menu: 'Menu',
-        game: 'Game',
-        players: 'Players',
-        addPlayer: 'Add Player',
-        newGame: 'New Game',
-        language: 'Language',
-        expansions: 'Expansions',
-        leaderboard: 'Leaderboard',
-        soon: 'Soon',
-        treePoints: 'General Points',
-        topPoints: 'Top Points',
-        bottomPoints: 'Bottom Points',
-        sidePoints: 'Side Points',
-        total: 'Total',
-        confirmNewGame: 'Start a new game? This will reset all scores.',
-        installApp: 'Install App',
-        darkTheme: 'Dark Theme',
-        player: 'Player',
-        attachedCards: 'attached cards',
-        tops: 'Tops',
-        sides: 'Sides',
-        general: 'General',
-        categories: {
-            cave: 'CAVE',
-            tree: 'TREES',
-            shrub: 'SHRUBS',
-            bird: 'BIRDS',
-            butterfly: 'BUTTERFLIES',
-            pawedAnimal: 'PAWED ANIMALS',
-            plant: 'PLANTS',
-            mushroom: 'MUSHROOMS',
-            insect: 'INSECTS',
-            amphibian: 'AMPHIBIANS',
-            bat: 'BATS',
-            deer: 'DEER & CLOVEN-HOOFED',
-            moor: 'MOORS',
-            dragonfly: 'DRAGONFLIES',
-        },
-        dartmoorCategories: {
-            amphibian: 'AMPHIBIANS & REPTILES',
-            clovenHoofedAnimal: 'CLOVEN-HOOFED',
-        },
-    },
-    nl: {
-        menu: 'Menu',
-        game: 'Spel',
-        players: 'Spelers',
-        addPlayer: 'Speler toevoegen',
-        newGame: 'Nieuw spel',
-        language: 'Taal',
-        expansions: 'Uitbreidingen',
-        leaderboard: 'Scorebord',
-        soon: 'Binnenkort',
-        treePoints: 'Generieke punten',
-        topPoints: 'Bovenpunten',
-        bottomPoints: 'Onderpunten',
-        sidePoints: 'Zijpunten',
-        total: 'Totaal',
-        confirmNewGame: 'Nieuw spel starten? Dit reset alle scores.',
-        installApp: 'App installeren',
-        darkTheme: 'Donker thema',
-        player: 'Speler',
-        attachedCards: 'aangelegde kaarten',
-        tops: 'Bovenkanten',
-        bottoms: 'Onderkanten',
-        sides: 'Zijkanten',
-        general: 'Generiek',
-        categories: {
-            cave: 'GROT',
-            tree: 'BOMEN',
-            shrub: 'STRUIKEN',
-            bird: 'VOGELS',
-            butterfly: 'VLINDERS',
-            pawedAnimal: 'POOTDIEREN',
-            plant: 'PLANTEN',
-            moor: 'HEIDES',
-            mushroom: 'PADDENSTOELEN',
-            insect: 'INSECTEN',
-            amphibian: 'AMFIBIEËN',
-            bat: 'VLEERMUIZEN',
-            deer: 'HERTEN & EENHOEVIGE DIEREN',
-            dragonfly: 'LIBELLEN',
-        },
-        dartmoorCategories: {
-            amphibian: 'AMFIBIEËN & REPTIELEN',
-            clovenHoofedAnimal: 'EENHOEVIGE DIEREN',
-        },
-    },
-};
+function i18nLookup(lang, path) {
+    let node = I18N[lang];
+    for (const key of path) {
+        if (node === undefined || node === null) return undefined;
+        node = node[key];
+    }
+    return node;
+}
+
+// Look up a translation in the selected language, falling back to English, then to `fallback`
+function translate(path, fallback) {
+    const value = i18nLookup(LANG, path);
+    if (value !== undefined) return value;
+    const defaultValue = i18nLookup(DEFAULT_LANG, path);
+    return defaultValue !== undefined ? defaultValue : fallback;
+}
 
 function t(key) {
-    const lang = L10N[LANG];
-    if (lang && lang[key] !== undefined) return lang[key];
-    const fallback = L10N['en'];
-    return (fallback && fallback[key] !== undefined) ? fallback[key] : key;
+    return translate(['ui', key], key);
 }
 
 function catLabel(cat) {
-    const lang = L10N[LANG];
     // Dartmoor-specific category label overrides
     if (state.game === 'dartmoor') {
-        const dmLabels = lang.dartmoorCategories;
-        if (dmLabels && dmLabels[cat] !== undefined) return dmLabels[cat];
+        const dmLabel = translate(['dartmoorCategories', cat]);
+        if (dmLabel !== undefined) return dmLabel;
     }
-    if (lang && lang.categories && lang.categories[cat] !== undefined) return lang.categories[cat];
-    const fallback = L10N['en'];
-    if (fallback && fallback.categories && fallback.categories[cat] !== undefined) return fallback.categories[cat];
-    return cat.toUpperCase();
+    return translate(['categories', cat], cat.toUpperCase());
+}
+
+function cardName(card) {
+    return translate(['cards', state.game, card.id], card.id);
+}
+
+// Label of an object-form attachedCards button
+function attachedLabel(card) {
+    const label = translate(['attached', state.game, card.id]);
+    return typeof label === 'string' ? label : t('attachedCards');
+}
+
+// Label of an array-form attachedCards entry; useAlt prefers the '<target>.alt' variant
+function attachedEntryLabel(card, entry, useAlt) {
+    const path = ['attached', state.game, card.id];
+    const label = translate([...path, entry.target], entry.target);
+    return useAlt ? translate([...path, entry.target + '.alt'], label) : label;
 }
 
 // ===== Player name helpers =====
@@ -455,9 +392,9 @@ function buildCardSections() {
     // Sort cards by current language name
     function sortCards(cards) {
         return cards.slice().sort((a, b) => {
-            const nA = (a.names[LANG] || a.names.en || a.id).toLowerCase();
-            const nB = (b.names[LANG] || b.names.en || b.id).toLowerCase();
-            return nA.localeCompare(nB);
+            const nA = cardName(a).toLowerCase();
+            const nB = cardName(b).toLowerCase();
+            return nA.localeCompare(nB, LANG);
         });
     }
 
@@ -581,7 +518,7 @@ function renderCardRow(container, card) {
     // Name
     const name = document.createElement('span');
     name.className = 'card-name';
-    name.textContent = card.names[LANG] || card.names.en || card.id;
+    name.textContent = cardName(card);
     btn.appendChild(name);
 
     btn.onclick = function() { addCard(card.id); };
@@ -612,8 +549,8 @@ function renderCardRow(container, card) {
             // Array-based: one button per target (e.g. Violet Carpenter Bee)
             // Sort by the current language's display name
             const sorted = [...card.attachedCards].sort((a, b) => {
-                const nameA = a[LANG] || a.en || a.target;
-                const nameB = b[LANG] || b.en || b.target;
+                const nameA = attachedEntryLabel(card, a, false);
+                const nameB = attachedEntryLabel(card, b, false);
                 return nameA.localeCompare(nameB, LANG);
             });
             sorted.forEach(entry => {
@@ -650,10 +587,10 @@ function renderCardRow(container, card) {
                 }
                 const aName = document.createElement('span');
                 aName.className = 'card-name';
-                // Conditional label: if altNames and whenExpansionOff are set
-                // and the expansion is not enabled, show the alt text instead
-                const useAlt = entry.altNames && entry.whenExpansionOff && !state.expansions[entry.whenExpansionOff];
-                aName.textContent = useAlt ? (entry.altNames[LANG] || entry.altNames.en) : (entry[LANG] || entry.en || entry.target);
+                // Conditional label: if whenExpansionOff is set and the expansion
+                // is not enabled, show the '<target>.alt' text instead (when translated)
+                const useAlt = entry.whenExpansionOff && !state.expansions[entry.whenExpansionOff];
+                aName.textContent = attachedEntryLabel(card, entry, useAlt);
                 aBtn.appendChild(aName);
                 const target = entry.target;
                 aBtn.onclick = function() { addAttachedCard(card.id, target); };
@@ -707,13 +644,7 @@ function renderCardRow(container, card) {
             }
             const aName = document.createElement('span');
             aName.className = 'card-name';
-            if (card.attachedCards[LANG]) {
-                aName.textContent = card.attachedCards[LANG];
-            } else if (card.attachedCards.en) {
-                aName.textContent = card.attachedCards.en;
-            } else {
-                aName.textContent = t('attachedCards');
-            }
+            aName.textContent = attachedLabel(card);
             aBtn.appendChild(aName);
             aBtn.onclick = function() { addAttachedCard(card.id); };
             aRow.appendChild(aBtn);
@@ -1334,6 +1265,7 @@ function restoreExpansionToggles() {
 
 // ===== Language Toggle =====
 function setLanguage(lang) {
+    if (!I18N[lang]) return;
     LANG = lang;
     localStorage.setItem('forestLang', lang);
     saveSettings();
@@ -1345,10 +1277,10 @@ function setLanguage(lang) {
     updateAllScores();
     // Update dynamically generated player names if unchanged from default
     state.players.forEach((p, i) => {
-        const defaultEn = 'Player ' + (i + 1);
-        const defaultNl = 'Speler ' + (i + 1);
-        // Only rename if the current name matches either default
-        if (p.name === defaultEn || p.name === defaultNl) {
+        // Only rename if the current name matches the default of any language
+        const isDefaultName = Object.keys(I18N).some(code =>
+            p.name === (i18nLookup(code, ['ui', 'player']) || '') + ' ' + (i + 1));
+        if (isDefaultName) {
             p.name = defaultPlayerName(i);
         }
     });
@@ -1357,6 +1289,7 @@ function setLanguage(lang) {
 }
 
 function translateUI() {
+    document.documentElement.lang = LANG;
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
         el.textContent = t(key);
@@ -1367,15 +1300,34 @@ function translateUI() {
 function updateCredit() {
     const el = document.getElementById('settingsCredit');
     if (!el) return;
-    const text = LANG === 'nl'
-        ? 'ge\u00EFnspireerd door <a href="https://forestshuffle.app" target="_blank" rel="noopener">ForestShuffle.app</a>'
-        : 'inspired by <a href="https://forestshuffle.app" target="_blank" rel="noopener">ForestShuffle.app</a>';
-    el.innerHTML = text;
+    const link = document.createElement('a');
+    link.href = 'https://forestshuffle.app';
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.textContent = 'ForestShuffle.app';
+    el.replaceChildren(t('inspiredBy') + ' ', link);
+}
+
+// Render one flag button per registered language (i18n/<lang>.js)
+function buildLangButtons() {
+    const container = document.getElementById('langButtons');
+    if (!container) return;
+    container.replaceChildren();
+    Object.keys(I18N).forEach(code => {
+        const btn = document.createElement('button');
+        btn.className = 'lang-btn';
+        btn.dataset.lang = code;
+        btn.title = I18N[code].name || code;
+        btn.textContent = I18N[code].flag || code.toUpperCase();
+        btn.onclick = function() { setLanguage(code); };
+        container.appendChild(btn);
+    });
 }
 
 function updateLangButtons() {
-    document.getElementById('langEn').classList.toggle('active', LANG === 'en');
-    document.getElementById('langNl').classList.toggle('active', LANG === 'nl');
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === LANG);
+    });
 }
 
 // ===== Theme Toggle =====
@@ -1422,7 +1374,7 @@ window.addEventListener('DOMContentLoaded', function() {
         if (saved) {
             if (saved.game) state.game = saved.game;
             if (saved.expansions) state.expansions = saved.expansions;
-            if (saved.lang) {
+            if (saved.lang && I18N[saved.lang]) {
                 LANG = saved.lang;
                 localStorage.setItem('forestLang', saved.lang);
             }
@@ -1444,6 +1396,7 @@ window.addEventListener('DOMContentLoaded', function() {
     if (gameRow) gameRow.querySelector('.radio').classList.add('checked');
 
     updateGameTitle();
+    buildLangButtons();
     translateUI();
     updateLangButtons();
 

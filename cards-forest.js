@@ -1,4 +1,5 @@
 // Forest Shuffle Calculator - Card definitions
+// Display names and attached-card labels live in i18n/<lang>.js (keyed by card id).
 // Scoring rule format:
 //   count: { of: "self" | "symbol", value: X | "attachedCards" | "distinct", value: X | "condition", value: X }
 //   reward: { mode: "flat", points: X } | { mode: "perUnit", points: X } | { mode: "lookup", table: [...] }
@@ -6,10 +7,6 @@
 const CARDS_FOREST = [
 {
   "id": "cave",
-  "names": {
-    "en": "Cards In Cave",
-    "nl": "Kaarten in grot"
-  },
   "category": "cave",
   "zone": "general",
   "symbols": ["cave"],
@@ -30,10 +27,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "birch",
-  "names": {
-    "en": "Birch",
-    "nl": "Berk"
-  },
   "category": "tree",
   "zone": "general",
   "symbols": [
@@ -57,10 +50,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "beech",
-  "names": {
-    "en": "Beech",
-    "nl": "Beuk"
-  },
   "category": "tree",
   "zone": "general",
   "symbols": [
@@ -85,10 +74,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "douglasFir",
-  "names": {
-    "en": "Douglas Fir",
-    "nl": "Douglasspar"
-  },
   "category": "tree",
   "zone": "general",
   "symbols": [
@@ -112,10 +97,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "oak",
-  "names": {
-    "en": "Oak",
-    "nl": "Eik"
-  },
   "category": "tree",
   "zone": "general",
   "symbols": [
@@ -141,10 +122,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "sapling",
-  "names": {
-    "en": "Tree Sapling",
-    "nl": "Jong boompje"
-  },
   "category": "tree",
   "zone": "general",
   "symbols": [
@@ -157,10 +134,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "linden",
-  "names": {
-    "en": "Linden",
-    "nl": "Linde"
-  },
   "category": "tree",
   "zone": "general",
   "symbols": [
@@ -194,10 +167,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "horseChestnut",
-  "names": {
-    "en": "Horse Chestnut",
-    "nl": "Paardenkastanje"
-  },
   "category": "tree",
   "zone": "general",
   "symbols": [
@@ -229,10 +198,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "silverFir",
-  "names": {
-    "en": "Silver Fir",
-    "nl": "Zilverspar"
-  },
   "category": "tree",
   "zone": "general",
   "symbols": [
@@ -253,17 +218,11 @@ const CARDS_FOREST = [
   ],
   "tags": [],
   "attachedCards": {
-    "en": "attached cards",
-    "nl": "aangelegde kaarten",
     "relation": "oneToMany"
   }
 },
 {
   "id": "sycamore",
-  "names": {
-    "en": "Sycamore",
-    "nl": "Esdoorn"
-  },
   "category": "tree",
   "zone": "general",
   "symbols": [
@@ -289,10 +248,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "tawnyOwl",
-  "names": {
-    "en": "Tawny Owl",
-    "nl": "Bosuil"
-  },
   "zone": "tops",
   "category": "bird",
   "symbols": [
@@ -315,10 +270,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "bullfinch",
-  "names": {
-    "en": "Bullfinch",
-    "nl": "Goudvink"
-  },
   "zone": "tops",
   "category": "bird",
   "symbols": [
@@ -343,10 +294,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "greatSpottedWoodpecker",
-  "names": {
-    "en": "Great Spotted Woodpecker",
-    "nl": "Grote bonte specht"
-  },
   "zone": "tops",
   "category": "bird",
   "symbols": [
@@ -370,10 +317,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "goshawk",
-  "names": {
-    "en": "Goshawk",
-    "nl": "Havik"
-  },
   "zone": "tops",
   "category": "bird",
   "symbols": [
@@ -398,10 +341,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "chaffinch",
-  "names": {
-    "en": "Chaffinch",
-    "nl": "Vink"
-  },
   "zone": "tops",
   "category": "bird",
   "symbols": [
@@ -421,16 +360,11 @@ const CARDS_FOREST = [
   ],
   "tags": [],
   "attachedCards": {
-    "en": "atop a beech",
-    "nl": "bovenop een beuk"
+    "relation": "oneToOne"
   }
 },
 {
   "id": "eurasianJay",
-  "names": {
-    "en": "Eurasian Jay",
-    "nl": "Vlaamse gaai"
-  },
   "zone": "tops",
   "category": "bird",
   "symbols": [
@@ -453,10 +387,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "peacockButterfly",
-  "names": {
-    "en": "Peacock Butterfly",
-    "nl": "Dagpauwoog"
-  },
   "zone": "tops",
   "category": "butterfly",
   "symbols": [
@@ -490,10 +420,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "purpleEmperor",
-  "names": {
-    "en": "Purple Emperor",
-    "nl": "Grote weerschijnvlinder"
-  },
   "zone": "tops",
   "category": "butterfly",
   "symbols": [
@@ -527,10 +453,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "largeTortoiseshell",
-  "names": {
-    "en": "Large Tortoiseshell",
-    "nl": "Grote vos"
-  },
   "zone": "tops",
   "category": "butterfly",
   "symbols": [
@@ -564,10 +486,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "camberwellBeauty",
-  "names": {
-    "en": "Camberwell Beauty",
-    "nl": "Rouwmantel"
-  },
   "zone": "tops",
   "category": "butterfly",
   "symbols": [
@@ -601,10 +519,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "silverWashedFritillary",
-  "names": {
-    "en": "Silver-Washed Fritillary",
-    "nl": "Keizersmantel"
-  },
   "zone": "tops",
   "category": "butterfly",
   "symbols": [
@@ -638,10 +552,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "redSquirrel",
-  "names": {
-    "en": "Red Squirrel",
-    "nl": "Rode eekhoorn"
-  },
   "zone": "tops",
   "category": "pawedAnimal",
   "symbols": [
@@ -661,16 +571,11 @@ const CARDS_FOREST = [
   ],
   "tags": [],
   "attachedCards": {
-    "en": "atop an oak",
-    "nl": "bovenop een eik"
+    "relation": "oneToOne"
   }
 },
 {
   "id": "treeFerns",
-  "names": {
-    "en": "Tree Ferns",
-    "nl": "Boomvarens"
-  },
   "zone": "bottoms",
   "category": "plant",
   "symbols": [
@@ -695,10 +600,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "blackberries",
-  "names": {
-    "en": "Blackberries",
-    "nl": "Bramen"
-  },
   "zone": "bottoms",
   "category": "plant",
   "symbols": [
@@ -723,10 +624,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "moss",
-  "names": {
-    "en": "Moss",
-    "nl": "Mos"
-  },
   "zone": "bottoms",
   "category": "plant",
   "symbols": [
@@ -751,10 +648,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "wildStrawberries",
-  "names": {
-    "en": "Wild Strawberries",
-    "nl": "Wilde aardbeien"
-  },
   "zone": "bottoms",
   "category": "plant",
   "symbols": [
@@ -779,10 +672,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "chanterelle",
-  "names": {
-    "en": "Chanterelle",
-    "nl": "Chantarel"
-  },
   "zone": "bottoms",
   "category": "mushroom",
   "symbols": [
@@ -795,10 +684,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "flyAgaric",
-  "names": {
-    "en": "Fly Agaric",
-    "nl": "Vliegenzwam"
-  },
   "zone": "bottoms",
   "category": "mushroom",
   "symbols": [
@@ -811,10 +696,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "parasolMushroom",
-  "names": {
-    "en": "Parasol Mushroom",
-    "nl": "Grote parasolzwam"
-  },
   "zone": "bottoms",
   "category": "mushroom",
   "symbols": [
@@ -827,10 +708,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "pennyBun",
-  "names": {
-    "en": "Penny Bun",
-    "nl": "Eekhoorntjesbrood"
-  },
   "zone": "bottoms",
   "category": "mushroom",
   "symbols": [
@@ -843,10 +720,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "treeFrog",
-  "names": {
-    "en": "Tree Frog",
-    "nl": "Boomkikker"
-  },
   "category": "amphibian",
   "zone": "bottoms",
   "symbols": [
@@ -871,10 +744,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "commonToad",
-  "names": {
-    "en": "Common Toad",
-    "nl": "Gewone pad"
-  },
   "category": "amphibian",
   "zone": "bottoms",
   "symbols": [
@@ -894,16 +763,11 @@ const CARDS_FOREST = [
   ],
   "tags": [],
   "attachedCards": {
-    "en": "shares position",
-    "nl": "deelt positie"
+    "relation": "oneToOne"
   }
 },
 {
   "id": "pondTurtle",
-  "names": {
-    "en": "Pond Turtle",
-    "nl": "Moerasschildpad"
-  },
   "category": "amphibian",
   "zone": "bottoms",
   "symbols": [
@@ -926,10 +790,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "fireSalamander",
-  "names": {
-    "en": "Fire Salamander",
-    "nl": "Vuursalamander"
-  },
   "category": "amphibian",
   "zone": "bottoms",
   "symbols": [
@@ -957,10 +817,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "woodAnt",
-  "names": {
-    "en": "Wood Ant",
-    "nl": "Bosmier"
-  },
   "category": "insect",
   "zone": "bottoms",
   "symbols": [
@@ -985,10 +841,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "stagBeetle",
-  "names": {
-    "en": "Stag Beetle",
-    "nl": "Vliegend hert"
-  },
   "category": "insect",
   "zone": "bottoms",
   "symbols": [
@@ -1013,10 +865,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "fireFlies",
-  "names": {
-    "en": "Fire Flies",
-    "nl": "Vuurvliegjes"
-  },
   "category": "insect",
   "zone": "bottoms",
   "symbols": [
@@ -1045,10 +893,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "hedgehog",
-  "names": {
-    "en": "Hedgehog",
-    "nl": "Egel"
-  },
   "category": "pawedAnimal",
   "zone": "bottoms",
   "symbols": [
@@ -1073,10 +917,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "mole",
-  "names": {
-    "en": "Mole",
-    "nl": "Mol"
-  },
   "category": "pawedAnimal",
   "zone": "bottoms",
   "symbols": [
@@ -1089,10 +929,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "violetCarpenterBee",
-  "names": {
-    "en": "Violet Carpenter Bee",
-    "nl": "Houtbij"
-  },
   "category": "insect",
   "zone": "sides",
   "symbols": ["insect"],
@@ -1101,25 +937,21 @@ const CARDS_FOREST = [
   "effect": { "type": "boostTree" },
   "tags": [],
   "attachedCards": [
-    { "en": "at a Birch", "nl": "aan een berk", "target": "birch", "symbols": ["birch"] },
-    { "en": "at a Beech", "nl": "aan een beuk", "target": "beech", "symbols": ["beech"] },
-    { "en": "at a Douglas Fir", "nl": "aan een douglasspar", "target": "douglasFir", "symbols": ["douglasFir"] },
-    { "en": "at an Oak", "nl": "aan een eik", "target": "oak", "symbols": ["oak"] },
-    { "en": "at a Linden", "nl": "aan een linde", "target": "linden", "symbols": ["linden"] },
-    { "en": "at a Horse Chestnut", "nl": "aan een paardenkastanje", "target": "horseChestnut", "symbols": ["horseChestnut"] },
-    { "en": "at a Silver Fir", "nl": "aan een zilverspar", "target": "silverFir", "symbols": ["silverFir"] },
-    { "en": "at a Sycamore", "nl": "aan een esdoorn", "target": "sycamore", "symbols": ["sycamore"] },
-    { "en": "at a Tree Sapling", "nl": "aan een jong boompje", "target": "sapling", "symbols": ["sapling"] },
-    { "en": "at a European Larch", "nl": "aan een Europese lariks", "target": "europeanLarch", "symbols": ["europeanLarch", "alpine"], "expansion": "alpine" },
-    { "en": "at a Stone Pine", "nl": "aan een Alpenden", "target": "stonePine", "symbols": ["stonePine", "alpine"], "expansion": "alpine" }
+    { "target": "birch", "symbols": ["birch"] },
+    { "target": "beech", "symbols": ["beech"] },
+    { "target": "douglasFir", "symbols": ["douglasFir"] },
+    { "target": "oak", "symbols": ["oak"] },
+    { "target": "linden", "symbols": ["linden"] },
+    { "target": "horseChestnut", "symbols": ["horseChestnut"] },
+    { "target": "silverFir", "symbols": ["silverFir"] },
+    { "target": "sycamore", "symbols": ["sycamore"] },
+    { "target": "sapling", "symbols": ["sapling"] },
+    { "target": "europeanLarch", "symbols": ["europeanLarch", "alpine"], "expansion": "alpine" },
+    { "target": "stonePine", "symbols": ["stonePine", "alpine"], "expansion": "alpine" }
   ]
 },
 {
   "id": "gnat",
-  "names": {
-    "en": "Gnat",
-    "nl": "Mug"
-  },
   "category": "insect",
   "zone": "sides",
   "symbols": [
@@ -1146,10 +978,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "bechsteinsBat",
-  "names": {
-    "en": "Bechstein's Bat",
-    "nl": "Bechsteins Vleermuis"
-  },
   "category": "bat",
   "zone": "sides",
   "symbols": [
@@ -1174,10 +1002,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "barbastelleBat",
-  "names": {
-    "en": "Barbastelle Bat",
-    "nl": "Mopsvleermuis"
-  },
   "category": "bat",
   "zone": "sides",
   "symbols": [
@@ -1202,10 +1026,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "brownLongEaredBat",
-  "names": {
-    "en": "Brown Long-Eared Bat",
-    "nl": "Bruine Grootoorvleermuis"
-  },
   "category": "bat",
   "zone": "sides",
   "symbols": [
@@ -1230,10 +1050,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "greaterHorseshoeBat",
-  "names": {
-    "en": "Greater Horseshoe Bat",
-    "nl": "Grote hoefijzerneus"
-  },
   "category": "bat",
   "zone": "sides",
   "symbols": [
@@ -1258,10 +1074,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "beechMarten",
-  "names": {
-    "en": "Beech Marten",
-    "nl": "Steenmarter"
-  },
   "category": "pawedAnimal",
   "zone": "sides",
   "symbols": [
@@ -1282,17 +1094,11 @@ const CARDS_FOREST = [
   ],
   "tags": [],
   "attachedCards": {
-    "en": "fully occupied trees",
-    "nl": "volledig bezette bomen",
     "relation": "oneToMany"
   }
 },
 {
   "id": "brownBear",
-  "names": {
-    "en": "Brown Bear",
-    "nl": "Bruine beer"
-  },
   "category": "pawedAnimal",
   "zone": "sides",
   "symbols": [
@@ -1305,10 +1111,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "europeanBadger",
-  "names": {
-    "en": "European Badger",
-    "nl": "Europese das"
-  },
   "category": "pawedAnimal",
   "zone": "sides",
   "symbols": [
@@ -1331,10 +1133,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "europeanFatDormouse",
-  "names": {
-    "en": "European Fat Dormouse",
-    "nl": "Relmuis"
-  },
   "category": "pawedAnimal",
   "zone": "sides",
   "symbols": [
@@ -1354,13 +1152,11 @@ const CARDS_FOREST = [
   ],
   "tags": [],
   "attachedCards": {
-    "en": "opposite bat",
-    "nl": "tegenover vleermuis"
+    "relation": "oneToOne"
   }
 },
 {
   "id": "europeanHare",
-  "names": { "en": "European Hare", "nl": "Europese haas" },
   "category": "pawedAnimal",
   "zone": "sides",
   "symbols": ["pawedAnimal"],
@@ -1376,7 +1172,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "lynx",
-  "names": { "en": "Lynx", "nl": "Lynx" },
   "category": "pawedAnimal",
   "zone": "sides",
   "symbols": ["pawedAnimal"],
@@ -1392,7 +1187,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "raccoon",
-  "names": { "en": "Raccoon", "nl": "Wasbeer" },
   "category": "pawedAnimal",
   "zone": "sides",
   "symbols": ["pawedAnimal"],
@@ -1403,7 +1197,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "redFox",
-  "names": { "en": "Red Fox", "nl": "Rode vos" },
   "category": "pawedAnimal",
   "zone": "sides",
   "symbols": ["pawedAnimal"],
@@ -1419,7 +1212,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "wolf",
-  "names": { "en": "Wolf", "nl": "Wolf" },
   "category": "pawedAnimal",
   "zone": "sides",
   "symbols": ["pawedAnimal"],
@@ -1435,7 +1227,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "fallowDeer",
-  "names": { "en": "Fallow Deer", "nl": "Damhert" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofedAnimal"],
@@ -1451,7 +1242,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "redDeer",
-  "names": { "en": "Red Deer", "nl": "Edelhert" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofedAnimal"],
@@ -1471,7 +1261,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "roeDeerBeech",
-  "names": { "en": "Roe Deer", "nl": "Ree" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofedAnimal", "beech"],
@@ -1483,11 +1272,10 @@ const CARDS_FOREST = [
     }
   ],
   "tags": ["roe"],
-  "attachedCards": { "en": "number of Beech symbols", "nl": "aantal beuksymbolen", "symbols": ["beech"], "relation": "oneToMany" }
+  "attachedCards": { "symbols": ["beech"], "relation": "oneToMany" }
 },
 {
   "id": "roeDeerLinden",
-  "names": { "en": "Roe Deer", "nl": "Ree" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofedAnimal", "linden"],
@@ -1499,11 +1287,10 @@ const CARDS_FOREST = [
     }
   ],
   "tags": ["roe"],
-  "attachedCards": { "en": "number of Linden symbols", "nl": "aantal lindesymbolen", "symbols": ["linden"], "relation": "oneToMany" }
+  "attachedCards": { "symbols": ["linden"], "relation": "oneToMany" }
 },
 {
   "id": "roeDeerSilverFir",
-  "names": { "en": "Roe Deer", "nl": "Ree" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofedAnimal", "silverFir"],
@@ -1515,11 +1302,10 @@ const CARDS_FOREST = [
     }
   ],
   "tags": ["roe"],
-  "attachedCards": { "en": "number of Silver Fir symbols", "nl": "aantal zilversparsymbolen", "symbols": ["silverFir"], "relation": "oneToMany" }
+  "attachedCards": { "symbols": ["silverFir"], "relation": "oneToMany" }
 },
 {
   "id": "roeDeerHorseChestnut",
-  "names": { "en": "Roe Deer", "nl": "Ree" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofedAnimal", "horseChestnut"],
@@ -1531,11 +1317,10 @@ const CARDS_FOREST = [
     }
   ],
   "tags": ["roe"],
-  "attachedCards": { "en": "number of Horse Chestnut symbols", "nl": "aantal paardenkastanjesymbolen", "symbols": ["horseChestnut"], "relation": "oneToMany" }
+  "attachedCards": { "symbols": ["horseChestnut"], "relation": "oneToMany" }
 },
 {
   "id": "roeDeerBirch",
-  "names": { "en": "Roe Deer", "nl": "Ree" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["deer", "clovenHoofedAnimal", "birch"],
@@ -1547,11 +1332,10 @@ const CARDS_FOREST = [
     }
   ],
   "tags": ["roe"],
-  "attachedCards": { "en": "number of Birch symbols", "nl": "aantal beuksymbolen", "symbols": ["birch"], "relation": "oneToMany" }
+  "attachedCards": { "symbols": ["birch"], "relation": "oneToMany" }
 },
 {
   "id": "squeeker",
-  "names": { "en": "Squeeker", "nl": "Zwijnenbig" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["clovenHoofedAnimal"],
@@ -1567,7 +1351,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "wildBoar",
-  "names": { "en": "Wild Boar", "nl": "Wild zwijn" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["clovenHoofedAnimal"],
@@ -1582,10 +1365,6 @@ const CARDS_FOREST = [
   "attachedCards": {}
 },{
   "id": "europeanLarch",
-  "names": {
-    "en": "European Larch",
-    "nl": "Europese lariks"
-  },
   "category": "tree",
   "zone": "general",
   "symbols": [
@@ -1610,10 +1389,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "stonePine",
-  "names": {
-    "en": "Stone Pine",
-    "nl": "Alpenden"
-  },
   "category": "tree",
   "zone": "general",
   "symbols": [
@@ -1640,10 +1415,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "commonRaven",
-  "names": {
-    "en": "Common Raven",
-    "nl": "Raaf"
-  },
   "category": "bird",
   "zone": "tops",
   "symbols": [
@@ -1667,10 +1438,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "goldenEagle",
-  "names": {
-    "en": "Golden Eagle",
-    "nl": "Steenarend"
-  },
   "category": "bird",
   "zone": "tops",
   "symbols": [
@@ -1707,10 +1474,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "beardedVulture",
-  "names": {
-    "en": "Bearded Vulture",
-    "nl": "Lammergier"
-  },
   "category": "bird",
   "zone": "tops",
   "symbols": [
@@ -1736,10 +1499,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "phoebusApollo",
-  "names": {
-    "en": "Phoebus Apollo",
-    "nl": "Kleine apollovlinder"
-  },
   "zone": "tops",
   "category": "butterfly",
   "symbols": [
@@ -1774,10 +1533,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "Blueberry",
-  "names": {
-    "en": "Blueberry",
-    "nl": "Blauwe bosbes"
-  },
   "zone": "bottoms",
   "category": "plant",
   "symbols": [
@@ -1803,10 +1558,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "Gentian",
-  "names": {
-    "en": "Gentian",
-    "nl": "Gentiaan"
-  },
   "zone": "bottoms",
   "category": "plant",
   "symbols": [
@@ -1832,10 +1583,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "Edelweiss",
-  "names": {
-    "en": "Edelweiss",
-    "nl": "Edelweiss"
-  },
   "zone": "bottoms",
   "category": "plant",
   "symbols": [
@@ -1859,10 +1606,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "blackTrumpet",
-  "names": {
-    "en": "Black Trumpet",
-    "nl": "Hoorn-van-overvloed"
-  },
   "zone": "bottoms",
   "category": "mushroom",
   "symbols": [
@@ -1876,10 +1619,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "alpineNewt",
-  "names": {
-    "en": "Alpine Newt",
-    "nl": "Alpenwatersalamander"
-  },
   "zone": "bottoms",
   "category": "amphibian",
   "symbols": [
@@ -1905,10 +1644,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "capercaillie",
-  "names": {
-    "en": "Capercaillie",
-    "nl": "Auerhoen"
-  },
   "zone": "sides",
   "category": "bird",
   "symbols": [
@@ -1934,10 +1669,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "savisPipistrelle",
-  "names": {
-    "en": "Savi's Pipistrelle",
-    "nl": "Savi's dwergvleermuis"
-  },
   "category": "bat",
   "zone": "sides",
   "symbols": [
@@ -1963,10 +1694,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "alpineMarmot",
-  "names": {
-    "en": "Alpine Marmot",
-    "nl": "Alpenmarmot"
-  },
   "category": "pawedAnimal",
   "zone": "sides",
   "symbols": [
@@ -1992,10 +1719,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "mountainHare",
-  "names": {
-    "en": "Mountain Hare",
-    "nl": "Sneeuwhaas"
-  },
   "category": "pawedAnimal",
   "zone": "sides",
   "symbols": [
@@ -2021,10 +1744,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "steinbock",
-  "names": {
-    "en": "Steinbock",
-    "nl": "Alpensteenbok"
-  },
   "category": "deer",
   "zone": "sides",
   "symbols": [
@@ -2048,7 +1767,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "chamoisDouglasFir",
-  "names": { "en": "Chamois", "nl": "Gems" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["clovenHoofedAnimal", "alpine", "douglasFir"],
@@ -2060,11 +1778,10 @@ const CARDS_FOREST = [
     }
   ],
   "tags": [],
-  "attachedCards": { "en": "Douglas Fir symbols", "nl": "Douglassparsymbolen", "symbols": ["douglasFir"], "relation": "oneToMany" }
+  "attachedCards": { "symbols": ["douglasFir"], "relation": "oneToMany" }
 },
 {
   "id": "chamoisEuropeanLarch",
-  "names": { "en": "Chamois", "nl": "Gems" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["clovenHoofedAnimal", "alpine", "europeanLarch"],
@@ -2076,11 +1793,10 @@ const CARDS_FOREST = [
     }
   ],
   "tags": [],
-  "attachedCards": { "en": "European Larch symbols", "nl": "Europese larikssymbolen", "symbols": ["europeanLarch"], "relation": "oneToMany" }
+  "attachedCards": { "symbols": ["europeanLarch"], "relation": "oneToMany" }
 },
 {
   "id": "chamoisStonePine",
-  "names": { "en": "Chamois", "nl": "Gems" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["clovenHoofedAnimal", "alpine", "stonePine"],
@@ -2092,14 +1808,10 @@ const CARDS_FOREST = [
     }
   ],
   "tags": [],
-  "attachedCards": { "en": "Stone Pine symbols", "nl": "Alpendensymbolen", "symbols": ["stonePine"], "relation": "oneToMany" }
+  "attachedCards": { "symbols": ["stonePine"], "relation": "oneToMany" }
 },
 {
   "id": "blackthorn",
-  "names": {
-    "en": "Blackthorn",
-    "nl": "Sleedoorn"
-  },
   "category": "shrub",
   "zone": "general",
   "symbols": [
@@ -2113,10 +1825,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "commonHazel",
-  "names": {
-    "en": "Common Hazel",
-    "nl": "Hazelaar"
-  },
   "category": "shrub",
   "zone": "general",
   "symbols": [
@@ -2130,10 +1838,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "elderberry",
-  "names": {
-    "en": "Elderberry",
-    "nl": "Gewone vlier"
-  },
   "category": "shrub",
   "zone": "general",
   "symbols": [
@@ -2148,10 +1852,6 @@ const CARDS_FOREST = [
 ,
 {
   "id": "nightingale",
-  "names": {
-    "en": "Nightingale",
-    "nl": "Nachtegaal"
-  },
   "zone": "tops",
   "category": "bird",
   "symbols": [
@@ -2172,16 +1872,11 @@ const CARDS_FOREST = [
   ],
   "tags": [],
   "attachedCards": {
-    "en": "atop a shrub",
-    "nl": "bovenop een struik"
+    "relation": "oneToOne"
   }
 },
 {
   "id": "barnOwl",
-  "names": {
-    "en": "Barn Owl",
-    "nl": "Kerkuil"
-  },
   "zone": "tops",
   "category": "bird",
   "symbols": [
@@ -2207,10 +1902,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "eurasianMagpie",
-  "names": {
-    "en": "Eurasian Magpie",
-    "nl": "Ekster"
-  },
   "zone": "tops",
   "category": "bird",
   "symbols": [
@@ -2234,10 +1925,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "mapButterfly",
-  "names": {
-    "en": "Map Butterfly",
-    "nl": "Landkaartje"
-  },
   "zone": "tops",
   "category": "butterfly",
   "symbols": [
@@ -2272,10 +1959,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "digitalis",
-  "names": {
-    "en": "Digitalis",
-    "nl": "Vingerhoedskruid"
-  },
   "category": "plant",
   "zone": "bottoms",
   "symbols": [
@@ -2307,10 +1990,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "stingingNettle",
-  "names": {
-    "en": "Stinging Nettle",
-    "nl": "Grote brandnetel"
-  },
   "category": "plant",
   "zone": "bottoms",
   "symbols": [
@@ -2336,10 +2015,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "greatGreenBushCricket",
-  "names": {
-    "en": "Great Green Bush Cricket",
-    "nl": "Grote groene sabelsprinkhaan"
-  },
   "category": "insect",
   "zone": "bottoms",
   "symbols": [
@@ -2365,10 +2040,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "waterVole",
-  "names": {
-    "en": "Water Vole",
-    "nl": "Woelrat"
-  },
   "category": "pawedAnimal",
   "zone": "bottoms",
   "symbols": [
@@ -2382,10 +2053,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "craneFly",
-  "names": {
-    "en": "Crane Fly",
-    "nl": "Vliegende hooiwagen"
-  },
   "category": "insect",
   "zone": "sides",
   "symbols": [
@@ -2411,10 +2078,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "beeSwarm",
-  "names": {
-    "en": "Bee Swarm",
-    "nl": "Zwerm honingbijen"
-  },
   "category": "insect",
   "zone": "sides",
   "symbols": [
@@ -2440,10 +2103,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "commonPipistrelle",
-  "names": {
-    "en": "Common Pipistrelle",
-    "nl": "Gewone dwergvleermuis"
-  },
   "category": "bat",
   "zone": "sides",
   "symbols": [
@@ -2469,10 +2128,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "europeanPolecat",
-  "names": {
-    "en": "European Polecat",
-    "nl": "Bunzing"
-  },
   "category": "pawedAnimal",
   "zone": "sides",
   "symbols": [
@@ -2493,16 +2148,11 @@ const CARDS_FOREST = [
   ],
   "tags": [],
   "attachedCards": {
-    "en": "alone at tree or shrub",
-    "nl": "als enige bij boom of struik"
+    "relation": "oneToOne"
   }
 },
 {
   "id": "europeanWildcat",
-  "names": {
-    "en": "European Wildcat",
-    "nl": "Wilde kat"
-  },
   "category": "pawedAnimal",
   "zone": "sides",
   "symbols": [
@@ -2528,7 +2178,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "wildBoarFemale",
-  "names": { "en": "Wild Boar ♀", "nl": "Wild zwijn (zeug)" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["clovenHoofedAnimal", "woodlandEdge"],
@@ -2544,7 +2193,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "squeekerWoodlandEdge",
-  "names": { "en": "Squeeker", "nl": "Zwijnenbig" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["clovenHoofedAnimal","woodlandEdge"],
@@ -2560,7 +2208,6 @@ const CARDS_FOREST = [
 },
 {
   "id": "europeanBison",
-  "names": { "en": "European Bison", "nl": "Wisent" },
   "category": "deer",
   "zone": "sides",
   "symbols": ["clovenHoofedAnimal", "woodlandEdge"],
@@ -2577,8 +2224,8 @@ const CARDS_FOREST = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "Beech symbols", "nl": "Beuksymbolen", "target": "beech", "symbols": ["beech"], "relation": "oneToMany" },
-    { "en": "Oak symbols", "nl": "Eikensymbolen", "target": "oak", "symbols": ["oak"], "relation": "oneToMany" }
+    { "target": "beech", "symbols": ["beech"], "relation": "oneToMany" },
+    { "target": "oak", "symbols": ["oak"], "relation": "oneToMany" }
   ]
 }
 ];
