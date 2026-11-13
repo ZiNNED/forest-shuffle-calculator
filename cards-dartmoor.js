@@ -1,4 +1,5 @@
 // Dartmoor Calculator - Card definitions
+// Display names and attached-card labels live in i18n/<lang>.js (keyed by card id).
 // Scoring rule format:
 //   count: { of: "self" | "symbol", value: X | "attachedCards" | "distinct", value: X | "condition", value: X }
 //   reward: { mode: "flat", points: X } | { mode: "perUnit", points: X } | { mode: "lookup", table: [...] }
@@ -6,10 +7,6 @@
 const CARDS_DARTMOOR = [
 {
   "id": "cave",
-  "names": {
-    "en": "Cards In Cave",
-    "nl": "Kaarten in grot"
-  },
   "game": "dartmoor",
   "category": "cave",
   "zone": "general",
@@ -38,16 +35,11 @@ const CARDS_DARTMOOR = [
   "tags": [],
   "maxAttached": 1,
   "attachedCards": {
-    "en": "5 points at end of game",
-    "nl": "5 punten aan het einde van het spel"
+    "relation": "oneToOne"
   }
 },
 {
   "id": "ash",
-  "names": {
-    "en": "Ash",
-    "nl": "Es"
-  },
   "game": "dartmoor",
   "category": "tree",
   "zone": "general",
@@ -65,15 +57,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "number of Black Alder symbols", "nl": "aantal zwarte elssymbolen", "target": "blackAlder", "symbols": ["blackAlder"], "relation": "oneToMany" }
+    { "target": "blackAlder", "symbols": ["blackAlder"], "relation": "oneToMany" }
   ]
 },
 {
   "id": "goatWillow",
-  "names": {
-    "en": "Goat Willow",
-    "nl": "Boswilg"
-  },
   "game": "dartmoor",
   "category": "tree",
   "zone": "general",
@@ -90,10 +78,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "crabApple",
-  "names": {
-    "en": "Crab Apple",
-    "nl": "Wilde appelboom"
-  },
   "game": "dartmoor",
   "category": "tree",
   "zone": "general",
@@ -112,16 +96,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": {
-    "en": "fully occupied",
-    "nl": "volledig bewoond"
+    "relation": "oneToOne"
   }
 },
 {
   "id": "blackAlder",
-  "names": {
-    "en": "Black Alder",
-    "nl": "Zwarte els"
-  },
   "game": "dartmoor",
   "category": "tree",
   "zone": "general",
@@ -138,10 +117,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "moorBirch",
-  "names": {
-    "en": "Moor Birch",
-    "nl": "Zachte berk"
-  },
   "game": "dartmoor",
   "category": "tree",
   "zone": "general",
@@ -158,10 +133,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "sessileOak",
-  "names": {
-    "en": "Sessile Oak",
-    "nl": "Wintereik"
-  },
   "game": "dartmoor",
   "category": "tree",
   "zone": "general",
@@ -182,10 +153,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "commonGorse",
-  "names": {
-    "en": "Common Gorse",
-    "nl": "Gaspeldoorn"
-  },
   "game": "dartmoor",
   "category": "shrub",
   "zone": "general",
@@ -197,10 +164,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "commonHolly",
-  "names": {
-    "en": "Common Holly",
-    "nl": "Hulst"
-  },
   "game": "dartmoor",
   "category": "shrub",
   "zone": "general",
@@ -212,10 +175,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "commonHazel",
-  "names": {
-    "en": "Common Hazel",
-    "nl": "Hazelaar"
-  },
   "game": "dartmoor",
   "category": "shrub",
   "zone": "general",
@@ -227,10 +186,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "elderBerry",
-  "names": {
-    "en": "Elder Berry",
-    "nl": "Gewone vlier"
-  },
   "game": "dartmoor",
   "category": "shrub",
   "zone": "general",
@@ -242,10 +197,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "blanketBog",
-  "names": {
-    "en": "Blanket Bog",
-    "nl": "Dekenveen"
-  },
   "game": "dartmoor",
   "category": "moor",
   "zone": "general",
@@ -257,10 +208,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "tor",
-  "names": {
-    "en": "Tor",
-    "nl": "Rotsheuvel"
-  },
   "game": "dartmoor",
   "category": "moor",
   "zone": "general",
@@ -272,10 +219,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "valleyMire",
-  "names": {
-    "en": "Valley Mire",
-    "nl": "Dalveen"
-  },
   "game": "dartmoor",
   "category": "moor",
   "zone": "general",
@@ -299,10 +242,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "waxcapGrassland",
-  "names": {
-    "en": "Waxcap Grassland",
-    "nl": "Wasplatengrasland"
-  },
   "game": "dartmoor",
   "category": "moor",
   "zone": "general",
@@ -314,10 +253,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "wetWoodland",
-  "names": {
-    "en": "Wet Woodland",
-    "nl": "Vochtig veen"
-  },
   "game": "dartmoor",
   "category": "moor",
   "zone": "general",
@@ -341,10 +276,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "fountainhead",
-  "names": {
-    "en": "Fountainhead",
-    "nl": "Bron"
-  },
   "game": "dartmoor",
   "category": "moor",
   "zone": "general",
@@ -356,10 +287,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "lowlandHeath",
-  "names": {
-    "en": "Lowland Heath",
-    "nl": "Laaglandheide"
-  },
   "game": "dartmoor",
   "category": "moor",
   "zone": "general",
@@ -383,10 +310,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "ringCairn",
-  "names": {
-    "en": "Ring Cairn",
-    "nl": "Steencirkelheide"
-  },
   "game": "dartmoor",
   "category": "moor",
   "zone": "general",
@@ -398,10 +321,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "warrens",
-  "names": {
-    "en": "Warrens",
-    "nl": "Konijnenhol"
-  },
   "game": "dartmoor",
   "category": "moor",
   "zone": "general",
@@ -425,10 +344,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "highCoastalHeath",
-  "names": {
-    "en": "High Coastal Heath",
-    "nl": "Kustheide"
-  },
   "game": "dartmoor",
   "category": "moor",
   "zone": "general",
@@ -440,10 +355,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "rhosPasture",
-  "names": {
-    "en": "Rhôs Pasture",
-    "nl": "Grasland"
-  },
   "game": "dartmoor",
   "category": "moor",
   "zone": "general",
@@ -467,10 +378,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "tarrSteps",
-  "names": {
-    "en": "Tarr Steps",
-    "nl": "Klepelbrug"
-  },
   "game": "dartmoor",
   "category": "moor",
   "zone": "general",
@@ -482,10 +389,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "rivulet",
-  "names": {
-    "en": "Rivulet",
-    "nl": "Beek"
-  },
   "game": "dartmoor",
   "category": "moor",
   "zone": "general",
@@ -494,20 +397,16 @@ const CARDS_DARTMOOR = [
   "scoring": [
     { 
       "count": { "of": "attachedCards", "target": "goatWillow" }, 
-      "reward": { "mode": "perUnit", "points": 1, "multiply": "self" } 
+      "reward": { "mode": "perUnit", "points": 2, "multiply": "self" } 
     }
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "number of Goat Willow symbols", "nl": "aantal boswilgsymbolen", "target": "goatWillow", "symbols": ["goatWillow"], "relation": "oneToMany" }
+    { "target": "goatWillow", "symbols": ["goatWillow"], "relation": "oneToMany" }
   ]
 },
 {
   "id": "universalMoor",
-  "names": {
-    "en": "Universal Moor",
-    "nl": "Universele heide"
-  },
   "game": "dartmoor",
   "category": "moor",
   "zone": "general",
@@ -519,10 +418,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "barnOwl",
-  "names": {
-    "en": "Barn Owl",
-    "nl": "Kerkuil"
-  },
   "game": "dartmoor",
   "category": "bird",
   "zone": "tops",
@@ -540,15 +435,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
+    { "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
   "id": "alcathoeBat",
-  "names": {
-    "en": "Alcathoe Bat",
-    "nl": "Nimfvleermuis"
-  },
   "game": "dartmoor",
   "category": "bat",
   "zone": "sides",
@@ -572,7 +463,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "blackTailedGodwit",
-  "names": { "en": "Black-Tailed Godwit", "nl": "Grutto" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "tops",
@@ -590,12 +480,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
+    { "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
   "id": "buzzard",
-  "names": { "en": "Buzzard", "nl": "Buizerd" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "tops",
@@ -613,12 +502,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
+    { "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
   "id": "commonMoorhen",
-  "names": { "en": "Common Moorhen", "nl": "Waterhoen" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "tops",
@@ -636,12 +524,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
+    { "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
   "id": "cuckoo",
-  "names": { "en": "Cuckoo", "nl": "Koekoek" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "tops",
@@ -658,7 +545,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "curlew",
-  "names": { "en": "Curlew", "nl": "Wulp" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "tops",
@@ -680,12 +566,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
+    { "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
   "id": "dartfordWarbler",
-  "names": { "en": "Dartford Warbler", "nl": "Provençaalse grasmus" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "tops",
@@ -703,12 +588,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
+    { "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
   "id": "greyHeron",
-  "names": { "en": "Grey Heron", "nl": "Blauwe reiger" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "tops",
@@ -726,12 +610,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
+    { "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
   "id": "greyWagtail",
-  "names": { "en": "Grey Wagtail", "nl": "Grote gele kwikstaart" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "tops",
@@ -749,12 +632,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
+    { "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
   "id": "meadowPipit",
-  "names": { "en": "Meadow Pipit", "nl": "Graspieper" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "tops",
@@ -772,12 +654,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
+    { "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
   "id": "peregrineFalcon",
-  "names": { "en": "Peregrine Falcon", "nl": "Slechtvalk" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "tops",
@@ -795,12 +676,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
+    { "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
   "id": "piedFlycatcher",
-  "names": { "en": "Pied Flycatcher", "nl": "Bonte vliegenvanger" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "tops",
@@ -818,12 +698,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
+    { "target": "highCoastalHeath", "symbols": ["moor"], "expansion": "exmoor" }
   ]
 },
 {
   "id": "wheatear",
-  "names": { "en": "Wheatear", "nl": "Tapuit" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "tops",
@@ -841,13 +720,12 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at High Coastal Heath", "nl": "gespeeld bij kustheide", "target": "highCoastalHeath", "symbols": ["moor"], "exclusiveWith": "moorAttach", "expansion": "exmoor" },
-    { "en": "played at a different moor", "nl": "gespeeld bij andere heide", "target": "moor", "symbols": ["moor"], "exclusiveWith": "moorAttach", "altNames": { "en": "played at a moor", "nl": "gespeeld bij een heide" }, "whenExpansionOff": "exmoor" }
+    { "target": "highCoastalHeath", "symbols": ["moor"], "exclusiveWith": "moorAttach", "expansion": "exmoor" },
+    { "target": "moor", "symbols": ["moor"], "exclusiveWith": "moorAttach", "whenExpansionOff": "exmoor" }
   ]
 },
 {
   "id": "beautifulDemoiselle",
-  "names": { "en": "Beautiful Demoiselle", "nl": "Bosbeekjuffer" },
   "game": "dartmoor",
   "category": "dragonfly",
   "zone": "tops",
@@ -864,7 +742,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "emeraldDamselfly",
-  "names": { "en": "Emerald Damselfly", "nl": "Gewone pantserjuffer" },
   "game": "dartmoor",
   "category": "dragonfly",
   "zone": "tops",
@@ -881,7 +758,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "goldenRingedDamselfly",
-  "names": { "en": "Golden-ringed Damselfly", "nl": "Gewone bronlibel" },
   "game": "dartmoor",
   "category": "dragonfly",
   "zone": "tops",
@@ -898,7 +774,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "keeledSkimmer",
-  "names": { "en": "Keeled Skimmer", "nl": "Beekoeverlibel" },
   "game": "dartmoor",
   "category": "dragonfly",
   "zone": "tops",
@@ -915,7 +790,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "smallRedDamselfly",
-  "names": { "en": "Small Red Damselfly", "nl": "Koraaljuffer" },
   "game": "dartmoor",
   "category": "dragonfly",
   "zone": "tops",
@@ -932,7 +806,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "southernDamselfly",
-  "names": { "en": "Southern Damselfly", "nl": "Mercuurwaterjuffer" },
   "game": "dartmoor",
   "category": "dragonfly",
   "zone": "tops",
@@ -949,7 +822,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "harvestMouse",
-  "names": { "en": "Harvest Mouse", "nl": "Dwergmuis" },
   "game": "dartmoor",
   "category": "pawedAnimal",
   "zone": "tops",
@@ -966,7 +838,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "adder",
-  "names": { "en": "Adder", "nl": "Adder" },
   "game": "dartmoor",
   "category": "amphibian",
   "zone": "bottoms",
@@ -987,7 +858,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "commonLizard",
-  "names": { "en": "Common Lizard", "nl": "Kleine hagedis" },
   "game": "dartmoor",
   "category": "amphibian",
   "zone": "bottoms",
@@ -1004,7 +874,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "grassSnake",
-  "names": { "en": "Grass Snake", "nl": "Ringslang" },
   "game": "dartmoor",
   "category": "amphibian",
   "zone": "bottoms",
@@ -1021,7 +890,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "moorFrog",
-  "names": { "en": "Moor Frog", "nl": "Heikikker" },
   "game": "dartmoor",
   "category": "amphibian",
   "zone": "bottoms",
@@ -1038,7 +906,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "natterjackToad",
-  "names": { "en": "Natterjack Toad", "nl": "Rugstreeppad" },
   "game": "dartmoor",
   "category": "amphibian",
   "zone": "bottoms",
@@ -1055,7 +922,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "smoothSnake",
-  "names": { "en": "Smooth Snake", "nl": "Gladde slang" },
   "game": "dartmoor",
   "category": "amphibian",
   "zone": "bottoms",
@@ -1069,12 +935,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "number of Moor Birch symbols", "nl": "aantal zachte berksymbolen", "target": "moorBirch", "symbols": ["moorBirch"], "relation": "oneToMany" }
+    { "target": "moorBirch", "symbols": ["moorBirch"], "relation": "oneToMany" }
   ]
 },
 {
   "id": "wartyNewt",
-  "names": { "en": "Warty Newt", "nl": "Kamsalamander" },
   "game": "dartmoor",
   "category": "amphibian",
   "zone": "bottoms",
@@ -1091,7 +956,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "addersTongue",
-  "names": { "en": "Adder's Tongue", "nl": "Addertong" },
   "game": "dartmoor",
   "category": "plant",
   "zone": "bottoms",
@@ -1109,12 +973,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+    { "target": "blanketBog", "symbols": ["moor"] }
   ]
 },
 {
   "id": "blueBerry",
-  "names": { "en": "Blueberry", "nl": "Blauwe bosbes" },
   "game": "dartmoor",
   "category": "plant",
   "zone": "bottoms",
@@ -1132,12 +995,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+    { "target": "blanketBog", "symbols": ["moor"] }
   ]
 },
 {
   "id": "bogAsphodel",
-  "names": { "en": "Bog Asphodel", "nl": "Beenbreek" },
   "game": "dartmoor",
   "category": "plant",
   "zone": "bottoms",
@@ -1155,12 +1017,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+    { "target": "blanketBog", "symbols": ["moor"] }
   ]
 },
 {
   "id": "commonTormentil",
-  "names": { "en": "Common Tormentil", "nl": "Tormentil" },
   "game": "dartmoor",
   "category": "plant",
   "zone": "bottoms",
@@ -1178,12 +1039,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+    { "target": "blanketBog", "symbols": ["moor"] }
   ]
 },
 {
   "id": "greatButterflyOrchid",
-  "names": { "en": "Great Butterfly Orchid", "nl": "Bergnachtorchis" },
   "game": "dartmoor",
   "category": "plant",
   "zone": "bottoms",
@@ -1201,12 +1061,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+    { "target": "blanketBog", "symbols": ["moor"] }
   ]
 },
 {
   "id": "greaterWoodrush",
-  "names": { "en": "Greater Wood-rush", "nl": "Grote veldbies" },
   "game": "dartmoor",
   "category": "plant",
   "zone": "bottoms",
@@ -1224,12 +1083,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+    { "target": "blanketBog", "symbols": ["moor"] }
   ]
 },
 {
   "id": "heather",
-  "names": { "en": "Heather", "nl": "Struikhei" },
   "game": "dartmoor",
   "category": "plant",
   "zone": "bottoms",
@@ -1247,12 +1105,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+    { "target": "blanketBog", "symbols": ["moor"] }
   ]
 },
 {
   "id": "meadowsweet",
-  "names": { "en": "Meadowsweet", "nl": "Moerasspirea" },
   "game": "dartmoor",
   "category": "plant",
   "zone": "bottoms",
@@ -1270,13 +1127,12 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"], "exclusiveWith": "moorAttach" },
-    { "en": "played at a different moor", "nl": "gespeeld bij andere heide", "target": "moor", "symbols": ["moor"], "exclusiveWith": "moorAttach" }
+    { "target": "blanketBog", "symbols": ["moor"], "exclusiveWith": "moorAttach" },
+    { "target": "moor", "symbols": ["moor"], "exclusiveWith": "moorAttach" }
   ]
 },
 {
   "id": "royalFern",
-  "names": { "en": "Royal Fern", "nl": "Koningsvaren" },
   "game": "dartmoor",
   "category": "plant",
   "zone": "bottoms",
@@ -1294,12 +1150,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+    { "target": "blanketBog", "symbols": ["moor"] }
   ]
 },
 {
   "id": "sundew",
-  "names": { "en": "Sundew", "nl": "Zonnedauw" },
   "game": "dartmoor",
   "category": "plant",
   "zone": "bottoms",
@@ -1317,12 +1172,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+    { "target": "blanketBog", "symbols": ["moor"] }
   ]
 },
 {
   "id": "waterSoldiers",
-  "names": { "en": "Water Soldiers", "nl": "Krabbenscheer" },
   "game": "dartmoor",
   "category": "plant",
   "zone": "bottoms",
@@ -1340,12 +1194,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "played at Blanket Bog", "nl": "gespeeld bij dekenveen", "target": "blanketBog", "symbols": ["moor"] }
+    { "target": "blanketBog", "symbols": ["moor"] }
   ]
 },
 {
   "id": "bankVole",
-  "names": { "en": "Bank Vole", "nl": "Rosse woelmuis" },
   "game": "dartmoor",
   "category": "pawedAnimal",
   "zone": "bottoms",
@@ -1362,7 +1215,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "beaver",
-  "names": { "en": "Beaver", "nl": "Bever" },
   "game": "dartmoor",
   "category": "pawedAnimal",
   "zone": "bottoms",
@@ -1379,7 +1231,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "otter",
-  "names": { "en": "Otter", "nl": "Otter" },
   "game": "dartmoor",
   "category": "pawedAnimal",
   "zone": "bottoms",
@@ -1396,7 +1247,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "blueGroundBeetle",
-  "names": { "en": "Blue Ground Beetle", "nl": "Blauwe schallebijter" },
   "game": "dartmoor",
   "category": "insect",
   "zone": "bottoms",
@@ -1413,7 +1263,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "brandtsBat",
-  "names": { "en": "Brandt's Bat", "nl": "Brandts vleermuis" },
   "game": "dartmoor",
   "category": "bat",
   "zone": "sides",
@@ -1430,7 +1279,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "commonNoctule",
-  "names": { "en": "Common Noctule", "nl": "Laatvlieger" },
   "game": "dartmoor",
   "category": "bat",
   "zone": "sides",
@@ -1447,7 +1295,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "daubentonsBat",
-  "names": { "en": "Daubenton's Bat", "nl": "Watervleermuis" },
   "game": "dartmoor",
   "category": "bat",
   "zone": "sides",
@@ -1464,7 +1311,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "serotineBat",
-  "names": { "en": "Serotine Bat", "nl": "Rosse vleermuis" },
   "game": "dartmoor",
   "category": "bat",
   "zone": "sides",
@@ -1481,7 +1327,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "whiskeredBat",
-  "names": { "en": "Whiskered Bat", "nl": "Baardvleermuis" },
   "game": "dartmoor",
   "category": "bat",
   "zone": "sides",
@@ -1498,7 +1343,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "capercaillie",
-  "names": { "en": "Capercaillie", "nl": "Auerhoen" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "sides",
@@ -1515,7 +1359,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "commonPheasant",
-  "names": { "en": "Common Pheasant", "nl": "Fazant" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "sides",
@@ -1536,7 +1379,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "nuthatch",
-  "names": { "en": "Nuthatch", "nl": "Boomklever" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "sides",
@@ -1550,13 +1392,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": {
-    "en": "at fully occupied tree or shrub",
-    "nl": "bij volledig bezette boom of struik"
+    "relation": "oneToOne"
   }
 },
 {
   "id": "treecreeper",
-  "names": { "en": "Treecreeper", "nl": "Taigaboomkruiper" },
   "game": "dartmoor",
   "category": "bird",
   "zone": "sides",
@@ -1573,7 +1413,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "dartmoorBadger",
-  "names": { "en": "Dartmoor Badger", "nl": "Dartmoordas" },
   "game": "dartmoor",
   "category": "pawedAnimal",
   "zone": "sides",
@@ -1590,7 +1429,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "dartmoorBlackRabbit",
-  "names": { "en": "Dartmoor Black Rabbit", "nl": "Dartmoorkonijn" },
   "game": "dartmoor",
   "category": "pawedAnimal",
   "zone": "sides",
@@ -1607,7 +1445,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "dormouse",
-  "names": { "en": "Dormouse", "nl": "Relmuis" },
   "game": "dartmoor",
   "category": "pawedAnimal",
   "zone": "sides",
@@ -1621,13 +1458,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": {
-    "en": "opposite bat",
-    "nl": "tegenover vleermuis"
+    "relation": "oneToOne"
   }
 },
 {
   "id": "fieldVole",
-  "names": { "en": "Field Vole", "nl": "Aardmuis" },
   "game": "dartmoor",
   "category": "pawedAnimal",
   "zone": "sides",
@@ -1644,7 +1479,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "shrew",
-  "names": { "en": "Shrew", "nl": "Millers waterspitsmuis" },
   "game": "dartmoor",
   "category": "pawedAnimal",
   "zone": "sides",
@@ -1661,7 +1495,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "woodMouse",
-  "names": { "en": "Wood Mouse", "nl": "Bosmuis" },
   "game": "dartmoor",
   "category": "pawedAnimal",
   "zone": "sides",
@@ -1678,7 +1511,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "dartmoorPony",
-  "names": { "en": "Dartmoor Pony", "nl": "Dartmoorpony" },
   "game": "dartmoor",
   "category": "clovenHoofedAnimal",
   "zone": "sides",
@@ -1699,7 +1531,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "dartmoorSheep",
-  "names": { "en": "Dartmoor Sheep", "nl": "Dartmoorschaap" },
   "game": "dartmoor",
   "category": "clovenHoofedAnimal",
   "zone": "sides",
@@ -1716,7 +1547,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "exmoorPony",
-  "names": { "en": "Exmoor Pony", "nl": "Exmoorpony" },
   "game": "dartmoor",
   "category": "clovenHoofedAnimal",
   "zone": "sides",
@@ -1733,7 +1563,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "exmoorPonyFoal",
-  "names": { "en": "Exmoor Pony Foal", "nl": "Exmoorponyveulen" },
   "game": "dartmoor",
   "category": "clovenHoofedAnimal",
   "zone": "sides",
@@ -1750,7 +1579,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "redRubyDevons",
-  "names": { "en": "Red Ruby Devons", "nl": "Devon rund" },
   "game": "dartmoor",
   "category": "clovenHoofedAnimal",
   "zone": "sides",
@@ -1767,7 +1595,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "roeDeerAsh",
-  "names": { "en": "Roe Deer", "nl": "Ree" },
   "game": "dartmoor",
   "category": "clovenHoofedAnimal",
   "zone": "sides",
@@ -1781,12 +1608,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "number of Ash symbols", "nl": "aantal essymbolen", "target": "ash", "symbols": ["ash"], "relation": "oneToMany" }
+    { "target": "ash", "symbols": ["ash"], "relation": "oneToMany" }
   ]
 },
 {
   "id": "roeDeerBlackAlder",
-  "names": { "en": "Roe Deer", "nl": "Ree" },
   "game": "dartmoor",
   "category": "clovenHoofedAnimal",
   "zone": "sides",
@@ -1800,12 +1626,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "number of Black Alder symbols", "nl": "aantal zwarte elssymbolen", "target": "blackAlder", "symbols": ["blackAlder"], "relation": "oneToMany" }
+    { "target": "blackAlder", "symbols": ["blackAlder"], "relation": "oneToMany" }
   ]
 },
 {
   "id": "roeDeerCrabApple",
-  "names": { "en": "Roe Deer", "nl": "Ree" },
   "game": "dartmoor",
   "category": "clovenHoofedAnimal",
   "zone": "sides",
@@ -1819,12 +1644,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "number of Crab Apple symbols", "nl": "aantal wilde appelboomsymbolen", "target": "crabApple", "symbols": ["crabApple"], "relation": "oneToMany" }
+    { "target": "crabApple", "symbols": ["crabApple"], "relation": "oneToMany" }
   ]
 },
 {
   "id": "roeDeerMoorBirch",
-  "names": { "en": "Roe Deer", "nl": "Ree" },
   "game": "dartmoor",
   "category": "clovenHoofedAnimal",
   "zone": "sides",
@@ -1838,12 +1662,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "number of Moor Birch symbols", "nl": "aantal zachte berksymbolen", "target": "moorBirch", "symbols": ["moorBirch"], "relation": "oneToMany" }
+    { "target": "moorBirch", "symbols": ["moorBirch"], "relation": "oneToMany" }
   ]
 },
 {
   "id": "roeDeerSessileOak",
-  "names": { "en": "Roe Deer", "nl": "Ree" },
   "game": "dartmoor",
   "category": "clovenHoofedAnimal",
   "zone": "sides",
@@ -1857,12 +1680,11 @@ const CARDS_DARTMOOR = [
   ],
   "tags": [],
   "attachedCards": [
-    { "en": "number of Sessile Oak symbols", "nl": "aantal wintereiksymbolen", "target": "sessileOak", "symbols": ["sessileOak"], "relation": "oneToMany" }
+    { "target": "sessileOak", "symbols": ["sessileOak"], "relation": "oneToMany" }
   ]
 },
 {
   "id": "gnat",
-  "names": { "en": "Gnat", "nl": "Mug" },
   "game": "dartmoor",
   "category": "insect",
   "zone": "sides",
@@ -1879,7 +1701,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "lakeFly",
-  "names": { "en": "Lake Fly", "nl": "Dansmug" },
   "game": "dartmoor",
   "category": "insect",
   "zone": "sides",
@@ -1896,7 +1717,6 @@ const CARDS_DARTMOOR = [
 },
 {
   "id": "mountainBumblebee",
-  "names": { "en": "Mountain Bumblebee", "nl": "Berghommel" },
   "game": "dartmoor",
   "category": "insect",
   "zone": "sides",

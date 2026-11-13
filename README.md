@@ -10,7 +10,7 @@ An interactive scoring calculator for the award-winning board game [Forest Shuff
 - **Two Games** — Supports both base Forest Shuffle and Forest Shuffle: Dartmoor, plus expansions
 - **Multi-player** — Track scores for up to 6 players
 - **Expansion Toggles** — Turn expansions on/off per game
-- **Bilingual** — Supports English and Dutch (Nederlands)
+- **Multilingual** — Supports English, Dutch (Nederlands) and Polish (Polski)
 - **Mobile Friendly** — Works on phones and tablets
 - **Installable PWA** — Add it to your home screen for an app-like experience
 - **Works Offline** — Service worker caching lets you use it without an internet connection
@@ -64,6 +64,7 @@ Then open [http://localhost:8000](http://localhost:8000) in your browser.
 ├── app.js              — Scoring engine and UI logic
 ├── cards-forest.js     — Base game card definitions (101 cards)
 ├── cards-dartmoor.js   — Dartmoor/Exmoor card definitions (112 cards)
+├── i18n/               — Translations, one file per language (en.js, nl.js)
 ├── style.css           — Styles
 ├── sw.js               — Service worker for offline PWA support
 ├── manifest.json       — PWA manifest
@@ -80,7 +81,25 @@ Card definitions are data-driven JSON objects. Each card specifies:
 - **Attached card relationships** (number of symbols, fulfilled conditions)
 - **Symbol bonuses** for species-specific counts
 
-See `cards-forest.js` and `cards-dartmoor.js` for the complete card data.
+See `cards-forest.js` and `cards-dartmoor.js` for the complete card data. Card names and
+attached-card labels are not part of the card data; they live in `i18n/<lang>.js`, keyed by card id.
+
+## Translations
+
+All user-facing text lives in `i18n/<lang>.js` — UI strings, category labels, card names and
+attached-card labels. Each file registers itself on `window.I18N`; the language buttons in the
+settings panel are generated from the registered languages. Missing keys fall back to English.
+
+Card names and attached-card labels are grouped per game into Cave, Trees, Shrubs, Moors and
+"Animals, mushrooms, plants" (cards played onto trees, shrubs and moors), sorted alphabetically
+by key (case-insensitive) within each group. Keep the same order in every language file.
+
+To add a language:
+
+1. Copy `i18n/en.js` to `i18n/<code>.js` (e.g. `i18n/pl.js`), change `I18N.en` to `I18N.<code>`,
+   set `name` and `flag`, and translate every value (keep the keys).
+2. Add `<script src="i18n/<code>.js?v=…"></script>` to `index.html`, before `app.js`.
+3. Add `/i18n/<code>.js?v=…` to `PRECACHE_URLS` in `sw.js` and bump the version.
 
 ## Contributing
 
